@@ -2,6 +2,7 @@ package GeneralSettings;
 
 import adminPanel.CsCartSettings;
 import adminPanel.PromotionSettings;
+import com.codeborne.selenide.Condition;
 import org.testng.annotations.Test;
 
 /*
@@ -40,14 +41,47 @@ public class GeneralSettings_Var1_Default extends TestRunner {
 
         //Работаем на странице редактирования промо-акции
         PromotionSettings promotionSettings = csCartSettings.navigateToPromotionSettings();
-        promotionSettings.chooseRussianLanguage();
+ /*       promotionSettings.chooseRussianLanguage();
         promotionSettings.promotion_RacingCard.click();
-        promotionSettings.clickAndType_field_DetailedDescription();
+        promotionSettings.clickAndType_field_DetailedDescription(); //Чтобы проверить настройку "Максимальная высота описания"
         if(!promotionSettings.setting_UseAvailablePeriod.isSelected()) {
-            promotionSettings.setting_UseAvailablePeriod.click();
-        }
-        promotionSettings.setDateForSetting_AvailableFrom();
-        promotionSettings.setDateForSetting_AvailableTill();
+            promotionSettings.setting_UseAvailablePeriod.click();   }
+        //Устанавливаем сегодняшнюю дату для поля "Доступна до", чтобы проверить настройку "Обратный отсчёт до"
+        clearBothFieldsAvailable();
+        promotionSettings.setting_UseAvailablePeriod.click();
+        promotionSettings.setDateOfTodayForSetting_AvailableTill();
+        csCartSettings.button_Save.click();
+        //Устанавливаем прошлую дату в поле "Доступна до", чтобы проверить настройку "Показ истекших промо-акций"
+        csCartSettings.navigateToPromotionSettings();
+        promotionSettings.promotion_BuyCamera.click();
+        if(!promotionSettings.setting_UseAvailablePeriod.isSelected()) {
+            promotionSettings.setting_UseAvailablePeriod.click();   }
+        clearBothFieldsAvailable();
+        promotionSettings.setting_UseAvailablePeriod.click();
+        promotionSettings.setting_AvailableTill.click();
+        promotionSettings.calendar_ArrowPrevious.shouldBe(Condition.interactable).click();
+        promotionSettings.calendar_Day26.click();
+        csCartSettings.button_Save.click();
+        //Устанавливаем будущую дату в поле "Доступна с", чтобы проверить настройку "Показ ожидаемых промо-акций"
+        csCartSettings.navigateToPromotionSettings();               */
+        promotionSettings.promotion_BuyHairDryerVALERA.click();
+        if(!promotionSettings.setting_UseAvailablePeriod.isSelected()) {
+            promotionSettings.setting_UseAvailablePeriod.click();   }
+        clearBothFieldsAvailable();
+        promotionSettings.setting_UseAvailablePeriod.click();
+        promotionSettings.setting_AvailableFrom.click();
+        promotionSettings.calendar_ArrowNext.click();
+        promotionSettings.calendar_Day15.click();
+        csCartSettings.button_Save.click();
+    }
+
+    public void clearBothFieldsAvailable(){
+        PromotionSettings promotionSettings = new PromotionSettings();
+        promotionSettings.setting_AvailableFrom.click();
+        promotionSettings.setting_AvailableFrom.clear();
+        promotionSettings.setting_AvailableTill.click();
+        promotionSettings.setting_AvailableTill.clear();
+        CsCartSettings csCartSettings = new CsCartSettings();
         csCartSettings.button_Save.click();
     }
 }
