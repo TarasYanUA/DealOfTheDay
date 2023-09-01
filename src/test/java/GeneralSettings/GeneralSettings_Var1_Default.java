@@ -70,7 +70,7 @@ public class GeneralSettings_Var1_Default extends TestRunner {
         clearBothFieldsAvailable();
         promotionSettings.setting_UseAvailablePeriod.click();
         promotionSettings.setting_AvailableFrom.click();
-        promotionSettings.calendar_ArrowNext.click();
+        promotionSettings.calendar_ArrowNext.shouldBe(Condition.interactable).click();
         promotionSettings.calendar_Day15.click();
         csCartSettings.button_Save.click();
     }
