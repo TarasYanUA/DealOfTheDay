@@ -1,0 +1,10 @@
+<suite name="Deal of the day">
+    <test name="Test-cases for the add-on 'Extended promotions'">
+        <classes>
+            <!--Тест-кейсы для Общих настроек модуля
+            <class name="TestCaseOne" />
+            <class name="TestCaseTwo" />
+            <class name="TestCaseThree" /> -->
+        </classes>
+    </test>
+</suite>
