@@ -31,7 +31,6 @@ public class PromotionSettings {
     public SelenideElement calendar_ArrowPrevious = $(".ui-datepicker-prev");
     public SelenideElement calendar_ArrowNext = $(".ui-datepicker-next");
     public SelenideElement calendar_Day15 = $("a.ui-state-default[data-date='15']");
-    public SelenideElement calendar_Day26 = $("a.ui-state-default[data-date='26']");
     public void setDateOfTodayForSetting_AvailableFrom(){
         String date = LocalDate.now().format(DateTimeFormatter.ofPattern("MM-dd-yyy"));
         setting_AvailableFrom.click();

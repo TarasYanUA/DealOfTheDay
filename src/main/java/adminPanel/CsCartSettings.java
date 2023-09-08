@@ -11,6 +11,7 @@ public class CsCartSettings {
     public CsCartSettings(){super();}
     public SelenideElement button_Save = $(".btn.btn-primary.cm-submit");
     public SelenideElement popupWindow = $(".ui-dialog-title");
+    public SelenideElement button_Storefront = $(".icon-shopping-cart");
 
     public SelenideElement menuProducts = $x("//li[@class='dropdown nav__header-main-menu-item ']//a[@href='#products']");
     public SelenideElement sectionProducts = $x("//span[text()='Товары']");

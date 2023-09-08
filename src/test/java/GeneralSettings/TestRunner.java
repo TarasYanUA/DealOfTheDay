@@ -4,18 +4,19 @@ import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.open;
+
+import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 public class TestRunner {
-    public static final String BASIC_URL = "https://trs.test.abt.team/4162ultru_intelligent_accessories/admin.php?dispatch=addons.manage";
+    public static final String BASIC_URL = "https://trs.test.abt.team/4171ultru/admin.php?dispatch=addons.manage";
 
     @BeforeClass
     public void openBrowser() {
         Configuration.browser = "chrome";
         Configuration.holdBrowserOpen = false; //не закрываем браузер пока ведём разработку
         Configuration.screenshots = true; //делаем скриншоты при падении
-        Configuration.browserSize = "1920x1050"; //Увеличиваем размер экрана
+        Configuration.browserSize = "1920x1050"; //увеличиваем размер экрана
         open(BASIC_URL);
         $(".btn.btn-primary").click();
         $("#bp_off_bottom_panel").click();
@@ -33,5 +34,9 @@ public class TestRunner {
     public void selectLanguage_RU() {
         $("a[id*='_wrap_language_']").hover().click();
         $(".ty-select-block__list-item a[data-ca-name='ru']").click();
+    }
+    public void shiftBrowserTab(int tabNumber){
+        getWebDriver().getWindowHandle(); switchTo().window(tabNumber);
+        $(".cm-btn-success").click();
     }
 }
