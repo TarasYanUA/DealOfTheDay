@@ -3,7 +3,6 @@ package generalSettings;
 import adminPanel.AddonSettings;
 import adminPanel.CsCartSettings;
 import adminPanel.PromotionSettings;
-import com.codeborne.selenide.Condition;
 import org.openqa.selenium.Keys;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -58,27 +57,6 @@ public class GeneralSettings_Var2 extends TestRunner {
         clearBothFieldsAvailable();
         promotionSettings.setting_UseAvailablePeriod.click();
         promotionSettings.setDateOfTodayForSetting_AvailableTill();
-        //Добавляем товар к промо-акции, чтобы проверить настройку "Количество отображаемых промо-акций в списках товаров"
-        promotionSettings.tab_Conditions.scrollIntoView(false).click();
-        promotionSettings.button_AddProductsToCondition.click();
-        $(".ui-dialog-title").shouldBe(Condition.visible);
-        promotionSettings.field_SearchProduct.click();
-        promotionSettings.field_SearchProduct.sendKeys("Packard Bell OneTwo");
-        promotionSettings.field_SearchProduct.sendKeys(Keys.ENTER);
-        promotionSettings.checkProductToCondition.click();
-        promotionSettings.button_AddAndClose.click();
-
-        //Вкладка "АВ: Расширенные промо-акции" у промо-акции
-        promotionSettings.tab_ABExtPromotions.click();
-        if (promotionSettings.check_HideProductBlock.isSelected()){
-            promotionSettings.check_HideProductBlock.click();
-        }
-        if(!promotionSettings.check_DisplayCountdownOnProductPage.isSelected()){
-            promotionSettings.check_DisplayCountdownOnProductPage.click();
-        }
-        if(!promotionSettings.check_DisplayCountdownOnPromotionPage.isSelected()){
-            promotionSettings.check_DisplayCountdownOnPromotionPage.click();
-        }
         csCartSettings.button_Save.click();
     }
     public void clearBothFieldsAvailable(){

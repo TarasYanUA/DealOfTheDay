@@ -3,7 +3,6 @@ package adminPanel;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import static com.codeborne.selenide.Selenide.$;
@@ -47,6 +46,7 @@ public class PromotionSettings {
         setting_AvailableTill.sendKeys(date);
         setting_AvailableTill.pressEnter();
     }
+    public SelenideElement setting_StopOtherRules = $(By.id("elm_promotion_stop_other_rules"));
 
     public SelenideElement tab_Conditions = $("a[href$='selected_section=conditions']");
     public SelenideElement button_AddProductsToCondition = $("a[data-ca-external-click-id*=\"opener_picker_objects_condition_\"]");
@@ -61,5 +61,5 @@ public class PromotionSettings {
     public SelenideElement check_DisplayPromotionInProductLists = $(By.id("elm_show_in_products_lists"));
     public SelenideElement check_DisplayCountdownOnProductPage = $(By.id("elm_show_counter_on_product_page"));
     public SelenideElement check_DisplayCountdownOnPromotionPage = $(By.id("elm_show_counter_on_promotion_page"));
-
+    public SelenideElement button_PreviewPromotion = $(".nav__actions-bar li a");
 }
