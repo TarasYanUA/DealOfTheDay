@@ -11,4 +11,5 @@ public class StPromotions {
     public SelenideElement block_DealOfTheDay = $(".ab__deal_of_the_day");
     public SelenideElement button_AllPromotions = $(".ty-btn__text");
     public SelenideElement promotion_BuyCamera = $x("//a[contains(text(), 'Купите фотоаппарат')]");
+    public SelenideElement chooseAnyProduct = $(".ut2-gl__item");
 }

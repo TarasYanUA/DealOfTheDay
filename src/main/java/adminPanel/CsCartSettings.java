@@ -3,7 +3,7 @@ package adminPanel;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.support.ui.Select;
-import storefront.StProductPage;
+
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
@@ -39,6 +39,8 @@ public class CsCartSettings {
     public SelenideElement sectionDownloadedAddons = $("#elm_menu_addons_downloaded_add_ons");
     public SelenideElement menuOfExtPromotions = $("tr#addon_ab__deal_of_the_day button.btn.dropdown-toggle");
     public SelenideElement sectionGeneralSettings = $("div.nowrap a[href$='addon=ab__deal_of_the_day']");
+    public SelenideElement field_SearchOnTop = $(".search__input--collapse");
+    public SelenideElement productTemplate = $("#elm_details_layout");
 
 
     public void cookieNotice(){
@@ -62,13 +64,8 @@ public class CsCartSettings {
         section_PromotionsAndDiscounts.click();
         return new PromotionSettings();
     }
-    public StProductPage navigateToStProductPage(int tabNumber){
-        gearWheelOnTop.click();
-        button_Preview.click();
-        getWebDriver().getWindowHandle(); switchTo().window(tabNumber);
-        return new StProductPage();
-    }
 
+    //Страница "Дизайн -- Макеты"
     public Select getLayout_BlockTemplate(){return new Select(layout_BlockTemplate);}
     public void selectBlockTemplate(String value){
         getLayout_BlockTemplate().selectByValue(value);

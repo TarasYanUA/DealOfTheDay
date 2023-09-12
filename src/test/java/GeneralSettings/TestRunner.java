@@ -30,6 +30,7 @@ public class TestRunner {
     public void selectLanguage_RTL() {
         $("a[id*='_wrap_language_']").hover().click();
         $(".ty-select-block__list-item a[data-ca-name='ar']").click();
+        makePause();
     }
     public void selectLanguage_RU() {
         $("a[id*='_wrap_language_']").hover().click();
@@ -37,6 +38,12 @@ public class TestRunner {
     }
     public void shiftBrowserTab(int tabNumber){
         getWebDriver().getWindowHandle(); switchTo().window(tabNumber);
-        $(".cm-btn-success").click();
+    }
+    public void makePause(){
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }

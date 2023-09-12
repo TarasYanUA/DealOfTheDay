@@ -4,11 +4,14 @@ import adminPanel.AddonSettings;
 import adminPanel.CsCartSettings;
 import adminPanel.PromotionSettings;
 import com.codeborne.selenide.Condition;
+import org.openqa.selenium.Keys;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import storefront.StPromotions;
-
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 /*
 В данном тест-кейсе используются значения по умолчанию:
@@ -97,6 +100,7 @@ public class GeneralSettings_Var1_Default extends TestRunner {
         CsCartSettings csCartSettings = new CsCartSettings();
         csCartSettings.button_Storefront.click();
         shiftBrowserTab(1);
+        $(".cm-btn-success").click();
         StPromotions stPromotions = new StPromotions();
         stPromotions.block_DealOfTheDay.hover();
         SoftAssert softAssert = new SoftAssert();
@@ -124,17 +128,76 @@ public class GeneralSettings_Var1_Default extends TestRunner {
                 "There is no Highlighting of the promotion on the promotion list page!");
         screenshot("105 GeneralSettings_Var1_Default - Page 'All promotions'");
 
-
         //Переходим на страницу промо-акции "Купите фотоаппарат"
         stPromotions.promotion_BuyCamera.click();
+        //Проверяем, что шапка промо-акции присутствует на странице конкретной промо-акции
+        softAssert.assertTrue($(".ab__dotd_promotion-main_info").exists(),
+                "There is no promotion header on the promotion page!");
         //Проверяем, что "Максимальная высота описания" -- 250
         softAssert.assertTrue($("div[style*='max-height: 250px']").exists(),
                 "Maximum height of description is not 250 px on the promotion page!");
         //Проверяем, что кнопка "Больше" присутствует в описании промо-акции
-        softAssert.assertTrue($(".ab__dotd_more").exists(),
+        softAssert.assertTrue($$(".ab__dotd_more").size() >= 1,
                 "There is no button 'More' at the promotion description on the promotion page!");
+        //Проверяем, что период проведения промо-акции -- до конца текущего дня - настройка промо-акции "Доступна до"
+        String currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("MM/dd/yyy"));
+        String promotionDate = $(".ab__dotd_promotion_date p").getText();
+        softAssert.assertTrue(promotionDate.contains(currentDate), "Promotion period is not till the end of the current day!");
         //Проверяем, что в промо-акции присутствуют товары
         softAssert.assertTrue($$(".ut2-gl__item").size() >= 1,
-                "There is no products on the promotion page!");
+                "There are no products on the promotion page!");
+        makePause();
+        screenshot("110 GeneralSettings_Var1_Default - Promotion page");
+
+        //Переходим на страницу товара с промо-акцией и проверяем все шаблоны страницы товара
+        stPromotions.chooseAnyProduct.click();
+        //Проверяем, что шапка промо-акции присутствует на странице товара
+        softAssert.assertTrue($(".ab__deal_of_the_day").exists(),
+                "There is no promotion header on the product page!");
+        makePause();
+        screenshot("112 GeneralSettings_Var1_Default - Product page, Default");
+        selectLanguage_RTL();
+        screenshot("114 GeneralSettings_Var1_Default - Product page, Default (RTL)");
+        String productCode = $("span[id^='product_code_']").getText(); //Берём код товара
+        shiftBrowserTab(0);
+        csCartSettings.field_SearchOnTop.click();
+        csCartSettings.field_SearchOnTop.setValue(productCode).sendKeys(Keys.ENTER);
+        csCartSettings.productTemplate.selectOptionByValue("bigpicture_template");
+        goToProductPage(2);
+        screenshot("116 GeneralSettings_Var1_Default - Product page, BigPicture");
+        selectLanguage_RTL();
+        screenshot("118 GeneralSettings_Var1_Default - Product page, BigPicture (RTL)");
+        selectProductTemplate("abt__ut2_bigpicture_flat_template");
+        goToProductPage(3);
+        screenshot("120 GeneralSettings_Var1_Default - Product page, BigPictureFlat");
+        selectLanguage_RTL();
+        screenshot("122 GeneralSettings_Var1_Default - Product page, BigPictureFlat (RTL)");
+        selectProductTemplate("abt__ut2_bigpicture_gallery_template");
+        goToProductPage(4);
+        $(".ab__deal_of_the_day").scrollIntoView("{behavior: \"instant\", block: \"center\", inline: \"center\"}");
+        screenshot("124 GeneralSettings_Var1_Default - Product page, Gallery");
+        selectLanguage_RTL();
+        $(".ab__deal_of_the_day").scrollIntoView("{behavior: \"instant\", block: \"center\", inline: \"center\"}");
+        screenshot("126 GeneralSettings_Var1_Default - Product page, Gallery (RTL)");
+        selectProductTemplate("abt__ut2_three_columns_template");
+        goToProductPage(5);
+        screenshot("128 GeneralSettings_Var1_Default - Product page, Three-columned");
+        selectLanguage_RTL();
+        screenshot("130 GeneralSettings_Var1_Default - Product page, Three-columned (RTL)");
+    }
+
+    public void selectProductTemplate(String templateValue) {
+        shiftBrowserTab(0);
+        CsCartSettings csCartSettings = new CsCartSettings();
+        csCartSettings.productTemplate.selectOptionByValue(templateValue);
+    }
+
+    public void goToProductPage(int tabNumber){
+        CsCartSettings csCartSettings = new CsCartSettings();
+        csCartSettings.button_Save.click();
+        csCartSettings.gearWheelOnTop.click();
+        csCartSettings.button_Preview.click();
+        getWebDriver().getWindowHandle(); switchTo().window(tabNumber);
+        makePause();
     }
 }
