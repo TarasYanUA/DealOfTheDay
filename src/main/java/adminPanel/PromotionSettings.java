@@ -2,6 +2,8 @@ package adminPanel;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import org.openqa.selenium.By;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import static com.codeborne.selenide.Selenide.$;
@@ -45,4 +47,19 @@ public class PromotionSettings {
         setting_AvailableTill.sendKeys(date);
         setting_AvailableTill.pressEnter();
     }
+
+    public SelenideElement tab_Conditions = $("a[href$='selected_section=conditions']");
+    public SelenideElement button_AddProductsToCondition = $("a[data-ca-external-click-id*=\"opener_picker_objects_condition_\"]");
+    public SelenideElement field_SearchProduct = $(".sidebar-field input");
+    public SelenideElement checkProductToCondition = $("#checkbox_id_244");
+    public SelenideElement button_AddAndClose = $(".cm-process-items.cm-dialog-closer");
+
+    public SelenideElement tab_ABExtPromotions = $(By.id("ab__dotd"));
+    public SelenideElement check_UseFilterByProducts = $(By.id("elm_use_products_filter"));
+    public SelenideElement check_HideProductBlock = $(By.id("elm_hide_products_block"));
+    public SelenideElement check_DisplayLabelInProductLists = $(By.id("elm_show_label_in_products_lists"));
+    public SelenideElement check_DisplayPromotionInProductLists = $(By.id("elm_show_in_products_lists"));
+    public SelenideElement check_DisplayCountdownOnProductPage = $(By.id("elm_show_counter_on_product_page"));
+    public SelenideElement check_DisplayCountdownOnPromotionPage = $(By.id("elm_show_counter_on_promotion_page"));
+
 }
