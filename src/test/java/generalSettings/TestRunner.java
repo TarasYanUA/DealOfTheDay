@@ -1,4 +1,4 @@
-package GeneralSettings;
+package generalSettings;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;

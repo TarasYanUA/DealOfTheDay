@@ -1,10 +1,9 @@
 <suite name="Deal of the day">
     <test name="Test-cases for the add-on 'Extended promotions'">
         <classes>
-            <!--Тест-кейсы для Общих настроек модуля
-            <class name="TestCaseOne" />
-            <class name="TestCaseTwo" />
-            <class name="TestCaseThree" /> -->
+            <!--Тест-кейсы для Общих настроек модуля -->
+            <class name="generalSettings.GeneralSettings_Var1_Default" />
+            <class name="generalSettings.GeneralSettings_Var2" />
         </classes>
     </test>
 </suite>
