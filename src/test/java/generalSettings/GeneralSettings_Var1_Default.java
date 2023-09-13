@@ -32,7 +32,6 @@ public class GeneralSettings_Var1_Default extends TestRunner {
         CsCartSettings csCartSettings = new CsCartSettings();
         csCartSettings.navigateToAddonsPage();
         AddonSettings addonSettings = csCartSettings.navigateToAddonSettings();
-        addonSettings.tab_Settings.click();
         addonSettings.setting_CountdownTo.selectOptionByValue("end_of_the_day");
         addonSettings.setting_CountdownType.selectOptionByValue("javascript");
         addonSettings.clickAndType_setting_MaximumHeightOfDescription("250");

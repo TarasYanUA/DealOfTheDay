@@ -6,7 +6,6 @@ import static com.codeborne.selenide.Selenide.$;
 public class AddonSettings {
     public AddonSettings(){super();}
 
-    public SelenideElement tab_Settings = $("#settings");
     public SelenideElement setting_CountdownTo = $("select[id^='addon_option_ab__deal_of_the_day_count_to_']");
     public SelenideElement setting_CountdownType = $("select[id^='addon_option_ab__deal_of_the_day_countdown_type_']");
     private SelenideElement setting_MaximumHeightOfDescription = $("input[id^='addon_option_ab__deal_of_the_day_max_height_']");

@@ -7,8 +7,10 @@ import org.openqa.selenium.Keys;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import storefront.StPromotions;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
@@ -31,7 +33,6 @@ public class GeneralSettings_Var2 extends TestRunner {
         CsCartSettings csCartSettings = new CsCartSettings();
         csCartSettings.navigateToAddonsPage();
         AddonSettings addonSettings = csCartSettings.navigateToAddonSettings();
-        addonSettings.tab_Settings.click();
         addonSettings.setting_CountdownTo.selectOptionByValue("end_of_the_promotion");
         addonSettings.setting_CountdownType.selectOptionByValue("flipclock");
         addonSettings.clickAndType_setting_MaximumHeightOfDescription("400");
@@ -102,7 +103,7 @@ public class GeneralSettings_Var2 extends TestRunner {
         //Проверяем, что шапка промо-акции присутствует на странице конкретной промо-акции
         softAssert.assertTrue($(".ab__dotd_promotion-main_info").exists(),
                 "There is no promotion header on the promotion page!");
-        //Проверяем, что присутствует FlipClock счётчик на страницу промо-акции
+        //Проверяем, что присутствует FlipClock счётчик на странице промо-акции
         softAssert.assertTrue($(".flip-clock-wrapper").exists(),
                 "Countdown type is not FlipClock on the promotion page!");
         //Проверяем, что период проведения промо-акции -- до конца текущего дня - настройка промо-акции "Доступна до"
@@ -122,7 +123,7 @@ public class GeneralSettings_Var2 extends TestRunner {
         //Проверяем, что шапка промо-акции присутствует на странице товара
         softAssert.assertTrue($(".ab__deal_of_the_day").exists(),
                 "There is no promotion header on the product page!");
-        //Проверяем, что присутствует FlipClock счётчик на страницу товара
+        //Проверяем, что присутствует FlipClock счётчик на странице товара
         softAssert.assertTrue($(".flip-clock-wrapper").exists(),
                 "Countdown type is not FlipClock on the product page!");
         makePause();
