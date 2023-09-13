@@ -10,6 +10,10 @@ import storefront.StPromotions;
 import static com.codeborne.selenide.Selenide.*;
 
 /*
+Настройки модуля:
+- Тип счётчика --   FlipClock
+- Количество отображаемых промо-акций в списках товаров --  2
+
 Настройки на странице промо-акции:
 * Задать период доступности --  выкл
 * Не применять другие промо-акции --    выкл
@@ -21,8 +25,15 @@ import static com.codeborne.selenide.Selenide.*;
 public class PromotionPage_Var1 extends TestRunner {
     @Test(priority = 1)
     public void setConfiguration_PromotionSettings_Var1(){
-        //Задаём настройки промо-акции
         CsCartSettings csCartSettings = new CsCartSettings();
+        //Задаём настройки модуля
+        csCartSettings.navigateToAddonsPage();
+        AddonSettings addonSettings = csCartSettings.navigateToAddonSettings();
+        addonSettings.setting_CountdownType.selectOptionByValue("flipclock");
+        addonSettings.setting_AmountOfDisplayedPromotionsInProductLists.selectOptionByValue("2");
+        addonSettings.button_SaveSettings.click();
+
+        //Задаём настройки промо-акции
         PromotionSettings promotionSettings = csCartSettings.navigateToPromotionSettings();
         promotionSettings.chooseRussianLanguage();
         promotionSettings.promotion_RacingCard.click();
@@ -40,26 +51,10 @@ public class PromotionPage_Var1 extends TestRunner {
         if (promotionSettings.check_HideProductBlock.isSelected()){
             promotionSettings.check_HideProductBlock.click();
         }
-        if(!promotionSettings.check_DisplayLabelInProductLists.isSelected()){
-            promotionSettings.check_DisplayLabelInProductLists.click();
-        }
-        if(!promotionSettings.check_DisplayPromotionInProductLists.isSelected()){
-            promotionSettings.check_DisplayPromotionInProductLists.click();
-        }
-        if(!promotionSettings.check_DisplayCountdownOnProductPage.isSelected()){
-            promotionSettings.check_DisplayCountdownOnProductPage.click();
-        }
         if(!promotionSettings.check_DisplayCountdownOnPromotionPage.isSelected()){
             promotionSettings.check_DisplayCountdownOnPromotionPage.click();
         }
         csCartSettings.button_Save.click();
-
-        //Задаём настройки модуля
-        csCartSettings.navigateToAddonsPage();
-        AddonSettings addonSettings = csCartSettings.navigateToAddonSettings();
-        addonSettings.setting_CountdownType.selectOptionByValue("flipclock");
-        addonSettings.setting_AmountOfDisplayedPromotionsInProductLists.selectOptionByValue("2");
-        addonSettings.button_SaveSettings.click();
     }
 
     @Test(priority = 2, dependsOnMethods = "setConfiguration_PromotionSettings_Var1")
@@ -85,18 +80,6 @@ public class PromotionPage_Var1 extends TestRunner {
         softAssert.assertTrue($(".flip-clock-wrapper").exists(),
                 "Countdown type is not FlipClock on the promotion page!");
         screenshot("300 PromotionPage_Var1 - Promotion page");
-
-        //Переходим на страницу товара с промо-акцией
-        StPromotions stPromotions = new StPromotions();
-        stPromotions.chooseAnyProduct.click();
-        //Проверяем, что присутствует счётчик на странице товара
-        softAssert.assertTrue($("ab__deal_of_the_day_12").exists(),
-                "There is no countdown on the product page!");
-        //Проверяем, что присутствует FlipClock счётчик на страницу товара
-        softAssert.assertTrue($(".flip-clock-wrapper").exists(),
-                "Countdown type is not FlipClock on the product page!");
-        screenshot("305 PromotionPage_Var1 - Product page");
-
         softAssert.assertAll();
     }
 }

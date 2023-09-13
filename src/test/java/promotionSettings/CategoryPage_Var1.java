@@ -81,7 +81,7 @@ public class CategoryPage_Var1 extends TestRunner {
         softAssert.assertTrue(stPromotions.promotionOnCategoryPage.size() >= 1,
                 "There is no any promotion on the category page!");
         stPromotions.chooseAnyProduct.hover();
-        screenshot("CategoryPage_Var1 - Category page");
+        screenshot("500 CategoryPage_Var1 - Category page");
         stPromotions.button_QuickView.hover().click();
         $(".ui-dialog-titlebar").shouldBe(Condition.visible);
         //Проверяем, что присутствует шапка промо-акции в окне Быстрого просмотра
@@ -89,14 +89,15 @@ public class CategoryPage_Var1 extends TestRunner {
                 "There is no promotion header in the quick view window!");
         makePause();
         stPromotions.button_ClosePopupWindow.hover();
-        screenshot("CategoryPage_Var1 - Quick view");
+        screenshot("505 CategoryPage_Var1 - Quick view");
         stPromotions.button_ClosePopupWindow.click();
         selectLanguage_RTL();
         stPromotions.chooseAnyProduct.hover();
-        screenshot("CategoryPage_Var1 - Category page (RTL)");
+        screenshot("510 CategoryPage_Var1 - Category page (RTL)");
         stPromotions.button_QuickView.hover().click();
         makePause();
         stPromotions.button_ClosePopupWindow.hover();
-        screenshot("CategoryPage_Var1 - Quick view (RTL)");
+        screenshot("515 CategoryPage_Var1 - Quick view (RTL)");
+        softAssert.assertAll();
     }
 }
