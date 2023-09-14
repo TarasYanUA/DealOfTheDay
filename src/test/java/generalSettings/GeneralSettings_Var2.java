@@ -111,7 +111,8 @@ public class GeneralSettings_Var2 extends TestRunner {
         String promotionDate = $(".ab__dotd_promotion_date p").getText();
         String[] splitPromotionDate = promotionDate.split(":");
         String resultPromotionDate = splitPromotionDate[1];
-        softAssert.assertEquals(resultPromotionDate, "по " + currentDate, "Promotion period is not till the end of the current day!");
+        softAssert.assertEquals(resultPromotionDate, "по " + currentDate,
+                "Promotion period is not till the end of the current day!");
         //Проверяем, что в промо-акции присутствуют товары
         softAssert.assertTrue($$(".ut2-gl__item").size() >= 1,
                 "There are no products on the promotion page!");

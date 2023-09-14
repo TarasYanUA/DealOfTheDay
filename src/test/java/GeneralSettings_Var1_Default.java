@@ -1,9 +1,8 @@
-package generalSettings;
-
 import adminPanel.AddonSettings;
 import adminPanel.CsCartSettings;
 import adminPanel.PromotionSettings;
 import com.codeborne.selenide.Condition;
+import generalSettings.TestRunner;
 import org.openqa.selenium.Keys;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -74,8 +73,6 @@ public class GeneralSettings_Var1_Default extends TestRunner {
         //Устанавливаем будущую дату в поле "Доступна с", чтобы проверить настройку "Показ ожидаемых промо-акций"
         csCartSettings.navigateToPromotionSettings();
         promotionSettings.promotion_BuyHairDryerVALERA.click();
-        if(!promotionSettings.setting_UseAvailablePeriod.isSelected()) {
-            promotionSettings.setting_UseAvailablePeriod.click();   }
         clearBothFieldsAvailable();
         promotionSettings.setting_UseAvailablePeriod.click();
         promotionSettings.setting_AvailableFrom.click();

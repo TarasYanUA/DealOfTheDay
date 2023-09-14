@@ -1,5 +1,3 @@
-package promotionSettings;
-
 import adminPanel.AddonSettings;
 import adminPanel.CsCartSettings;
 import adminPanel.PromotionSettings;
@@ -24,7 +22,7 @@ import static com.codeborne.selenide.Selenide.*;
 
 public class PromotionPage_Var1 extends TestRunner {
     @Test(priority = 1)
-    public void setConfiguration_PromotionSettings_Var1(){
+    public void setConfiguration_PromotionPage_Var1(){
         CsCartSettings csCartSettings = new CsCartSettings();
         //Задаём настройки модуля
         csCartSettings.navigateToAddonsPage();
@@ -57,8 +55,8 @@ public class PromotionPage_Var1 extends TestRunner {
         csCartSettings.button_Save.click();
     }
 
-    @Test(priority = 2, dependsOnMethods = "setConfiguration_PromotionSettings_Var1")
-    public void check_PromotionSettings_Var1() {
+    @Test(priority = 2, dependsOnMethods = "setConfiguration_PromotionPage_Var1")
+    public void check_PromotionPage_Var1() {
         CsCartSettings csCartSettings = new CsCartSettings();
         PromotionSettings promotionSettings = csCartSettings.navigateToPromotionSettings();
         promotionSettings.promotion_RacingCard.click();
