@@ -4,6 +4,7 @@ import adminPanel.PromotionSettings;
 import generalSettings.TestRunner;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
+import storefront.StPromotions;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -72,6 +73,7 @@ public class PromotionPage_Var2 extends TestRunner {
     public void check_PromotionPage_Var2() {
         CsCartSettings csCartSettings = new CsCartSettings();
         PromotionSettings promotionSettings = csCartSettings.navigateToPromotionSettings();
+        promotionSettings.chooseRussianLanguage();
         promotionSettings.promotion_RacingCard.click();
         csCartSettings.gearWheelOnTop.click();
         promotionSettings.button_PreviewPromotion.click();
@@ -79,13 +81,14 @@ public class PromotionPage_Var2 extends TestRunner {
         $(".cm-btn-success").click();
         //Проверяем, что отсутствует фильтр товаров на странице промо-акции
         SoftAssert softAssert = new SoftAssert();
-        softAssert.assertFalse($x("//div[contains(text(), 'Фильтры товаров')]").exists(),
+        StPromotions stPromotions = new StPromotions();
+        softAssert.assertFalse(stPromotions.filterByProducts.exists(),
                 "There are the product filters on the promotion page but shouldn't!");
         //Проверяем, что отсутствует блок товаров на странице промо-акции
-        softAssert.assertFalse($("#promotions_view_pagination_contents").exists(),
+        softAssert.assertFalse(stPromotions.productBlock.exists(),
                 "There is a product block on the promotion page but shouldn't!");
         //Проверяем, что отсутствует счётчик на странице промо-акции
-        softAssert.assertFalse($(".ab__dotd_promotion-timer").exists(),
+        softAssert.assertFalse(stPromotions.countdown.exists(),
                 "There is a countdown on the promotion page but shouldn't!");
         //Проверяем, что период проведения промо-акции -- до конца текущего дня - настройка промо-акции "Доступна до"
         String currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("MM/dd/yyy"));
@@ -95,6 +98,8 @@ public class PromotionPage_Var2 extends TestRunner {
         softAssert.assertEquals(resultPromotionDate, "по " + currentDate,
                 "Promotion period is not till the end of the current day!");
         screenshot("400 PromotionPage_Var2 - Promotion page");
+        selectLanguage_RTL();
+        screenshot("405 PromotionPage_Var2 - Promotion page (RTL)");
         softAssert.assertAll();
     }
 }

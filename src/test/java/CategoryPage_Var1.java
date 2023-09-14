@@ -83,7 +83,7 @@ public class CategoryPage_Var1 extends TestRunner {
         stPromotions.button_QuickView.hover().click();
         $(".ui-dialog-titlebar").shouldBe(Condition.visible);
         //Проверяем, что присутствует шапка промо-акции в окне Быстрого просмотра
-        softAssert.assertTrue(stPromotions.promotionHeader.exists(),
+        softAssert.assertTrue(stPromotions.promotionHeaderInQuickView.exists(),
                 "There is no promotion header in the quick view window!");
         makePause();
         stPromotions.button_ClosePopupWindow.hover();

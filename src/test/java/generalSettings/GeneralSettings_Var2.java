@@ -109,7 +109,7 @@ public class GeneralSettings_Var2 extends TestRunner {
         //Проверяем, что период проведения промо-акции -- до конца текущего дня - настройка промо-акции "Доступна до"
         String currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("MM/dd/yyy"));
         String promotionDate = $(".ab__dotd_promotion_date p").getText();
-        String[] splitPromotionDate = promotionDate.split(":");
+        String[] splitPromotionDate = promotionDate.split(": ");
         String resultPromotionDate = splitPromotionDate[1];
         softAssert.assertEquals(resultPromotionDate, "по " + currentDate,
                 "Promotion period is not till the end of the current day!");

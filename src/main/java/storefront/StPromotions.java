@@ -18,7 +18,19 @@ public class StPromotions {
     public SelenideElement button_ClosePopupWindow = $(".ui-icon-closethick");
 
     //Проверки
+    public SelenideElement filterByProducts = $x("//div[contains(text(), 'Фильтры товаров')]");
+    public SelenideElement productBlock = $("#promotions_view_pagination_contents");
     public ElementsCollection labelOnCategoryPage = $$(".ab_dotd_product_label");
     public ElementsCollection promotionOnCategoryPage = $$(".ab-dotd-category-promo");
-    public SelenideElement promotionHeader = $(".ui-dialog-titlebar");
+    public SelenideElement promotionHeader = $(".ab__deal_of_the_day");
+    public SelenideElement promotionHeaderInQuickView = $(".ui-dialog-titlebar");
+    public SelenideElement promotionHeaderOnPromoPage = $(".ab__dotd_promotion-main_info");
+    public SelenideElement countdown = $(".ab__dotd_promotion-timer");
+    public SelenideElement flipClock = $(".flip-clock-wrapper");
+    public SelenideElement text_OnlyToday = $x("//div[contains(text(), 'Только сегодня')]");
+    public SelenideElement text_DaysLeftBeforeStart = $x("//div[contains(text(), 'До начала')]");
+    public SelenideElement text_PromotionHasExpired = $x("//div[contains(text(), 'Акция завершена')]");
+    public ElementsCollection promotionsPerPage = $$(".ab__dotd_promotions-item");
+    public SelenideElement highlight = $(".ab__dotd_highlight");
+    public ElementsCollection promotionProducts = $$(".ut2-gl__item");
 }

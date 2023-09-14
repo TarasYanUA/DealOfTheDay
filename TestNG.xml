@@ -2,8 +2,8 @@
     <test name="Test-cases for the add-on 'Extended promotions'">
         <classes>
             <!--Тест-кейсы для Общих настроек модуля -->
-            <class name="GeneralSettings_Var1_Default" />
-            <class name="generalSettings.GeneralSettings_Var2" />
+            <class name="PromotionPage_Var1" />
+            <class name="PromotionPage_Var2" />
         </classes>
     </test>
 </suite>

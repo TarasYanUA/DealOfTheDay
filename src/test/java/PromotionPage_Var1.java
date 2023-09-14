@@ -59,25 +59,30 @@ public class PromotionPage_Var1 extends TestRunner {
     public void check_PromotionPage_Var1() {
         CsCartSettings csCartSettings = new CsCartSettings();
         PromotionSettings promotionSettings = csCartSettings.navigateToPromotionSettings();
+        promotionSettings.chooseRussianLanguage();
         promotionSettings.promotion_RacingCard.click();
         csCartSettings.gearWheelOnTop.click();
         promotionSettings.button_PreviewPromotion.click();
         shiftBrowserTab(1);
         $(".cm-btn-success").click();
         //Проверяем, что присутствует фильтр товаров на странице промо-акции
+        StPromotions stPromotions = new StPromotions();
         SoftAssert softAssert = new SoftAssert();
-        softAssert.assertTrue($x("//div[contains(text(), 'Фильтры товаров')]").exists(),
+        softAssert.assertTrue(stPromotions.filterByProducts.exists(),
                 "There is no product filters on the promotion page!");
         //Проверяем, что присутствует блок товаров на странице промо-акции
-        softAssert.assertTrue($("#promotions_view_pagination_contents").exists(),
+        softAssert.assertTrue(stPromotions.productBlock.exists(),
                 "There is no product block on the promotion page!");
         //Проверяем, что присутствует счётчик на странице промо-акции
-        softAssert.assertTrue($(".ab__dotd_promotion-timer").exists(),
+        softAssert.assertTrue(stPromotions.countdown.exists(),
                 "There is no countdown on the promotion page!");
         //Проверяем, что присутствует FlipClock счётчик на странице промо-акции
-        softAssert.assertTrue($(".flip-clock-wrapper").exists(),
+        softAssert.assertTrue(stPromotions.flipClock.exists(),
                 "Countdown type is not FlipClock on the promotion page!");
         screenshot("300 PromotionPage_Var1 - Promotion page");
+        selectLanguage_RTL();
+        makePause();
+        screenshot("305 PromotionPage_Var1 - Promotion page (RTL)");
         softAssert.assertAll();
     }
 }

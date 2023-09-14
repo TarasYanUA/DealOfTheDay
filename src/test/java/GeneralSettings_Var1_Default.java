@@ -120,26 +120,26 @@ public class GeneralSettings_Var1_Default extends TestRunner {
         //Переходим на страницу списка промо-акций
         stPromotions.button_AllPromotions.click();
         //Проверяем, что у промо-акции присутствует текст "Только сегодня" (у промо-акции "Купите фотоаппарат")
-        softAssert.assertTrue($x("//div[contains(text(), 'Только сегодня')]").exists(),
+        softAssert.assertTrue(stPromotions.text_OnlyToday.exists(),
                 "There is no text 'Only today' at promotion on the promotion list page!");
         //Проверяем, что у промо-акции присутствует текст "До начала" (у промо-акции "Купите фен") - настройка "Показ ожидаемых промо-акций"
-        softAssert.assertTrue($x("//div[contains(text(), 'До начала')]").exists(),
+        softAssert.assertTrue(stPromotions.text_DaysLeftBeforeStart.exists(),
                 "There is no text 'days left before the start' at promotion on the promotion list page!");
         //Проверяем, что у промо-акции присутствует текст "Акция завершена" (у промо-акции "Гоночный картинг") - настройка "Показ истекших промо-акций"
-        softAssert.assertTrue($x("//div[contains(text(), 'Акция завершена')]").exists(),
+        softAssert.assertTrue(stPromotions.text_PromotionHasExpired.exists(),
                 "There is no text 'Promotion has expired' at promotion on the promotion list page!");
         //Проверяем, что "Промо-акций на страницу" присутствует не меньше 10 на странице списка промо-акций
-        softAssert.assertTrue($$(".ab__dotd_promotions-item").size() >= 10,
+        softAssert.assertTrue(stPromotions.promotionsPerPage.size() >= 10,
                 "Promotions per page are less than 10 on the promotion list page!");
         //Проверяем, что присутствует "Выделение промо-акции" (у промо-акции "Купите фотоаппарат")
-        softAssert.assertTrue($(".ab__dotd_highlight").exists(),
+        softAssert.assertTrue(stPromotions.highlight.exists(),
                 "There is no Highlighting of the promotion on the promotion list page!");
         screenshot("105 GeneralSettings_Var1_Default - Page 'All promotions'");
 
         //Переходим на страницу промо-акции "Купите фотоаппарат"
         stPromotions.promotion_BuyCamera.click();
         //Проверяем, что шапка промо-акции присутствует на странице конкретной промо-акции
-        softAssert.assertTrue($(".ab__dotd_promotion-main_info").exists(),
+        softAssert.assertTrue(stPromotions.promotionHeaderOnPromoPage.exists(),
                 "There is no promotion header on the promotion page!");
         //Проверяем, что "Максимальная высота описания" -- 250
         softAssert.assertTrue($("div[style*='max-height: 250px']").exists(),
@@ -153,7 +153,7 @@ public class GeneralSettings_Var1_Default extends TestRunner {
         String resultPromotionDate = splitPromotionDate[1];
         softAssert.assertEquals(resultPromotionDate, "по " + currentDate, "Promotion period is not till the end of the current day!");
         //Проверяем, что в промо-акции присутствуют товары
-        softAssert.assertTrue($$(".ut2-gl__item").size() >= 1,
+        softAssert.assertTrue(stPromotions.promotionProducts.size() >= 1,
                 "There are no products on the promotion page!");
         makePause();
         screenshot("110 GeneralSettings_Var1_Default - Promotion page");
@@ -161,10 +161,10 @@ public class GeneralSettings_Var1_Default extends TestRunner {
         //Переходим на страницу товара с промо-акцией и проверяем все шаблоны страницы товара
         stPromotions.chooseAnyProduct.click();
         //Проверяем, что шапка промо-акции присутствует на странице товара
-        softAssert.assertTrue($(".ab__deal_of_the_day").exists(),
+        softAssert.assertTrue(stPromotions.promotionHeader.exists(),
                 "There is no promotion header on the product page!");
         //Проверяем, что присутствует FlipClock счётчик на страницу товара
-        softAssert.assertTrue($(".flip-clock-wrapper").exists(),
+        softAssert.assertTrue(stPromotions.flipClock.exists(),
                 "Countdown type is not FlipClock on the product page!");
         makePause();
         screenshot("112 GeneralSettings_Var1_Default - Product page, Default");
