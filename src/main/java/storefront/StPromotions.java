@@ -9,7 +9,9 @@ public class StPromotions {
     public StPromotions(){super();}
 
     public SelenideElement block_DealOfTheDay = $(".ab__deal_of_the_day");
-    public SelenideElement button_AllPromotions = $(".ty-btn__text");
+    public SelenideElement blockButton_More = $(".pd-promotion__buttons .ty-btn__secondary");
+    public SelenideElement blockButton_AllPromotions = $(".pd-promotion__buttons .ty-btn__text");
+
     public SelenideElement promotion_BuyCamera = $x("//a[contains(text(), 'Купите фотоаппарат')]");
     public SelenideElement chooseAnyProduct = $(".ut2-gl__item");
     public SelenideElement breadcrumb_Computers = $("a[href$='/kompyutery/'].ty-breadcrumbs__a");

@@ -1,5 +1,3 @@
-package generalSettings;
-
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import org.testng.annotations.AfterClass;

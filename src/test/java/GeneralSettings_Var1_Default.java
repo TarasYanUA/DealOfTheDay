@@ -2,15 +2,12 @@ import adminPanel.AddonSettings;
 import adminPanel.CsCartSettings;
 import adminPanel.PromotionSettings;
 import com.codeborne.selenide.Condition;
-import generalSettings.TestRunner;
-import org.openqa.selenium.Keys;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import storefront.StPromotions;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import static com.codeborne.selenide.Selenide.*;
-import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 /*
 В данном тест-кейсе используются значения по умолчанию:
@@ -45,7 +42,7 @@ public class GeneralSettings_Var1_Default extends TestRunner {
         }
         addonSettings.button_SaveSettings.click();
 
-        //Работаем на странице редактирования промо-акции
+        //Задаём настройки на странице промо-акции
         PromotionSettings promotionSettings = csCartSettings.navigateToPromotionSettings();
         promotionSettings.chooseRussianLanguage();
         promotionSettings.promotion_BuyCamera.click();
@@ -57,7 +54,6 @@ public class GeneralSettings_Var1_Default extends TestRunner {
         promotionSettings.setting_UseAvailablePeriod.click();
         promotionSettings.setDateOfTodayForSetting_AvailableTill();
         csCartSettings.button_Save.click();
-
         //Устанавливаем прошлую дату в поле "Доступна до", чтобы проверить настройку "Показ истекших промо-акций"
         csCartSettings.navigateToPromotionSettings();
         promotionSettings.promotion_RacingCard.click();
@@ -69,7 +65,6 @@ public class GeneralSettings_Var1_Default extends TestRunner {
         promotionSettings.calendar_ArrowPrevious.shouldBe(Condition.interactable).click();
         promotionSettings.calendar_Day15.click();
         csCartSettings.button_Save.click();
-
         //Устанавливаем будущую дату в поле "Доступна с", чтобы проверить настройку "Показ ожидаемых промо-акций"
         csCartSettings.navigateToPromotionSettings();
         promotionSettings.promotion_BuyHairDryerVALERA.click();
@@ -78,14 +73,10 @@ public class GeneralSettings_Var1_Default extends TestRunner {
         promotionSettings.setting_AvailableFrom.click();
         promotionSettings.calendar_ArrowNext.shouldBe(Condition.interactable).click();
         promotionSettings.calendar_Day15.click();
-
         //Вкладка "АВ: Расширенные промо-акции" у промо-акции
         promotionSettings.tab_ABExtPromotions.scrollIntoView(false).click();
         if (promotionSettings.check_HideProductBlock.isSelected()){
             promotionSettings.check_HideProductBlock.click();
-        }
-        if(!promotionSettings.check_DisplayCountdownOnProductPage.isSelected()){
-            promotionSettings.check_DisplayCountdownOnProductPage.click();
         }
         if(!promotionSettings.check_DisplayCountdownOnPromotionPage.isSelected()){
             promotionSettings.check_DisplayCountdownOnPromotionPage.click();
@@ -112,13 +103,25 @@ public class GeneralSettings_Var1_Default extends TestRunner {
         StPromotions stPromotions = new StPromotions();
         stPromotions.block_DealOfTheDay.hover();
         SoftAssert softAssert = new SoftAssert();
+        //Проверяем, что в блоке присутствует заголовок
+        softAssert.assertTrue($(".pd-promotion__title").exists(),
+                "There is no title of the promotion in the block!");
+        //Проверяем, что в блоке присутствует описание
+        softAssert.assertTrue($(".promotion-descr").exists(),
+                "There is no description of the promotion in the block!");
         //Проверяем, что в блоке присутствует Javascript счётчик
         softAssert.assertTrue($(".js-counter").exists(),
                 "Countdown type is not Javascript in the block!");
+        //Проверяем, что в блоке присутствует кнопка "Подробнее"
+        softAssert.assertTrue(stPromotions.blockButton_More.exists(),
+                "There is no button 'More' in the block!");
+        //Проверяем, что в блоке присутствует кнопка "Все промо-акции"
+        softAssert.assertTrue(stPromotions.blockButton_AllPromotions.exists(),
+                "There is no button 'All promotions' in the block!");
         screenshot("100 GeneralSettings_Var1_Default - Block 'DealOfTheDay'");
 
         //Переходим на страницу списка промо-акций
-        stPromotions.button_AllPromotions.click();
+        stPromotions.blockButton_AllPromotions.click();
         //Проверяем, что у промо-акции присутствует текст "Только сегодня" (у промо-акции "Купите фотоаппарат")
         softAssert.assertTrue(stPromotions.text_OnlyToday.exists(),
                 "There is no text 'Only today' at promotion on the promotion list page!");
@@ -157,19 +160,8 @@ public class GeneralSettings_Var1_Default extends TestRunner {
                 "There are no products on the promotion page!");
         makePause();
         screenshot("110 GeneralSettings_Var1_Default - Promotion page");
-
-        //Переходим на страницу товара с промо-акцией
-        stPromotions.chooseAnyProduct.click();
-        //Проверяем, что шапка промо-акции присутствует на странице товара
-        softAssert.assertTrue(stPromotions.promotionHeader.exists(),
-                "There is no promotion header on the product page!");
-        //Проверяем, что присутствует FlipClock счётчик на страницу товара
-        softAssert.assertTrue(stPromotions.flipClock.exists(),
-                "Countdown type is not FlipClock on the product page!");
-        makePause();
-        screenshot("112 GeneralSettings_Var1_Default - Product page, Default");
         selectLanguage_RTL();
-        screenshot("114 GeneralSettings_Var1_Default - Product page, Default (RTL)");
+        screenshot("112 GeneralSettings_Var1_Default - Promotion page (RTL)");
         softAssert.assertAll();
     }
 }

@@ -1,5 +1,3 @@
-package generalSettings;
-
 import adminPanel.AddonSettings;
 import adminPanel.CsCartSettings;
 import adminPanel.PromotionSettings;

@@ -1,12 +1,10 @@
-package promotionSettings;
-
-import generalSettings.TestRunner;
+import adminPanel.AddonSettings;
+import adminPanel.PromotionSettings;
 import org.openqa.selenium.Keys;
 import org.testng.annotations.Test;
 import adminPanel.CsCartSettings;
 import org.testng.asserts.SoftAssert;
 import storefront.StPromotions;
-
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
@@ -14,16 +12,38 @@ import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 Настройки на странице промо-акции:
 * Задать период доступности --  выкл
 * Не применять другие промо-акции --    выкл
-* Скрыть блок товаров --        нет
-* Отображать счётчик на странице товара --      да
+* Отображать счётчик на странице товара --  да
 */
 
 public class ProductPage extends TestRunner {
-    @Test(priority = 2)
+    @Test(priority = 1)
+    public void setConfiguration_ProductPage(){
+        CsCartSettings csCartSettings = new CsCartSettings();
+        //Задаём настройки промо-акции
+        PromotionSettings promotionSettings = csCartSettings.navigateToPromotionSettings();
+        promotionSettings.chooseRussianLanguage();
+        promotionSettings.promotion_RacingCard.click();
+        if(promotionSettings.setting_UseAvailablePeriod.isSelected()){  //убираем период доступности, чтобы промо-акция всегда отображалась
+            promotionSettings.setting_UseAvailablePeriod.click(); }
+        if(promotionSettings.setting_StopOtherRules.isSelected()){
+            promotionSettings.setting_StopOtherRules.click(); }
+        //Вкладка "АВ: Расширенные промо-акции" у промо-акции
+        promotionSettings.tab_ABExtPromotions.click();
+        if(promotionSettings.check_DisplayCountdownOnProductPage.isSelected()){
+            promotionSettings.check_DisplayCountdownOnProductPage.click(); }
+
+        //Задаём настройки модуля
+        AddonSettings addonSettings = csCartSettings.navigateToAddonSettings();
+        addonSettings.setting_CountdownType.selectOptionByValue("flipclock");
+        addonSettings.button_SaveSettings.click();
+    }
+
+    @Test(priority = 2, dependsOnMethods = "setConfiguration_ProductPage")
     public void check_ProductPage(){
         CsCartSettings csCartSettings = new CsCartSettings();
+        String productCode = "M0219A3GX3";
         csCartSettings.field_SearchOnTop.click();
-        csCartSettings.field_SearchOnTop.setValue("M0219A3GX3").sendKeys(Keys.ENTER);
+        csCartSettings.field_SearchOnTop.setValue(productCode).sendKeys(Keys.ENTER);
         csCartSettings.productTemplate.selectOptionByValue("default_template");
         csCartSettings.gearWheelOnTop.click();
         csCartSettings.button_Preview.click();
@@ -38,35 +58,34 @@ public class ProductPage extends TestRunner {
         softAssert.assertTrue(stPromotions.flipClock.exists(),
                 "Countdown type is not FlipClock on the product page!");
         makePause();
-        screenshot("112 GeneralSettings_Var1_Default - Product page, Default");
+        screenshot("100 ProductPage - Product page, Default");
         selectLanguage_RTL();
-        screenshot("114 GeneralSettings_Var1_Default - Product page, Default (RTL)");
-        String productCode = $("span[id^='product_code_']").getText(); //Берём код товара
+        screenshot("102 ProductPage - Product page, Default (RTL)");
         shiftBrowserTab(0);
         csCartSettings.field_SearchOnTop.click();
         csCartSettings.field_SearchOnTop.setValue(productCode).sendKeys(Keys.ENTER);
         csCartSettings.productTemplate.selectOptionByValue("bigpicture_template");
         goToProductPage(2);
-        screenshot("116 GeneralSettings_Var1_Default - Product page, BigPicture");
+        screenshot("104 ProductPage - Product page, BigPicture");
         selectLanguage_RTL();
-        screenshot("118 GeneralSettings_Var1_Default - Product page, BigPicture (RTL)");
+        screenshot("106 ProductPage - Product page, BigPicture (RTL)");
         selectProductTemplate("abt__ut2_bigpicture_flat_template");
         goToProductPage(3);
-        screenshot("120 GeneralSettings_Var1_Default - Product page, BigPictureFlat");
+        screenshot("108 ProductPage - Product page, BigPictureFlat");
         selectLanguage_RTL();
-        screenshot("122 GeneralSettings_Var1_Default - Product page, BigPictureFlat (RTL)");
+        screenshot("110 ProductPage - Product page, BigPictureFlat (RTL)");
         selectProductTemplate("abt__ut2_bigpicture_gallery_template");
         goToProductPage(4);
         $(".ab__deal_of_the_day").scrollIntoView("{behavior: \"instant\", block: \"center\", inline: \"center\"}");
-        screenshot("124 GeneralSettings_Var1_Default - Product page, Gallery");
+        screenshot("112 ProductPage - Product page, Gallery");
         selectLanguage_RTL();
         $(".ab__deal_of_the_day").scrollIntoView("{behavior: \"instant\", block: \"center\", inline: \"center\"}");
-        screenshot("126 GeneralSettings_Var1_Default - Product page, Gallery (RTL)");
+        screenshot("114 ProductPage - Product page, Gallery (RTL)");
         selectProductTemplate("abt__ut2_three_columns_template");
         goToProductPage(5);
-        screenshot("128 GeneralSettings_Var1_Default - Product page, Three-columned");
+        screenshot("116 ProductPage - Product page, Three-columned");
         selectLanguage_RTL();
-        screenshot("130 GeneralSettings_Var1_Default - Product page, Three-columned (RTL)");
+        screenshot("118 ProductPage - Product page, Three-columned (RTL)");
         softAssert.assertAll();
     }
 

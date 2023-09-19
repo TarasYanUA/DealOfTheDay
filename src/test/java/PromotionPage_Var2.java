@@ -1,7 +1,6 @@
 import adminPanel.AddonSettings;
 import adminPanel.CsCartSettings;
 import adminPanel.PromotionSettings;
-import generalSettings.TestRunner;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import storefront.StPromotions;

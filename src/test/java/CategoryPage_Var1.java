@@ -2,7 +2,6 @@ import adminPanel.AddonSettings;
 import adminPanel.CsCartSettings;
 import adminPanel.PromotionSettings;
 import com.codeborne.selenide.Condition;
-import generalSettings.TestRunner;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import storefront.StPromotions;
@@ -44,19 +43,15 @@ public class CategoryPage_Var1 extends TestRunner {
         promotionSettings.chooseRussianLanguage();
         promotionSettings.promotion_RacingCard.click();
         if(promotionSettings.setting_UseAvailablePeriod.isSelected()){  //убираем период доступности, чтобы промо-акция всегда отображалась
-            promotionSettings.setting_UseAvailablePeriod.click();
-        }
+            promotionSettings.setting_UseAvailablePeriod.click(); }
         if(promotionSettings.setting_StopOtherRules.isSelected()){
-            promotionSettings.setting_StopOtherRules.click();
-        }
+            promotionSettings.setting_StopOtherRules.click(); }
         //Вкладка "АВ: Расширенные промо-акции" у промо-акции
         promotionSettings.tab_ABExtPromotions.click();
         if(!promotionSettings.check_DisplayLabelInProductLists.isSelected()){
-            promotionSettings.check_DisplayLabelInProductLists.click();
-        }
+            promotionSettings.check_DisplayLabelInProductLists.click(); }
         if(!promotionSettings.check_DisplayPromotionInProductLists.isSelected()){
-            promotionSettings.check_DisplayPromotionInProductLists.click();
-        }
+            promotionSettings.check_DisplayPromotionInProductLists.click(); }
         csCartSettings.button_Save.click();
     }
 
