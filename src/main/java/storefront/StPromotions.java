@@ -30,6 +30,7 @@ public class StPromotions {
     public SelenideElement promotionHeaderInQuickView = $(".ui-dialog-titlebar");
     public SelenideElement promotionHeaderOnPromoPage = $(".ab__dotd_promotion-main_info");
     public SelenideElement countdown = $(".ab__dotd_promotion-timer");
+    public SelenideElement javaClock = $(".js-counter");
     public SelenideElement flipClock = $(".flip-clock-wrapper");
     public SelenideElement text_OnlyToday = $x("//div[contains(text(), 'Только сегодня')]");
     public SelenideElement text_DaysLeftBeforeStart = $x("//div[contains(text(), 'До начала')]");

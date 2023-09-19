@@ -35,11 +35,9 @@ public class GeneralSettings_Var1_Default extends TestRunner {
         addonSettings.setting_HighlightingThePromotion.selectOptionByValue("1");
         addonSettings.setting_AmountOfDisplayedPromotionsInProductLists.selectOptionByValue("0");
         if(!addonSettings.setting_ShowExpiredPromotions.isSelected()){
-            addonSettings.setting_ShowExpiredPromotions.click();
-        }
+            addonSettings.setting_ShowExpiredPromotions.click(); }
         if(!addonSettings.setting_ShowAwaitingPromotions.isSelected()){
-            addonSettings.setting_ShowAwaitingPromotions.click();
-        }
+            addonSettings.setting_ShowAwaitingPromotions.click(); }
         addonSettings.button_SaveSettings.click();
 
         //Задаём настройки на странице промо-акции
@@ -75,12 +73,10 @@ public class GeneralSettings_Var1_Default extends TestRunner {
         promotionSettings.calendar_Day15.click();
         //Вкладка "АВ: Расширенные промо-акции" у промо-акции
         promotionSettings.tab_ABExtPromotions.scrollIntoView(false).click();
-        if (promotionSettings.check_HideProductBlock.isSelected()){
-            promotionSettings.check_HideProductBlock.click();
-        }
+        if(promotionSettings.check_HideProductBlock.isSelected()){
+            promotionSettings.check_HideProductBlock.click(); }
         if(!promotionSettings.check_DisplayCountdownOnPromotionPage.isSelected()){
-            promotionSettings.check_DisplayCountdownOnPromotionPage.click();
-        }
+            promotionSettings.check_DisplayCountdownOnPromotionPage.click(); }
         csCartSettings.button_Save.click();
     }
     public void clearBothFieldsAvailable(){
@@ -110,7 +106,7 @@ public class GeneralSettings_Var1_Default extends TestRunner {
         softAssert.assertTrue($(".promotion-descr").exists(),
                 "There is no description of the promotion in the block!");
         //Проверяем, что в блоке присутствует Javascript счётчик
-        softAssert.assertTrue($(".js-counter").exists(),
+        softAssert.assertTrue(stPromotions.javaClock.exists(),
                 "Countdown type is not Javascript in the block!");
         //Проверяем, что в блоке присутствует кнопка "Подробнее"
         softAssert.assertTrue(stPromotions.blockButton_More.exists(),
@@ -118,10 +114,15 @@ public class GeneralSettings_Var1_Default extends TestRunner {
         //Проверяем, что в блоке присутствует кнопка "Все промо-акции"
         softAssert.assertTrue(stPromotions.blockButton_AllPromotions.exists(),
                 "There is no button 'All promotions' in the block!");
+        makePause();
         screenshot("100 GeneralSettings_Var1_Default - Block 'DealOfTheDay'");
+        selectLanguage_RTL();
+        stPromotions.block_DealOfTheDay.hover();
+        screenshot("102 GeneralSettings_Var1_Default - Block 'DealOfTheDay' (RTL)");
 
         //Переходим на страницу списка промо-акций
         stPromotions.blockButton_AllPromotions.click();
+        selectLanguage_RU();
         //Проверяем, что у промо-акции присутствует текст "Только сегодня" (у промо-акции "Купите фотоаппарат")
         softAssert.assertTrue(stPromotions.text_OnlyToday.exists(),
                 "There is no text 'Only today' at promotion on the promotion list page!");
@@ -138,8 +139,11 @@ public class GeneralSettings_Var1_Default extends TestRunner {
         softAssert.assertTrue(stPromotions.highlight.exists(),
                 "There is no Highlighting of the promotion on the promotion list page!");
         screenshot("105 GeneralSettings_Var1_Default - Page 'All promotions'");
+        selectLanguage_RTL();
+        screenshot("107 GeneralSettings_Var1_Default - Page 'All promotions' (RTL)");
 
         //Переходим на страницу промо-акции "Купите фотоаппарат"
+        selectLanguage_RU();
         stPromotions.promotion_BuyCamera.click();
         //Проверяем, что шапка промо-акции присутствует на странице конкретной промо-акции
         softAssert.assertTrue(stPromotions.promotionHeaderOnPromoPage.exists(),
@@ -152,7 +156,7 @@ public class GeneralSettings_Var1_Default extends TestRunner {
                 "There is no button 'More' at the promotion description on the promotion page!");
         String currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("MM/dd/yyy"));
         String promotionDate = $(".ab__dotd_promotion_date p").getText();
-        String[] splitPromotionDate = promotionDate.split(":");
+        String[] splitPromotionDate = promotionDate.split(": ");
         String resultPromotionDate = splitPromotionDate[1];
         softAssert.assertEquals(resultPromotionDate, "по " + currentDate, "Promotion period is not till the end of the current day!");
         //Проверяем, что в промо-акции присутствуют товары
