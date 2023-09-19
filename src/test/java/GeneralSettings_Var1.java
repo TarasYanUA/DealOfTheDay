@@ -21,9 +21,9 @@ import static com.codeborne.selenide.Selenide.*;
 * Показ ожидаемых промо-акций --    да
 */
 
-public class GeneralSettings_Var1_Default extends TestRunner {
+public class GeneralSettings_Var1 extends TestRunner {
     @Test(priority = 1)
-    public void setConfiguration_GeneralSettings_Var1_Default(){
+    public void setConfiguration_GeneralSettings_Var1(){
         //Задаём настройки модуля
         CsCartSettings csCartSettings = new CsCartSettings();
         csCartSettings.navigateToAddonsPage();
@@ -89,8 +89,8 @@ public class GeneralSettings_Var1_Default extends TestRunner {
         csCartSettings.button_Save.click();
     }
 
-    @Test(priority = 2, dependsOnMethods = "setConfiguration_GeneralSettings_Var1_Default")
-    public void check_GeneralSettings_Var1_Default(){
+    @Test(priority = 2, dependsOnMethods = "setConfiguration_GeneralSettings_Var1")
+    public void check_GeneralSettings_Var1(){
         //Переходим на главную страницу и проверяем блок "Товар дня"
         CsCartSettings csCartSettings = new CsCartSettings();
         csCartSettings.button_Storefront.click();
@@ -115,10 +115,10 @@ public class GeneralSettings_Var1_Default extends TestRunner {
         softAssert.assertTrue(stPromotions.blockButton_AllPromotions.exists(),
                 "There is no button 'All promotions' in the block!");
         makePause();
-        screenshot("100 GeneralSettings_Var1_Default - Block 'DealOfTheDay'");
+        screenshot("100 GeneralSettings_Var1 - Block 'DealOfTheDay'");
         selectLanguage_RTL();
         stPromotions.block_DealOfTheDay.hover();
-        screenshot("102 GeneralSettings_Var1_Default - Block 'DealOfTheDay' (RTL)");
+        screenshot("102 GeneralSettings_Var1 - Block 'DealOfTheDay' (RTL)");
 
         //Переходим на страницу списка промо-акций
         stPromotions.blockButton_AllPromotions.click();
@@ -138,9 +138,9 @@ public class GeneralSettings_Var1_Default extends TestRunner {
         //Проверяем, что присутствует "Выделение промо-акции" (у промо-акции "Купите фотоаппарат")
         softAssert.assertTrue(stPromotions.highlight.exists(),
                 "There is no Highlighting of the promotion on the promotion list page!");
-        screenshot("105 GeneralSettings_Var1_Default - Page 'All promotions'");
+        screenshot("105 GeneralSettings_Var1 - Page 'All promotions'");
         selectLanguage_RTL();
-        screenshot("107 GeneralSettings_Var1_Default - Page 'All promotions' (RTL)");
+        screenshot("107 GeneralSettings_Var1 - Page 'All promotions' (RTL)");
 
         //Переходим на страницу промо-акции "Купите фотоаппарат"
         selectLanguage_RU();
@@ -163,9 +163,9 @@ public class GeneralSettings_Var1_Default extends TestRunner {
         softAssert.assertTrue(stPromotions.promotionProducts.size() >= 1,
                 "There are no products on the promotion page!");
         makePause();
-        screenshot("110 GeneralSettings_Var1_Default - Promotion page");
+        screenshot("110 GeneralSettings_Var1 - Promotion page");
         selectLanguage_RTL();
-        screenshot("112 GeneralSettings_Var1_Default - Promotion page (RTL)");
+        screenshot("112 GeneralSettings_Var1 - Promotion page (RTL)");
         softAssert.assertAll();
     }
 }
