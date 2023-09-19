@@ -64,6 +64,7 @@ public class CategoryPage_Var1 extends TestRunner {
         csCartSettings.gearWheelOnTop.click();
         csCartSettings.button_Preview.click();
         shiftBrowserTab(1);
+        $(".cm-btn-success").click();
 
         StPromotions stPromotions = new StPromotions();
         SoftAssert softAssert = new SoftAssert();
@@ -86,7 +87,7 @@ public class CategoryPage_Var1 extends TestRunner {
         stPromotions.button_ClosePopupWindow.click();
         selectLanguage_RTL();
         stPromotions.chooseAnyProduct.hover();
-        screenshot("510 CategoryPage_Var1 - Category page (RTL)");
+        screenshot("510 CategoryPage_Var1 - Template Grid (RTL)");
         stPromotions.button_QuickView.hover().click();
         makePause();
         stPromotions.button_ClosePopupWindow.hover();

@@ -51,7 +51,7 @@ public class PromotionSettings {
     public SelenideElement tab_Conditions = $("a[href$='selected_section=conditions']");
     public SelenideElement button_AddProductsToCondition = $("a[data-ca-external-click-id*=\"opener_picker_objects_condition_\"]");
     public SelenideElement field_SearchProduct = $(".sidebar-field input");
-    public SelenideElement checkProductToCondition = $("#checkbox_id_244");
+    public SelenideElement checkProductToCondition = $(".cm-item.mrg-check");
     public SelenideElement button_AddAndClose = $(".cm-process-items.cm-dialog-closer");
 
     public SelenideElement tab_ABExtPromotions = $(By.id("ab__dotd"));
