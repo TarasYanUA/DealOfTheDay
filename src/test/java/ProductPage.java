@@ -58,34 +58,34 @@ public class ProductPage extends TestRunner {
         softAssert.assertTrue(stPromotions.flipClock.exists(),
                 "Countdown type is not FlipClock on the product page!");
         makePause();
-        screenshot("100 ProductPage - Product page, Default");
+        screenshot("500 ProductPage - Product page, Default");
         selectLanguage_RTL();
-        screenshot("102 ProductPage - Product page, Default (RTL)");
+        screenshot("502 ProductPage - Product page, Default (RTL)");
         shiftBrowserTab(0);
         csCartSettings.field_SearchOnTop.click();
         csCartSettings.field_SearchOnTop.setValue(productCode).sendKeys(Keys.ENTER);
         csCartSettings.productTemplate.selectOptionByValue("bigpicture_template");
         goToProductPage(2);
-        screenshot("104 ProductPage - Product page, BigPicture");
+        screenshot("504 ProductPage - Product page, BigPicture");
         selectLanguage_RTL();
-        screenshot("106 ProductPage - Product page, BigPicture (RTL)");
+        screenshot("506 ProductPage - Product page, BigPicture (RTL)");
         selectProductTemplate("abt__ut2_bigpicture_flat_template");
         goToProductPage(3);
-        screenshot("108 ProductPage - Product page, BigPictureFlat");
+        screenshot("508 ProductPage - Product page, BigPictureFlat");
         selectLanguage_RTL();
-        screenshot("110 ProductPage - Product page, BigPictureFlat (RTL)");
+        screenshot("510 ProductPage - Product page, BigPictureFlat (RTL)");
         selectProductTemplate("abt__ut2_bigpicture_gallery_template");
         goToProductPage(4);
         $(".ab__deal_of_the_day").scrollIntoView("{behavior: \"instant\", block: \"center\", inline: \"center\"}");
-        screenshot("112 ProductPage - Product page, Gallery");
+        screenshot("512 ProductPage - Product page, Gallery");
         selectLanguage_RTL();
         $(".ab__deal_of_the_day").scrollIntoView("{behavior: \"instant\", block: \"center\", inline: \"center\"}");
-        screenshot("114 ProductPage - Product page, Gallery (RTL)");
+        screenshot("514 ProductPage - Product page, Gallery (RTL)");
         selectProductTemplate("abt__ut2_three_columns_template");
         goToProductPage(5);
-        screenshot("116 ProductPage - Product page, Three-columned");
+        screenshot("516 ProductPage - Product page, Three-columned");
         selectLanguage_RTL();
-        screenshot("118 ProductPage - Product page, Three-columned (RTL)");
+        screenshot("518 ProductPage - Product page, Three-columned (RTL)");
         softAssert.assertAll();
     }
 

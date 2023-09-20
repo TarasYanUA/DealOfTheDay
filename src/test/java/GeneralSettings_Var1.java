@@ -66,6 +66,8 @@ public class GeneralSettings_Var1 extends TestRunner {
         //Устанавливаем будущую дату в поле "Доступна с", чтобы проверить настройку "Показ ожидаемых промо-акций"
         csCartSettings.navigateToPromotionSettings();
         promotionSettings.promotion_BuyHairDryerVALERA.click();
+        if(!promotionSettings.setting_UseAvailablePeriod.isSelected()) {
+            promotionSettings.setting_UseAvailablePeriod.click();   }
         clearBothFieldsAvailable();
         promotionSettings.setting_UseAvailablePeriod.click();
         promotionSettings.setting_AvailableFrom.click();

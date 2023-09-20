@@ -75,7 +75,7 @@ public class CategoryPage_Var1 extends TestRunner {
         softAssert.assertTrue(stPromotions.promotionOnCategoryPage.size() >= 1,
                 "There is no any promotion on the category page 'Grid'!");
         stPromotions.chooseAnyProduct.hover();
-        screenshot("500 CategoryPage_Var1 - Template Grid");
+        screenshot("600 CategoryPage_Var1 - Template Grid");
         stPromotions.button_QuickView.hover().click();
         $(".ui-dialog-titlebar").shouldBe(Condition.visible);
         //Проверяем, что присутствует шапка промо-акции в окне Быстрого просмотра
@@ -83,15 +83,15 @@ public class CategoryPage_Var1 extends TestRunner {
                 "There is no promotion header in the quick view window!");
         makePause();
         stPromotions.button_ClosePopupWindow.hover();
-        screenshot("505 CategoryPage_Var1 - Quick view");
+        screenshot("605 CategoryPage_Var1 - Quick view");
         stPromotions.button_ClosePopupWindow.click();
         selectLanguage_RTL();
         stPromotions.chooseAnyProduct.hover();
-        screenshot("510 CategoryPage_Var1 - Template Grid (RTL)");
+        screenshot("610 CategoryPage_Var1 - Template Grid (RTL)");
         stPromotions.button_QuickView.hover().click();
         makePause();
         stPromotions.button_ClosePopupWindow.hover();
-        screenshot("515 CategoryPage_Var1 - Quick view (RTL)");
+        screenshot("615 CategoryPage_Var1 - Quick view (RTL)");
 
         //Переключаем шаблоны страницы категории
         stPromotions.button_ClosePopupWindow.click();
@@ -103,19 +103,19 @@ public class CategoryPage_Var1 extends TestRunner {
         //Проверяем, что промо-акция отображается на странице категории с шаблоном "Список без опций"
         softAssert.assertTrue(stPromotions.promotionOnCategoryPage.size() >= 1,
                 "There is no any promotion on the category page 'Without options'!");
-        screenshot("520 CategoryPage_Var1 - Template Without options (RTL)");
+        screenshot("620 CategoryPage_Var1 - Template Without options (RTL)");
         stPromotions.category_CompactList.click();
         makePause();
         //Проверяем, что присутствует лейбл на странице категории с шаблоном "Компактный список"
         softAssert.assertTrue(stPromotions.labelOnCategoryPage.size() >= 1,
                 "There is no any promotion label on the category page 'Compact list'!");
-        screenshot("525 CategoryPage_Var1 - Template Compact list (RTL)");
+        screenshot("625 CategoryPage_Var1 - Template Compact list (RTL)");
         selectLanguage_RU();
         makePause();
-        screenshot("530 CategoryPage_Var1 - Template Compact list");
+        screenshot("630 CategoryPage_Var1 - Template Compact list");
         stPromotions.categoryTemplate_WithoutOptions.click();
         makePause();
-        screenshot("535 CategoryPage_Var1 - Template Without options");
+        screenshot("635 CategoryPage_Var1 - Template Without options");
         softAssert.assertAll();
     }
 }

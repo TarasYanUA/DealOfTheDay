@@ -1,12 +1,12 @@
 package adminPanel;
 
-import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.FindBy;
 
 import static com.codeborne.selenide.Selenide.*;
-import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 public class CsCartSettings {
     public CsCartSettings(){super();}
@@ -27,11 +27,9 @@ public class CsCartSettings {
     public SelenideElement productTemplate = $("#elm_details_layout");
 
     public SelenideElement menuProducts = $x("//li[@class='dropdown nav__header-main-menu-item ']//a[@href='#products']");
-    public SelenideElement sectionProducts = $x("//span[text()='Товары']");
     public SelenideElement sectionCategories = $("a[href$='categories.manage']");
     public SelenideElement menuSettings = $(".dropdown-toggle.settings");
     public SelenideElement sectionAppearance = $("#elm_menu_settings_Appearance");
-    public SelenideElement settingMiniThumbnailAsGallery = $("#field___thumbnails_gallery_147");
     public SelenideElement settingQuickView = $x("//input[contains(@id, 'field___enable_quick_view_')]");
     public SelenideElement category_Notebooks = $(".table-wrapper a[href$='category_id=169']");
 
@@ -62,27 +60,27 @@ public class CsCartSettings {
 
 
     //Страница "Дизайн -- Макеты"
-    public SelenideElement menuDesign = $("#elm_menu_design");
-    public SelenideElement sectionLayouts = $("#elm_menu_design_layouts");
-    public SelenideElement layout_TabProducts = $x("//a[contains(@href, 'selected_location')][text()='Товары']");
-    public SelenideElement layout_GearwheelOfBlockPopular = $("#snapping_714 div.bm-action-properties");
-    public SelenideElement layout_GearwheelOfBlockHits = $("#snapping_715 div.bm-action-properties");
-    public SelenideElement layout_BlockTemplate = $("select[id*='products_template']");
-    public SelenideElement layout_ButtonSaveBlock = $("input[name='dispatch[block_manager.update_block]']");
-    public SelenideElement layoutBlock_TabContent = $("li[id*='block_contents'] a");
-    public SelenideElement layout_FieldFilling = $("select[id*='content_items_filling']");
-    public SelenideElement layout_FieldMaxLimit = $("input[id*='content_items_properties_items_limit']");
+    private SelenideElement menuDesign = $("#elm_menu_design");
+    private SelenideElement sectionLayouts = $("#elm_menu_design_layouts");
+    public MultiBlock navigateToSectionLayouts(){
+        menuDesign.hover();
+        sectionLayouts.click();
+        return new MultiBlock();
+    }
+    public SelenideElement layout_LightV2 = $x("//a[contains(text(), 'UniTheme 2 (Light v2)')]");
 
-    public Select getLayout_BlockTemplate(){return new Select(layout_BlockTemplate);}
-    public void selectBlockTemplate(String value){
-        getLayout_BlockTemplate().selectByValue(value);
+    private SelenideElement gearwheelOfActiveLayout = $(".with-menu.active .dropdown-toggle");
+    private SelenideElement button_makeByDefault = $(".with-menu.active a[href*='block_manager.set_default_layout']");
+    public void setLayoutAsDefault() {
+        gearwheelOfActiveLayout.hover().click();
+        if ($(".with-menu.active a[href*='block_manager.set_default_layout']").exists()) {
+            button_makeByDefault.click();
+            try {
+                Thread.sleep(1500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
-    public Select getLayout_FieldFilling(){return new Select(layout_FieldFilling);}
-    public void selectLayout_FieldFilling(){
-        getLayout_FieldFilling().selectByValue("newest");}
-    public void clickAndType_Layout_FieldMaxLimit(){
-        layout_FieldMaxLimit.click();
-        layout_FieldMaxLimit.clear();
-        layout_FieldMaxLimit.setValue("4");
-    }
+    public SelenideElement layout_TabHomePage = $("#location_95");
 }
