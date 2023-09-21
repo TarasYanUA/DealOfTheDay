@@ -116,6 +116,9 @@ public class GeneralSettings_Var1 extends TestRunner {
         //Проверяем, что в блоке присутствует кнопка "Все промо-акции"
         softAssert.assertTrue(stPromotions.blockButton_AllPromotions.exists(),
                 "There is no button 'All promotions' in the block!");
+        //Проверяем, что у блока присутствуют товары
+        softAssert.assertTrue($$(".ab__deal_of_the_day .ut2-gl__body").size() >= 1,
+                "There are no products in the block!");
         makePause();
         screenshot("100 GeneralSettings_Var1 - Block 'DealOfTheDay'");
         selectLanguage_RTL();

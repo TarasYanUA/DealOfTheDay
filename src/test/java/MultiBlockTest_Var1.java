@@ -1,9 +1,10 @@
 import adminPanel.CsCartSettings;
 import adminPanel.MultiBlock;
 import com.codeborne.selenide.Condition;
+import org.openqa.selenium.By;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 import storefront.StPromotions;
-
 import static com.codeborne.selenide.Selenide.*;
 
 public class MultiBlockTest_Var1 extends TestRunner {
@@ -23,7 +24,7 @@ public class MultiBlockTest_Var1 extends TestRunner {
         csCartSettings.setLayoutAsDefault();
         csCartSettings.layout_TabHomePage.click();
 
-        if (!$x("//div[contains(text(), 'My MultiBlockTest')]").exists()) {
+        if (!$x("//div[@title=\"My MultiBlockTest\"]").exists()) {
             multiBlock.addNewBlock();
             csCartSettings.popupWindow.shouldBe(Condition.enabled);
             multiBlock.tab_CreateNewBlock.click();
@@ -60,11 +61,44 @@ public class MultiBlockTest_Var1 extends TestRunner {
     @Test(priority = 2, dependsOnMethods = "setConfigurations_MultiBlockTest_Var1")
     public void check_Block(){
         CsCartSettings csCartSettings = new CsCartSettings();
+        MultiBlock multiBlock = csCartSettings.navigateToSectionLayouts();
+        csCartSettings.layout_LightV2.click();
+        csCartSettings.layout_TabHomePage.click();
+        String text = $x("//div[@title=\"My MultiBlockTest\"]//small[@data-ca-block-manager=\"block_id\"]").getText();
+        String[] split = text.split("#");
+        String blockID = "ab__deal_of_the_day_" + split[1];
         csCartSettings.button_Storefront.click();
         shiftBrowserTab(1);
         $(".cm-btn-success").click();
+        $(By.id(blockID)).scrollIntoView("{behavior: \"instant\", block: \"center\", inline: \"center\"}").hover();
+
         StPromotions stPromotions = new StPromotions();
-        stPromotions.block_DealOfTheDay.hover();
+        SoftAssert softAssert = new SoftAssert();
+        //Проверяем, что в блоке присутствует заголовок
+        softAssert.assertTrue($(".pd-promotion__title").exists(),
+                "There is no title of the promotion in the multi block!");
+        //Проверяем, что в блоке присутствует описание
+        softAssert.assertTrue($(".promotion-descr").exists(),
+                "There is no description of the promotion in the multi block!");
+        //Проверяем, что в блоке присутствует кнопка "Подробнее"
+        softAssert.assertTrue(stPromotions.blockButton_More.exists(),
+                "There is no button 'More' in the multi block!");
+        //Проверяем, что в блоке присутствует кнопка "Все промо-акции"
+        softAssert.assertTrue(stPromotions.blockButton_AllPromotions.exists(),
+                "There is no button 'All promotions' in the multi block!");
+        //Проверяем, что в блоке присутствует цена
+        softAssert.assertTrue($$(".ab__deal_of_the_day .ut2-gl__price").size() > 1,
+                "There is no price at products in the multi block!");
+        //Проверяем, что в блоке присутствует кнопка быстрого просмотра
+        softAssert.assertTrue($$(".ab__deal_of_the_day a[data-ca-target-id=\"product_quick_view\"]").size() > 1,
+                "There is no quick view button at the products in the multi block!");
+        //Проверяем, что в блоке присутствует кнопка "Купить"
+        softAssert.assertTrue($$(".ab__deal_of_the_day .ut2-icon-use_icon_cart").size() > 1,
+                "There is no button 'Add to cart' at the products in the multi block!");
+        //Проверяем, что в блоке присутствует счётчик
+        softAssert.assertTrue($(".flipclock").exists(),
+                "There is no countdown in the multi block!");
+        makePause();
         screenshot("800 MultiBlockTest_Var1 - Multi block");
     }
 }
