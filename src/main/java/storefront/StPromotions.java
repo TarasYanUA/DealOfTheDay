@@ -6,7 +6,9 @@ import com.codeborne.selenide.SelenideElement;
 import static com.codeborne.selenide.Selenide.*;
 
 public class StPromotions {
-    public StPromotions(){super();}
+    public StPromotions() {
+        super();
+    }
 
     public SelenideElement block_DealOfTheDay = $(".ab__deal_of_the_day");
     public SelenideElement blockButton_More = $(".pd-promotion__buttons .ty-btn__secondary");
@@ -38,4 +40,9 @@ public class StPromotions {
     public ElementsCollection promotionsPerPage = $$(".ab__dotd_promotions-item");
     public SelenideElement highlight = $(".ab__dotd_highlight");
     public ElementsCollection promotionProducts = $$(".ut2-gl__item");
+
+    //Проверки в блоках
+    public SelenideElement blockTitle = $(".pd-promotion__title");
+    public SelenideElement blockDescription = $(".promotion-descr");
+    public ElementsCollection blockProducts = $$(".ab__deal_of_the_day .ut2-gl__body");
 }

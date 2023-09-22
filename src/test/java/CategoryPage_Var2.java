@@ -59,7 +59,7 @@ public class CategoryPage_Var2 extends TestRunner {
         if(promotionSettings.setting_StopOtherRules.isSelected()){
             promotionSettings.setting_StopOtherRules.click(); }
         //Вкладка "Условия"
-        promotionSettings.tab_Conditions.click();
+        promotionSettings.tab_Conditions.scrollIntoView(false).click();
         promotionSettings.button_AddProductsToCondition.click();
         $(".ui-dialog-title").shouldBe(Condition.visible);
         promotionSettings.field_SearchProduct.click();

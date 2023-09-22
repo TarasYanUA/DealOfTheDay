@@ -102,10 +102,10 @@ public class GeneralSettings_Var1 extends TestRunner {
         stPromotions.block_DealOfTheDay.hover();
         SoftAssert softAssert = new SoftAssert();
         //Проверяем, что в блоке присутствует заголовок
-        softAssert.assertTrue($(".pd-promotion__title").exists(),
+        softAssert.assertTrue(stPromotions.blockTitle.exists(),
                 "There is no title of the promotion in the block!");
         //Проверяем, что в блоке присутствует описание
-        softAssert.assertTrue($(".promotion-descr").exists(),
+        softAssert.assertTrue(stPromotions.blockDescription.exists(),
                 "There is no description of the promotion in the block!");
         //Проверяем, что в блоке присутствует Javascript счётчик
         softAssert.assertTrue(stPromotions.javaClock.exists(),
@@ -117,7 +117,7 @@ public class GeneralSettings_Var1 extends TestRunner {
         softAssert.assertTrue(stPromotions.blockButton_AllPromotions.exists(),
                 "There is no button 'All promotions' in the block!");
         //Проверяем, что у блока присутствуют товары
-        softAssert.assertTrue($$(".ab__deal_of_the_day .ut2-gl__body").size() >= 1,
+        softAssert.assertTrue(!stPromotions.blockProducts.isEmpty(),
                 "There are no products in the block!");
         makePause();
         screenshot("100 GeneralSettings_Var1 - Block 'DealOfTheDay'");
