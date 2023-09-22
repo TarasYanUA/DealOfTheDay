@@ -1,11 +1,8 @@
-import adminPanel.AddonSettings;
 import adminPanel.CsCartSettings;
 import adminPanel.MultiBlock;
 import adminPanel.PromotionSettings;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.WebDriverRunner;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import storefront.StPromotions;
@@ -13,23 +10,20 @@ import static com.codeborne.selenide.Selenide.*;
 
 /*
 Работаем с макетом Light v2 и блоком "Мульти товар дня"!
-Настройки модуля:
-* Тип счётчика --       FlipClock
-
 Настройки промо-акции "Фен Valera":
 * Задать период доступности --  выкл
 
 Настройки блока:
-* Показывать цену --                да
-* Включить быстрый просмотр --      да
-* Количество элементов --           6
-* Спрятать кнопку добавления товара в корзину --    нет
-* Отображать счётчик промо-акции -- да
+* Показывать цену --                нет
+* Включить быстрый просмотр --      нет
+* Количество элементов --           4
+* Спрятать кнопку добавления товара в корзину --    да
+* Отображать счётчик промо-акции -- нет
 */
 
-public class MultiBlockTest_Var1 extends TestRunner {
+public class MultiBlockTest_Var2 extends TestRunner {
     @Test(priority = 1)
-    public void setConfigurations_MultiBlockTest_Var1() {
+    public void setConfigurations_MultiBlockTest_Var2() {
         CsCartSettings csCartSettings = new CsCartSettings();
         //Задаём настройки CS-Cart
         csCartSettings.navigateToAppearanceSettings();
@@ -37,12 +31,6 @@ public class MultiBlockTest_Var1 extends TestRunner {
             csCartSettings.settingQuickView.click();
             csCartSettings.button_Save.click();
         }
-
-        //Задаём настройки модуля
-        csCartSettings.navigateToAddonsPage();
-        AddonSettings addonSettings = csCartSettings.navigateToAddonSettings();
-        addonSettings.setting_CountdownType.selectOptionByValue("flipclock");
-        addonSettings.button_SaveSettings.click();
 
         //Задаём настройки промо-акции "Фен Valera"
         PromotionSettings promotionSettings = csCartSettings.navigateToPromotionSettings();
@@ -55,14 +43,6 @@ public class MultiBlockTest_Var1 extends TestRunner {
         promotionSettings.clickAndType_field_DetailedDescription();
         if(promotionSettings.setting_UseAvailablePeriod.isSelected()) {
             promotionSettings.setting_UseAvailablePeriod.click();   }
-        promotionSettings.tab_Conditions.scrollIntoView(false).click();
-        promotionSettings.button_AddProductsToCondition.click();
-        $(".ui-dialog-title").shouldBe(Condition.visible);
-        promotionSettings.field_SearchProduct.click();
-        promotionSettings.field_SearchProduct.sendKeys("Samsung серии 3 15.6\" 300V5A");
-        promotionSettings.field_SearchProduct.sendKeys(Keys.ENTER);
-        promotionSettings.checkProductToCondition.click();
-        promotionSettings.button_AddAndClose.click();
         csCartSettings.button_Save.click();
 
         //Создаём блок "Мульти товар дня" и задаём настройки блока
@@ -94,37 +74,30 @@ public class MultiBlockTest_Var1 extends TestRunner {
         multiBlock.blockProperties.click();
         csCartSettings.popupWindow.shouldBe(Condition.enabled);
         multiBlock.tab_BlockSettings.click();
-        if (!multiBlock.setting_ShowPrice.isSelected()) {
+        if (multiBlock.setting_ShowPrice.isSelected()) {
             multiBlock.setting_ShowPrice.click();
         }
-        if (!multiBlock.setting_EnableQuickView.isSelected()) {
+        if (multiBlock.setting_EnableQuickView.isSelected()) {
             multiBlock.setting_EnableQuickView.click();
         }
         multiBlock.setting_ItemQuantity.click();
-        multiBlock.setting_ItemQuantity.setValue("6");
-        if (multiBlock.setting_HideAddToCart.isSelected()) {
+        multiBlock.setting_ItemQuantity.setValue("4");
+        if (!multiBlock.setting_HideAddToCart.isSelected()) {
             multiBlock.setting_HideAddToCart.click();
         }
-        if (!multiBlock.setting_DisplayPromotionCountdown.isSelected()) {
+        if (multiBlock.setting_DisplayPromotionCountdown.isSelected()) {
             multiBlock.setting_DisplayPromotionCountdown.click();
         }
         multiBlock.button_SaveBlockProperties.click();
     }
 
-    @Test(priority = 2, dependsOnMethods = "setConfigurations_MultiBlockTest_Var1")
+    @Test(priority = 2, dependsOnMethods = "setConfigurations_MultiBlockTest_Var2")
     public void check_Block(){
         CsCartSettings csCartSettings = new CsCartSettings();
-        csCartSettings.navigateToSectionLayouts();
-        csCartSettings.layout_LightV2.click();
-        csCartSettings.layout_TabHomePage.click();
-        String text = $x("//div[@title=\"MultiBlock - AutoTest\"]//small[@data-ca-block-manager=\"block_id\"]").getText();
-        String[] split = text.split("#");
-        String blockID = "ab__deal_of_the_day_" + split[1];
         csCartSettings.button_Storefront.click();
         shiftBrowserTab(1);
         $(".cm-btn-success").click();
-        $(By.id(blockID)).scrollIntoView("{behavior: \"instant\", block: \"center\", inline: \"center\"}").hover();
-
+        $(".ab__deal_of_the_day").scrollIntoView("{behavior: \"instant\", block: \"center\", inline: \"center\"}").hover();
         StPromotions stPromotions = new StPromotions();
         SoftAssert softAssert = new SoftAssert();
         //Проверяем, что в блоке присутствует заголовок
@@ -139,26 +112,20 @@ public class MultiBlockTest_Var1 extends TestRunner {
         //Проверяем, что в блоке присутствует кнопка "Все промо-акции"
         softAssert.assertTrue(stPromotions.blockButton_AllPromotions.exists(),
                 "There is no button 'All promotions' in the multi block!");
-        //Проверяем, что в блоке присутствует цена
-        softAssert.assertTrue($$(".ab__deal_of_the_day .ty-list-price.ty-nowrap").size() > 1,
-                "There is no price at products in the multi block!");
-        //Проверяем, что в блоке присутствует кнопка быстрого просмотра
-        softAssert.assertTrue($$(".ab__deal_of_the_day a[data-ca-target-id=\"product_quick_view\"]").size() > 1,
-                "There is no quick view button at the products in the multi block!");
-        //Проверяем, что в блоке присутствует кнопка "Купить"
-        softAssert.assertTrue($$(".ab__deal_of_the_day .ut2-icon-use_icon_cart").size() > 1,
-                "There is no button 'Add to cart' at the products in the multi block!");
-        //Проверяем, что в блоке присутствует счётчик Flipclock
-        softAssert.assertTrue(stPromotions.flipClock.exists(),
-                "The countdown is not FlipClock in the multi block!");
-        //Проверяем, что у блока 6 товаров
-        softAssert.assertTrue(stPromotions.blockProducts.size() == 6,
-                "There are not 6 products in the multi block!");
+        //Проверяем, что в блоке отсутствует цена
+        softAssert.assertFalse(!$$(".ab__deal_of_the_day .ty-list-price.ty-nowrap").isEmpty(),
+                "There is a price at products in the multi block but shouldn't!");
+        //Проверяем, что в блоке отсутствует кнопка быстрого просмотра
+        softAssert.assertFalse(!$$(".ab__deal_of_the_day a[data-ca-target-id=\"product_quick_view\"]").isEmpty(),
+                "There is a quick view button at the products in the multi block but shouldn't!");
+        //Проверяем, что в блоке отсутствует кнопка "Купить"
+        softAssert.assertTrue($$(".ab__deal_of_the_day .ut2-icon-use_icon_cart").isEmpty(),
+                "There is a button 'Add to cart' at the products in the multi block but shouldn't!");
         makePause();
-        screenshot("800 MultiBlockTest_Var1 - Multi block");
+        screenshot("900 MultiBlockTest_Var2 - Multi block");
         selectLanguage_RTL();
-        $(By.id(blockID)).scrollIntoView("{behavior: \"instant\", block: \"center\", inline: \"center\"}").hover();
-        screenshot("805 MultiBlockTest_Var1 - Multi block (RTL)");
+        $(".ab__deal_of_the_day").scrollIntoView("{behavior: \"instant\", block: \"center\", inline: \"center\"}").hover();
+        screenshot("905 MultiBlockTest_Var2 - Multi block (RTL)");
         softAssert.assertAll();
     }
 }

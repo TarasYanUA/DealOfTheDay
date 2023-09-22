@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>taras.yanishevskyi</groupId>
-    <artifactId>DealOfTheDay</artifactId>
+    <artifactId>Deal_of_the_day</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>

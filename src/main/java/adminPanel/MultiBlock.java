@@ -12,6 +12,8 @@ public class MultiBlock {
         addNewBlock_gearwheel.hover().click();
         addNewBlock_button.click();
     }
+    public SelenideElement blockProperties = $("div[data-ca-block-name=\"MultiBlock - AutoTest\"] .bm-action-properties.action");
+    public SelenideElement button_SaveBlockProperties = $("input[name=\"dispatch[block_manager.update_block]\"]");
     public SelenideElement multiBlock = $(".bmicon-ab--multi-deal-of-the-day");
     public SelenideElement blockName = $("input[id$='__multi_deal_of_the_day_name']");
     public SelenideElement tab_CreateNewBlock = $("li[id^='create_new_blocks']");
