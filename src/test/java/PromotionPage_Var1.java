@@ -34,9 +34,10 @@ public class PromotionPage_Var1 extends TestRunner {
         PromotionSettings promotionSettings = csCartSettings.navigateToPromotionSettings();
         promotionSettings.chooseRussianLanguage();
         promotionSettings.promotion_RacingCard.click();
-        if(promotionSettings.setting_UseAvailablePeriod.isSelected()){  //убираем период доступности, чтобы промо-акция всегда отображалась
-            promotionSettings.setting_UseAvailablePeriod.click();
-        }
+        //Устанавливаем сегодняшнюю дату для поля "Доступна до"
+        clearBothFieldsAvailable();
+        promotionSettings.setting_UseAvailablePeriod.click();
+        promotionSettings.setDateOfTodayForSetting_AvailableTill();
         if(promotionSettings.setting_StopOtherRules.isSelected()){
             promotionSettings.setting_StopOtherRules.click();
         }
@@ -51,6 +52,17 @@ public class PromotionPage_Var1 extends TestRunner {
         if(!promotionSettings.check_DisplayCountdownOnPromotionPage.isSelected()){
             promotionSettings.check_DisplayCountdownOnPromotionPage.click();
         }
+        csCartSettings.button_Save.click();
+    }
+    public void clearBothFieldsAvailable(){
+        PromotionSettings promotionSettings = new PromotionSettings();
+        if(!promotionSettings.setting_UseAvailablePeriod.isSelected()) {
+            promotionSettings.setting_UseAvailablePeriod.click();   }
+        promotionSettings.setting_AvailableFrom.click();
+        promotionSettings.setting_AvailableFrom.clear();
+        promotionSettings.setting_AvailableTill.click();
+        promotionSettings.setting_AvailableTill.clear();
+        CsCartSettings csCartSettings = new CsCartSettings();
         csCartSettings.button_Save.click();
     }
 
