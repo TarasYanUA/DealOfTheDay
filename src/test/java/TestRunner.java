@@ -6,6 +6,8 @@ import org.testng.annotations.BeforeClass;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
+/* Проверка модуля "АВ: Расширенные промо-акции" v3.10.3 в теме UniTheme2. */
+
 public class TestRunner {
     public static final String BASIC_URL = "https://trs.test.abt.team/4171ultru/admin.php?dispatch=addons.manage";
 

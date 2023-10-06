@@ -16,8 +16,6 @@ public class StPromotions {
 
     public SelenideElement promotion_BuyCamera = $x("//a[contains(text(), 'Купите фотоаппарат')]");
     public SelenideElement chooseAnyProduct = $(".ut2-gl__item");
-    public SelenideElement breadcrumb_Computers = $("a[href$='/kompyutery/'].ty-breadcrumbs__a");
-
     public SelenideElement button_QuickView = $(".ut2-icon-baseline-visibility");
     public SelenideElement button_ClosePopupWindow = $(".ui-icon-closethick");
     public SelenideElement categoryTemplate_WithoutOptions = $(".ty-icon-products-without-options");
