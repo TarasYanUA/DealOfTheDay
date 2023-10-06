@@ -41,6 +41,6 @@ public class StPromotions {
 
     //Проверки в блоках
     public SelenideElement blockTitle = $(".pd-promotion__title");
-    public SelenideElement blockDescription = $(".promotion-descr");
+    public SelenideElement blockDescription = $(".pd-promotion-descr");
     public ElementsCollection blockProducts = $$(".ab__deal_of_the_day .ut2-gl__body");
 }
