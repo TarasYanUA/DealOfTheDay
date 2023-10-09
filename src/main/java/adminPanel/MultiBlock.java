@@ -24,6 +24,7 @@ public class MultiBlock {
     public SelenideElement button_AddAndCloseSelectedPromotions = $("input[value=\"Добавить промо-акции и закрыть\"]");
     public SelenideElement setting_ShowPrice = $("input[id$='multi_deal_of_the_day_properties_show_price']");
     public SelenideElement setting_EnableQuickView = $("input[id$='multi_deal_of_the_day_properties_enable_quick_view']");
+    public SelenideElement setting_DoNotScrollAutomatically = $("input[id$='_ab__multi_deal_of_the_day_properties_not_scroll_automatically']");
     public SelenideElement setting_ItemQuantity = $("input[id$='multi_deal_of_the_day_properties_item_quantity']");
     public SelenideElement setting_HideAddToCart = $("input[id$='multi_deal_of_the_day_properties_hide_add_to_cart_button']");
     public SelenideElement setting_DisplayPromotionCountdown = $("input[id$='multi_deal_of_the_day_properties_ab__dotd_enable_countdown_timer']");

@@ -96,6 +96,9 @@ public class MultiBlockTest_Var1 extends TestRunner {
         if (!multiBlock.setting_EnableQuickView.isSelected()) {
             multiBlock.setting_EnableQuickView.click();
         }
+        if (!multiBlock.setting_DoNotScrollAutomatically.isSelected()) {
+            multiBlock.setting_DoNotScrollAutomatically.click();
+        }
         multiBlock.setting_ItemQuantity.click();
         multiBlock.setting_ItemQuantity.setValue("5");
         if (multiBlock.setting_HideAddToCart.isSelected()) {
