@@ -50,10 +50,7 @@ public class MultiBlockTest_Var2 extends TestRunner {
         csCartSettings.layout_LightV2.click();
         csCartSettings.setLayoutAsDefault();
         csCartSettings.layout_TabHomePage.click();
-        //Выключаем  блок "Товар дня"
-        if(!$("div.block-off[data-ca-block-name=\"AB: Товар дня\"]").exists()){
-            $("div[data-ca-block-name=\"AB: Товар дня\"]").$(".icon-off").click();
-        }
+        csCartSettings.switchOffBlock_DealOfTheDay();
         //Создаём блок "Мульти Товар дня"
         if (!$x("//div[@title=\"MultiBlock - AutoTest\"]").exists()) {
             multiBlock.addNewBlock();

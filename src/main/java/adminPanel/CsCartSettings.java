@@ -33,13 +33,9 @@ public class CsCartSettings {
     public SelenideElement settingQuickView = $x("//input[contains(@id, 'field___enable_quick_view_')]");
     public SelenideElement category_Notebooks = $(".table-wrapper a[href$='category_id=169']");
 
-    public void navigateToAddonsPage(){
+    private void navigateToAddonsPage(){
         menuAddons.hover();
         sectionDownloadedAddons.click();
-    }
-    public void navigateToAppearanceSettings(){
-        menuSettings.hover();
-        sectionAppearance.click();
     }
     public AddonSettings navigateToAddonSettings(){
         navigateToAddonsPage();
@@ -47,6 +43,10 @@ public class CsCartSettings {
         sectionGeneralSettings.click();
         tab_Settings.click();
         return new AddonSettings();
+    }
+    public void navigateToAppearanceSettings(){
+        menuSettings.hover();
+        sectionAppearance.click();
     }
     public PromotionSettings navigateToPromotionSettings(){
         menuMarketing.hover();
@@ -82,5 +82,10 @@ public class CsCartSettings {
             }
         }
     }
-    public SelenideElement layout_TabHomePage = $("#location_95");
+    public SelenideElement layout_TabHomePage = $x("//a[text()='Домашняя страница']");
+    public void switchOffBlock_DealOfTheDay(){  //Выключаем  блок "Товар дня"
+        if(!$("div.block-off[data-ca-block-name=\"AB: Товар дня\"]").exists()){
+            $("div[data-ca-block-name=\"AB: Товар дня\"]").$(".icon-off").click();
+        }
+    }
 }

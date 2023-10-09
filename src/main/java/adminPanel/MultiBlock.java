@@ -1,16 +1,17 @@
 package adminPanel;
 
 import com.codeborne.selenide.SelenideElement;
+import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$x;
 
 public class MultiBlock {
     public MultiBlock(){super();}
-    private SelenideElement addNewBlock_gearwheel = $("#grid_552 .icon-plus");
-    private SelenideElement addNewBlock_button = $("#grid_552 .bm-action-add-block");
     public void addNewBlock(){
-        addNewBlock_gearwheel.hover().click();
-        addNewBlock_button.click();
+        String layoutID = $x("//div[@title='AB: Товар дня']/../..").getAttribute("id");
+        $(By.id(layoutID)).$(".icon-plus").hover().click();
+        $(By.id(layoutID)).$(".bm-action-add-block").click();
     }
     public SelenideElement blockProperties = $("div[data-ca-block-name=\"MultiBlock - AutoTest\"] .bm-action-properties.action");
     public SelenideElement button_SaveBlockProperties = $("input[name=\"dispatch[block_manager.update_block]\"]");

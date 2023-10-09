@@ -25,7 +25,6 @@ public class GeneralSettings_Var2 extends TestRunner {
     public void setConfiguration_GeneralSettings_Var2(){
         //Задаём настройки модуля
         CsCartSettings csCartSettings = new CsCartSettings();
-        csCartSettings.navigateToAddonsPage();
         AddonSettings addonSettings = csCartSettings.navigateToAddonSettings();
         addonSettings.setting_CountdownTo.selectOptionByValue("end_of_the_promotion");
         addonSettings.setting_CountdownType.selectOptionByValue("flipclock");

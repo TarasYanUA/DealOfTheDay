@@ -28,7 +28,6 @@ public class PromotionPage_Var2 extends TestRunner {
     public void setConfiguration_PromotionPage_Var2(){
         CsCartSettings csCartSettings = new CsCartSettings();
         //Задаём настройки модуля
-        csCartSettings.navigateToAddonsPage();
         AddonSettings addonSettings = csCartSettings.navigateToAddonSettings();
         addonSettings.setting_AmountOfDisplayedPromotionsInProductLists.selectOptionByValue("2");
         addonSettings.setting_HighlightingThePromotion.selectOptionByValue("1");

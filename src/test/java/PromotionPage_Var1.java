@@ -24,7 +24,6 @@ public class PromotionPage_Var1 extends TestRunner {
     public void setConfiguration_PromotionPage_Var1(){
         CsCartSettings csCartSettings = new CsCartSettings();
         //Задаём настройки модуля
-        csCartSettings.navigateToAddonsPage();
         AddonSettings addonSettings = csCartSettings.navigateToAddonSettings();
         addonSettings.setting_CountdownType.selectOptionByValue("flipclock");
         addonSettings.setting_AmountOfDisplayedPromotionsInProductLists.selectOptionByValue("2");

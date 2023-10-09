@@ -1,14 +1,14 @@
 <suite name="Deal of the day">
     <test name="Test-cases for the add-on 'Extended promotions'">
         <classes>
-            <!-- Тест-кейсы модуля -->
+            <!-- Тест-кейсы модуля
            <class name="GeneralSettings_Var1" />
            <class name="GeneralSettings_Var2" />
            <class name="PromotionPage_Var1" />
            <class name="PromotionPage_Var2" />
            <class name="ProductPage" />
            <class name="CategoryPage_Var1" />
-           <class name="CategoryPage_Var2" />
+           <class name="CategoryPage_Var2" /> -->
            <class name="MultiBlockTest_Var1" />
            <class name="MultiBlockTest_Var2" />
         </classes>

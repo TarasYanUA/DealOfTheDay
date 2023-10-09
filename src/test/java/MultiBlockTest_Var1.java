@@ -39,7 +39,6 @@ public class MultiBlockTest_Var1 extends TestRunner {
         }
 
         //Задаём настройки модуля
-        csCartSettings.navigateToAddonsPage();
         AddonSettings addonSettings = csCartSettings.navigateToAddonSettings();
         addonSettings.setting_CountdownType.selectOptionByValue("flipclock");
         addonSettings.button_SaveSettings.click();
@@ -70,10 +69,7 @@ public class MultiBlockTest_Var1 extends TestRunner {
         csCartSettings.layout_LightV2.click();
         csCartSettings.setLayoutAsDefault();
         csCartSettings.layout_TabHomePage.click();
-        //Выключаем  блок "Товар дня"
-        if(!$("div.block-off[data-ca-block-name=\"AB: Товар дня\"]").exists()){
-            $("div[data-ca-block-name=\"AB: Товар дня\"]").$(".icon-off").click();
-        }
+        csCartSettings.switchOffBlock_DealOfTheDay();
         //Создаём блок "Мульти Товар дня"
         if (!$x("//div[@title=\"MultiBlock - AutoTest\"]").exists()) {
             multiBlock.addNewBlock();
@@ -101,7 +97,7 @@ public class MultiBlockTest_Var1 extends TestRunner {
             multiBlock.setting_EnableQuickView.click();
         }
         multiBlock.setting_ItemQuantity.click();
-        multiBlock.setting_ItemQuantity.setValue("6");
+        multiBlock.setting_ItemQuantity.setValue("5");
         if (multiBlock.setting_HideAddToCart.isSelected()) {
             multiBlock.setting_HideAddToCart.click();
         }

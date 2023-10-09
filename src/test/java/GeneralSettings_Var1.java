@@ -26,7 +26,6 @@ public class GeneralSettings_Var1 extends TestRunner {
     public void setConfiguration_GeneralSettings_Var1(){
         //Задаём настройки модуля
         CsCartSettings csCartSettings = new CsCartSettings();
-        csCartSettings.navigateToAddonsPage();
         AddonSettings addonSettings = csCartSettings.navigateToAddonSettings();
         addonSettings.setting_CountdownTo.selectOptionByValue("end_of_the_day");
         addonSettings.setting_CountdownType.selectOptionByValue("javascript");
