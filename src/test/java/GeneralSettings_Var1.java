@@ -156,7 +156,7 @@ public class GeneralSettings_Var1 extends TestRunner {
         softAssert.assertTrue($("div[style*='max-height: 250px']").exists(),
                 "Maximum height of description is not 250 px on the promotion page!");
         //Проверяем, что кнопка "Больше" присутствует в описании промо-акции
-        softAssert.assertTrue($$(".ab__dotd_more").size() >= 1,
+        softAssert.assertTrue(!$$(".ab__dotd_more").isEmpty(),
                 "There is no button 'More' at the promotion description on the promotion page!");
         String currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("MM/dd/yyy"));
         String promotionDate = $(".ab__dotd_promotion_date p").getText();
@@ -164,7 +164,7 @@ public class GeneralSettings_Var1 extends TestRunner {
         String resultPromotionDate = splitPromotionDate[1];
         softAssert.assertEquals(resultPromotionDate, "по " + currentDate, "Promotion period is not till the end of the current day!");
         //Проверяем, что в промо-акции присутствуют товары
-        softAssert.assertTrue(stPromotions.promotionProducts.size() >= 1,
+        softAssert.assertTrue(!stPromotions.promotionProducts.isEmpty(),
                 "There are no products on the promotion page!");
         makePause();
         screenshot("110 GeneralSettings_Var1 - Promotion page");

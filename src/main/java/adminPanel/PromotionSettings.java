@@ -32,11 +32,10 @@ public class PromotionSettings {
     public SelenideElement calendar_ArrowPrevious = $(".ui-datepicker-prev");
     public SelenideElement calendar_ArrowNext = $(".ui-datepicker-next");
     public SelenideElement calendar_Day15 = $("a.ui-state-default[data-date='15']");
-    public void setDateOfTodayForSetting_AvailableFrom(){
-        String date = LocalDate.now().format(DateTimeFormatter.ofPattern("MM-dd-yyy"));
+    public void setPastDateForSetting_AvailableFrom(){
         setting_AvailableFrom.click();
-        setting_AvailableFrom.clear();
-        setting_AvailableFrom.sendKeys(date);
+        calendar_ArrowPrevious.shouldBe(Condition.interactable).click();
+        calendar_Day15.click();
         setting_AvailableFrom.pressEnter();
     }
     public void setDateOfTodayForSetting_AvailableTill(){
