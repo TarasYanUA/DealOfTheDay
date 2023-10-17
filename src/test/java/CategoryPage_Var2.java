@@ -91,10 +91,10 @@ public class CategoryPage_Var2 extends TestRunner {
         StPromotions stPromotions = new StPromotions();
         SoftAssert softAssert = new SoftAssert();
         //Проверяем, что отсутствует лейбл на странице категории с шаблоном "Сетка"
-        softAssert.assertFalse(stPromotions.labelOnCategoryPage.size() >= 1,
+        softAssert.assertFalse(!stPromotions.labelOnCategoryPage.isEmpty(),
                 "There is a promotion label on the category page 'Grid' but shouldn't!");
         //Проверяем, что промо-акция отображается на странице категории с шаблоном "Сетка"
-        softAssert.assertTrue(stPromotions.promotionOnCategoryPage.size() >= 1,
+        softAssert.assertTrue(!stPromotions.promotionOnCategoryPage.isEmpty(),
                 "There is no any promotion on the category page 'Grid'!");
         //Проверяем, что у одного товара присутствует сразу две промо-акции
         softAssert.assertTrue($$("form[name=\"product_form_219\"] .ab-dotd-category-promo").size() ==2,
@@ -123,18 +123,18 @@ public class CategoryPage_Var2 extends TestRunner {
         stPromotions.categoryTemplate_WithoutOptions.click();
         makePause();
         //Проверяем, что промо-акция отображается на странице категории с шаблоном "Список без опций"
-        softAssert.assertTrue(stPromotions.promotionOnCategoryPage.size() >= 1,
+        softAssert.assertTrue(!stPromotions.promotionOnCategoryPage.isEmpty(),
                 "There is no any promotion on the category page 'Without options'!");
         //Проверяем, что у одного товара присутствует сразу две промо-акции, "Список без опций"
         softAssert.assertTrue($$("form[name=\"product_form_219\"] .ab-dotd-category-promo").size() ==2,
                 "There are no two promotions in one product on the category page, 'List without options' template!");
         //Проверяем, что отсутствует лейбл на странице категории с шаблоном "Список без опций"
-        softAssert.assertFalse(stPromotions.labelOnCategoryPage.size() >= 1,
+        softAssert.assertFalse(!stPromotions.labelOnCategoryPage.isEmpty(),
                 "There is a promotion label on the category page 'Without options' but shouldn't!");
         screenshot("720 CategoryPage_Var2 - Template Without options (RTL)");
-        stPromotions.category_CompactList.click();
+        stPromotions.categoryTemplate_CompactList.click();
         //Проверяем, что отсутствует лейбл на странице категории с шаблоном "Компактный список"
-        softAssert.assertFalse(stPromotions.labelOnCategoryPage.size() >= 1,
+        softAssert.assertFalse(!stPromotions.labelOnCategoryPage.isEmpty(),
                 "There is a promotion label on the category page 'Compact list' but shouldn't!");
         makePause();
         screenshot("725 CategoryPage_Var2 - Template Compact list (RTL)");

@@ -91,9 +91,10 @@ public class PromotionPage_Var3_GroupByCategory extends TestRunner {
         promotionSettings.button_PreviewPromotion.click();
         shiftBrowserTab(1);
         $(".cm-btn-success").click();
-        //Проверяем, что присутствует фильтр товаров на странице промо-акции
+
         StPromotions stPromotions = new StPromotions();
         SoftAssert softAssert = new SoftAssert();
+        //Проверяем, что присутствует фильтр товаров на странице промо-акции
         softAssert.assertTrue(stPromotions.filterByProducts.exists(),
                 "There is no product filters on the promotion page!");  //Ошибка https://abteam.planfix.com/task/42437
         //Проверяем, что присутствует блок товаров на странице промо-акции
@@ -102,11 +103,27 @@ public class PromotionPage_Var3_GroupByCategory extends TestRunner {
         //Проверяем, что присутствует счётчик на странице промо-акции
         softAssert.assertTrue(stPromotions.countdown.exists(),
                 "There is no countdown on the promotion page!");
+        //Проверяем, что присутствует кнопка "Больше товаров из категории" -- настройка "Группировать по категории"
+        softAssert.assertTrue(!stPromotions.button_MoreProductsFromCategory.isEmpty(),
+                "There is no any button 'More products from category' on the promotion page!");
+        screenshot("450 PromotionPage_Var3_GroupByCategory - Promotion page, Grid");
+        $(".ab-dotd-categories-filter a[href$='cid=166']").click();
+        stPromotions.categoryTemplate_WithoutOptions.click();
+        makePause();
+        screenshot("455 PromotionPage_Var3_GroupByCategory - Promotion page, Without options");
+        stPromotions.categoryTemplate_CompactList.click();
+        makePause();
+        screenshot("460 PromotionPage_Var3_GroupByCategory - Promotion page, Compact list");
 
-        screenshot("300 PromotionPage_Var1 - Promotion page");
         selectLanguage_RTL();
         makePause();
-        screenshot("305 PromotionPage_Var1 - Promotion page (RTL)");
+        screenshot("465 PromotionPage_Var3_GroupByCategory - Promotion page, Compact list (RTL)");
+        stPromotions.categoryTemplate_WithoutOptions.click();
+        makePause();
+        screenshot("470 PromotionPage_Var3_GroupByCategory - Promotion page, Without options (RTL)");
+        stPromotions.categoryTemplate_Grid.click();
+        makePause();
+        screenshot("475 PromotionPage_Var3_GroupByCategory - Promotion page, Grid (RTL)");
         softAssert.assertAll();
     }
 }

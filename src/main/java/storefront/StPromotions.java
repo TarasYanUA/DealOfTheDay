@@ -19,7 +19,8 @@ public class StPromotions {
     public SelenideElement button_QuickView = $(".ut2-icon-baseline-visibility");
     public SelenideElement button_ClosePopupWindow = $(".ui-icon-closethick");
     public SelenideElement categoryTemplate_WithoutOptions = $(".ty-icon-products-without-options");
-    public SelenideElement category_CompactList = $(".ty-sort-container__views-a .ty-icon-short-list");
+    public SelenideElement categoryTemplate_CompactList = $(".ty-sort-container__views-a .ty-icon-short-list");
+    public SelenideElement categoryTemplate_Grid = $(".ty-sort-container__views-a .ty-icon-products-multicolumns");
 
     //Проверки
     public SelenideElement filterByProducts = $x("//div[contains(text(), 'Фильтры товаров')]");
@@ -38,6 +39,7 @@ public class StPromotions {
     public ElementsCollection promotionsPerPage = $$(".ab__dotd_promotions-item");
     public SelenideElement highlight = $(".ab__dotd_highlight");
     public ElementsCollection promotionProducts = $$(".ut2-gl__item");
+    public ElementsCollection button_MoreProductsFromCategory = $$(".ab-dotd-more-icon");
 
     //Проверки в блоках
     public SelenideElement blockTitle = $(".pd-promotion__title");
