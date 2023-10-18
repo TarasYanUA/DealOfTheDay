@@ -10,7 +10,6 @@ import static com.codeborne.selenide.Selenide.screenshot;
 /*
 В данном тест-кейсе используются значения по умолчанию:
 * Обратный отсчёт до -- Окончания промо-акции
-* Промо-акций на страницу --        12
 * Показ истекших промо-акций --     да
 * Показ ожидаемых промо-акций --    да
 
@@ -27,7 +26,6 @@ public class GeneralSettings_Var3_AvailableFrom extends TestRunner {
         CsCartSettings csCartSettings = new CsCartSettings();
         AddonSettings addonSettings = csCartSettings.navigateToAddonSettings();
         addonSettings.setting_CountdownTo.selectOptionByValue("end_of_the_promotion");
-        addonSettings.clickAndType_setting_PromotionsPerPage("12");
         if(!addonSettings.setting_ShowExpiredPromotions.isSelected()){
             addonSettings.setting_ShowExpiredPromotions.click(); }
         if(!addonSettings.setting_ShowAwaitingPromotions.isSelected()){
@@ -58,14 +56,46 @@ public class GeneralSettings_Var3_AvailableFrom extends TestRunner {
 
     @Test(priority = 2, dependsOnMethods = "setConfiguration_GeneralSettings_Var3_AvailableFrom")
     public void check_GeneralSettings_Var3_AvailableFrom(){
-        //Переходим на главную страницу и проверяем блок "Товар дня"
         CsCartSettings csCartSettings = new CsCartSettings();
-        csCartSettings.button_Storefront.click();
+        PromotionSettings promotionSettings = csCartSettings.navigateToPromotionSettings();
+        //Переходим на страницу промо-акции
+        promotionSettings.chooseRussianLanguage();
+        promotionSettings.promotion_BuyCamera.click();
+        csCartSettings.gearWheelOnTop.click();
+        promotionSettings.button_PreviewPromotion.click();
         shiftBrowserTab(1);
         $(".cm-btn-success").click();
         StPromotions stPromotions = new StPromotions();
-        stPromotions.block_DealOfTheDay.hover();
         SoftAssert softAssert = new SoftAssert();
+        //Проверяем, что шапка промо-акции присутствует на странице конкретной промо-акции
+        softAssert.assertTrue(stPromotions.promotionHeaderOnPromoPage.exists(),
+                "There is no promotion header on the promotion page!");
+        //Проверяем, что отсутствует счётчик на странице конкретной промо-акции
+        softAssert.assertFalse(stPromotions.countdown.exists(),
+                "There is a countdown on the promotion page but shouldn't!");
+        //Проверяем, что в промо-акции присутствуют товары
+        softAssert.assertTrue(!stPromotions.promotionProducts.isEmpty(),
+                "There are no products on the promotion page!");
+        makePause();
+        screenshot("250 GeneralSettings_Var3_AvailableFrom - Promotion page");
+        selectLanguage_RTL();
+        screenshot("252 GeneralSettings_Var3_AvailableFrom - Promotion page (RTL)");
+        //Переходим на страницу товара
+        $(".ut2-gl__body").click();
+        //Проверяем, что шапка промо-акции присутствует на странице товара
+        softAssert.assertTrue(stPromotions.promotionHeader.exists(),
+                "There is no promotion header on the product page!");
+        //Проверяем, что отсутствует счётчик на странице товара
+        softAssert.assertFalse($(".wrapped").exists(),
+                "There is a countdown on the product page but shouldn't!");
+        screenshot("255 GeneralSettings_Var3_AvailableFrom - Product page (RTL)");
+        selectLanguage_RU();
+        makePause();
+        screenshot("257 GeneralSettings_Var3_AvailableFrom - Product page");
+
+        //Переходим на главную страницу и проверяем блок
+        $(".ty-breadcrumbs__a").click();
+        stPromotions.block_DealOfTheDay.hover();
         //Проверяем, что в блоке присутствует заголовок
         softAssert.assertTrue(stPromotions.blockTitle.exists(),
                 "There is no title of the promotion in the block!");
@@ -85,40 +115,14 @@ public class GeneralSettings_Var3_AvailableFrom extends TestRunner {
         softAssert.assertFalse(stPromotions.countdown.exists(),
                 "There is a countdown in the block but shouldn't!");
         makePause();
-        screenshot("250 GeneralSettings_Var3_AvailableFrom - Block 'DealOfTheDay'");
+        screenshot("260 GeneralSettings_Var3_AvailableFrom - Block 'DealOfTheDay'");
         selectLanguage_RTL();
         stPromotions.block_DealOfTheDay.hover();
-        screenshot("252 GeneralSettings_Var3_AvailableFrom - Block 'DealOfTheDay' (RTL)");
+        screenshot("262 GeneralSettings_Var3_AvailableFrom - Block 'DealOfTheDay' (RTL)");
 
-        //Переходим на страницу товара
-        $(".pd-content-block .ut2-gl__body").click();
-        //Проверяем, что шапка промо-акции присутствует на странице товара
-        softAssert.assertTrue(stPromotions.promotionHeader.exists(),
-                "There is no promotion header on the product page!");
-        //Проверяем, что отсутствует счётчик на странице товара
-        softAssert.assertFalse($(".wrapped").exists(),
-                "There is a countdown on the product page but shouldn't!");
-        screenshot("255 GeneralSettings_Var3_AvailableFrom - Product page (RTL)");
-        selectLanguage_RU();
-        makePause();
-        screenshot("257 GeneralSettings_Var3_AvailableFrom - Product page");
 
-        //Переходим на страницу промо-акции
-        $(".pd-promotion__title").click();
-        shiftBrowserTab(2);
-        //Проверяем, что шапка промо-акции присутствует на странице конкретной промо-акции
-        softAssert.assertTrue(stPromotions.promotionHeaderOnPromoPage.exists(),
-                "There is no promotion header on the promotion page!");
-        //Проверяем, что отсутствует счётчик на странице конкретной промо-акции
-        softAssert.assertFalse(stPromotions.countdown.exists(),
-                "There is a countdown on the promotion page but shouldn't!");
-        //Проверяем, что в промо-акции присутствуют товары
-        softAssert.assertTrue(!stPromotions.promotionProducts.isEmpty(),
-                "There are no products on the promotion page!");
-        makePause();
-        screenshot("260 GeneralSettings_Var3_AvailableFrom - Promotion page");
-        selectLanguage_RTL();
-        screenshot("262 GeneralSettings_Var3_AvailableFrom - Promotion page (RTL)");
+
+
         softAssert.assertAll();
     }
 }

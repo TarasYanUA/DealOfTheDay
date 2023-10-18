@@ -106,8 +106,9 @@ public class PromotionPage_Var3_GroupByCategory extends TestRunner {
         //Проверяем, что присутствует кнопка "Больше товаров из категории" -- настройка "Группировать по категории"
         softAssert.assertTrue(!stPromotions.button_MoreProductsFromCategory.isEmpty(),
                 "There is no any button 'More products from category' on the promotion page!");
+        $(".ab-dotd-more-icon").scrollIntoView("{behavior: \"instant\", block: \"center\", inline: \"center\"}");
         screenshot("450 PromotionPage_Var3_GroupByCategory - Promotion page, Grid");
-        $(".ab-dotd-categories-filter a[href$='cid=166']").click();
+        $(".ab-dotd-categories-filter a[href$='cid=166']").hover().click();
         stPromotions.categoryTemplate_WithoutOptions.click();
         makePause();
         screenshot("455 PromotionPage_Var3_GroupByCategory - Promotion page, Without options");
