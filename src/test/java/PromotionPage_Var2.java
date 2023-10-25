@@ -55,17 +55,6 @@ public class PromotionPage_Var2 extends TestRunner {
             promotionSettings.check_DisplayCountdownOnPromotionPage.click(); }
         csCartSettings.button_Save.click();
     }
-    public void clearBothFieldsAvailable(){
-        PromotionSettings promotionSettings = new PromotionSettings();
-        if(!promotionSettings.setting_UseAvailablePeriod.isSelected()) {
-            promotionSettings.setting_UseAvailablePeriod.click();   }
-        promotionSettings.setting_AvailableFrom.click();
-        promotionSettings.setting_AvailableFrom.clear();
-        promotionSettings.setting_AvailableTill.click();
-        promotionSettings.setting_AvailableTill.clear();
-        CsCartSettings csCartSettings = new CsCartSettings();
-        csCartSettings.button_Save.click();
-    }
 
     @Test(priority = 2, dependsOnMethods = "setConfiguration_PromotionPage_Var2")
     public void check_PromotionPage_Var2() {

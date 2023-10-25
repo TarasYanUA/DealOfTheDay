@@ -1,11 +1,6 @@
 package adminPanel;
 
 import com.codeborne.selenide.SelenideElement;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.FindBy;
-
 import static com.codeborne.selenide.Selenide.*;
 
 public class CsCartSettings {
@@ -67,7 +62,7 @@ public class CsCartSettings {
         sectionLayouts.click();
         return new MultiBlock();
     }
-    public SelenideElement layout_LightV2 = $x("//a[contains(text(), 'UniTheme 2 (Light v2)')]");
+    public SelenideElement layout_LightV2 = $x("//a[contains(text(), '(Light v2)')]");
 
     private SelenideElement gearwheelOfActiveLayout = $(".with-menu.active .dropdown-toggle");
     private SelenideElement button_makeByDefault = $(".with-menu.active a[href*='block_manager.set_default_layout']");

@@ -1,3 +1,5 @@
+import adminPanel.CsCartSettings;
+import adminPanel.PromotionSettings;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import org.testng.annotations.AfterClass;
@@ -6,7 +8,7 @@ import org.testng.annotations.BeforeClass;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
-/* Проверка модуля "АВ: Расширенные промо-акции" v3.10.3 в теме UniTheme2. */
+/* Проверка модуля "АВ: Расширенные промо-акции" v3.10.3 + тема UniTheme2 (Ult & MV). */
 
 public class TestRunner {
     public static final String BASIC_URL = "https://trs.test.abt.team/4171ultru/admin.php?dispatch=addons.manage";
@@ -45,5 +47,17 @@ public class TestRunner {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    public void clearBothFieldsAvailable(){
+        PromotionSettings promotionSettings = new PromotionSettings();
+        if(!promotionSettings.setting_UseAvailablePeriod.isSelected()) {
+            promotionSettings.setting_UseAvailablePeriod.click();   }
+        promotionSettings.setting_AvailableFrom.click();
+        promotionSettings.setting_AvailableFrom.clear();
+        promotionSettings.setting_AvailableTill.click();
+        promotionSettings.setting_AvailableTill.clear();
+        CsCartSettings csCartSettings = new CsCartSettings();
+        csCartSettings.button_Save.click();
     }
 }

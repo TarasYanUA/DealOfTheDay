@@ -4,7 +4,6 @@ import adminPanel.MultiBlock;
 import adminPanel.PromotionSettings;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.WebDriverRunner;
-import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -17,11 +16,9 @@ import static com.codeborne.selenide.Selenide.*;
 * Тип счётчика --       FlipClock
 
 Настройки промо-акции "Фен Valera":
-* Задать период доступности --  выкл
+* Задать период доступности --  да, для поля "Доступна до"
 
 Настройки блока:
-* Показывать цену --                да
-* Включить быстрый просмотр --      да
 * Количество элементов --           6
 * Спрятать кнопку добавления товара в корзину --    нет
 * Отображать счётчик промо-акции -- да
@@ -33,7 +30,7 @@ public class MultiBlockTest_Var1 extends TestRunner {
         CsCartSettings csCartSettings = new CsCartSettings();
         //Задаём настройки CS-Cart
         csCartSettings.navigateToAppearanceSettings();
-        if(!csCartSettings.settingQuickView.isSelected()){
+        if(csCartSettings.settingQuickView.isSelected()){
             csCartSettings.settingQuickView.click();
             csCartSettings.button_Save.click();
         }
@@ -52,8 +49,9 @@ public class MultiBlockTest_Var1 extends TestRunner {
         String [] split = currentUrl.split("id=");
         String promotionID = split[1];
         promotionSettings.clickAndType_field_DetailedDescription();
-        if(promotionSettings.setting_UseAvailablePeriod.isSelected()) {
-            promotionSettings.setting_UseAvailablePeriod.click();   }
+        clearBothFieldsAvailable();
+        promotionSettings.setting_UseAvailablePeriod.click();
+        promotionSettings.setDateOfTodayForSetting_AvailableTill();
         promotionSettings.tab_Conditions.scrollIntoView(false).click();
         promotionSettings.button_AddProductsToCondition.click();
         $(".ui-dialog-title").shouldBe(Condition.visible);
@@ -64,7 +62,7 @@ public class MultiBlockTest_Var1 extends TestRunner {
         promotionSettings.button_AddAndClose.click();
         csCartSettings.button_Save.click();
 
-        //Создаём блок "Мульти товар дня" и задаём настройки блока
+        //Работаем с блоком "Мульти товар дня"
         MultiBlock multiBlock = csCartSettings.navigateToSectionLayouts();
         csCartSettings.layout_LightV2.click();
         csCartSettings.setLayoutAsDefault();
@@ -90,12 +88,6 @@ public class MultiBlockTest_Var1 extends TestRunner {
         multiBlock.blockProperties.click();
         csCartSettings.popupWindow.shouldBe(Condition.enabled);
         multiBlock.tab_BlockSettings.click();
-        if (!multiBlock.setting_ShowPrice.isSelected()) {
-            multiBlock.setting_ShowPrice.click();
-        }
-        if (!multiBlock.setting_EnableQuickView.isSelected()) {
-            multiBlock.setting_EnableQuickView.click();
-        }
         if (!multiBlock.setting_DoNotScrollAutomatically.isSelected()) {
             multiBlock.setting_DoNotScrollAutomatically.click();
         }
@@ -113,18 +105,12 @@ public class MultiBlockTest_Var1 extends TestRunner {
     @Test(priority = 2, dependsOnMethods = "setConfigurations_MultiBlockTest_Var1")
     public void check_Block(){
         CsCartSettings csCartSettings = new CsCartSettings();
-        csCartSettings.navigateToSectionLayouts();
-        csCartSettings.layout_LightV2.click();
-        csCartSettings.layout_TabHomePage.click();
-        String text = $x("//div[@title=\"MultiBlock - AutoTest\"]//small[@data-ca-block-manager=\"block_id\"]").getText();
-        String[] split = text.split("#");
-        String blockID = "ab__deal_of_the_day_" + split[1];
         csCartSettings.button_Storefront.click();
         shiftBrowserTab(1);
         $(".cm-btn-success").click();
-        $(By.id(blockID)).scrollIntoView("{behavior: \"instant\", block: \"center\", inline: \"center\"}").hover();
 
         StPromotions stPromotions = new StPromotions();
+        stPromotions.block_DealOfTheDay.scrollIntoView("{behavior: \"instant\", block: \"center\", inline: \"center\"}").hover();
         SoftAssert softAssert = new SoftAssert();
         //Проверяем, что в блоке присутствует заголовок
         softAssert.assertTrue(stPromotions.blockTitle.exists(),
@@ -139,10 +125,10 @@ public class MultiBlockTest_Var1 extends TestRunner {
         softAssert.assertTrue(stPromotions.blockButton_AllPromotions.exists(),
                 "There is no button 'All promotions' in the multi block!");
         //Проверяем, что в блоке присутствует цена
-        softAssert.assertTrue($$(".ab__deal_of_the_day .ty-list-price.ty-nowrap").size() > 1,
+        softAssert.assertTrue($$(".ab__deal_of_the_day .ty-list-price.ty-nowrap").isEmpty(),
                 "There is no price at products in the multi block!");
-        //Проверяем, что в блоке присутствует кнопка быстрого просмотра
-        softAssert.assertTrue($$(".ab__deal_of_the_day a[data-ca-target-id=\"product_quick_view\"]").size() > 1,
+        //Проверяем, что в блоке отсутствует кнопка быстрого просмотра
+        softAssert.assertFalse($$(".ab__deal_of_the_day a[data-ca-target-id=\"product_quick_view\"]").isEmpty(),
                 "There is no quick view button at the products in the multi block!");
         //Проверяем, что в блоке присутствует кнопка "Купить"
         softAssert.assertTrue($$(".ab__deal_of_the_day .ut2-icon-use_icon_cart").size() > 1,
@@ -156,7 +142,7 @@ public class MultiBlockTest_Var1 extends TestRunner {
         makePause();
         screenshot("800 MultiBlockTest_Var1 - Multi block");
         selectLanguage_RTL();
-        $(By.id(blockID)).scrollIntoView("{behavior: \"instant\", block: \"center\", inline: \"center\"}").hover();
+        stPromotions.block_DealOfTheDay.scrollIntoView("{behavior: \"instant\", block: \"center\", inline: \"center\"}").hover();
         screenshot("805 MultiBlockTest_Var1 - Multi block (RTL)");
         softAssert.assertAll();
     }

@@ -99,7 +99,7 @@ public class CategoryPage_Var2 extends TestRunner {
         //Проверяем, что у одного товара присутствует сразу две промо-акции
         softAssert.assertTrue($$("form[name=\"product_form_219\"] .ab-dotd-category-promo").size() ==2,
                 "There are no two promotions in one product on the category page, Grid template!");
-        $("#det_img_219desktop").hover();
+        $("#det_img_219desktop").scrollIntoView("{behavior: \"instant\", block: \"center\", inline: \"center\"}");
         screenshot("700 CategoryPage_Var2 - Template Grid");
         stPromotions.button_QuickView.hover().click();
         $(".ui-dialog-titlebar").shouldBe(Condition.visible);
@@ -111,7 +111,7 @@ public class CategoryPage_Var2 extends TestRunner {
         screenshot("705 CategoryPage_Var2 - Quick view");
         stPromotions.button_ClosePopupWindow.click();
         selectLanguage_RTL();
-        $("#det_img_219desktop").hover();
+        $("#det_img_219desktop").scrollIntoView("{behavior: \"instant\", block: \"center\", inline: \"center\"}");
         screenshot("710 CategoryPage_Var2 - Template Grid (RTL)");
         stPromotions.button_QuickView.hover().click();
         makePause();

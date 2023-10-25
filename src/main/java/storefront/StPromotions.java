@@ -11,7 +11,7 @@ public class StPromotions {
     }
 
     public SelenideElement block_DealOfTheDay = $(".ab__deal_of_the_day");
-    public SelenideElement blockButton_More = $(".pd-promotion__buttons .ty-btn__secondary");
+    public SelenideElement blockButton_More = $(".pd-promotion__buttons a[title='Подробнее']");
     public SelenideElement blockButton_AllPromotions = $(".pd-promotion__buttons .ty-btn__text");
 
     public SelenideElement promotion_BuyCamera = $x("//a[contains(text(), 'Купите фотоаппарат')]");
