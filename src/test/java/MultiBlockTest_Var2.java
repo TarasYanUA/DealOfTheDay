@@ -115,15 +115,15 @@ public class MultiBlockTest_Var2 extends TestRunner {
         //Проверяем, что в блоке присутствует кнопка "Все промо-акции"
         softAssert.assertTrue(stPromotions.blockButton_AllPromotions.exists(),
                 "There is no button 'All promotions' in the multi block!");
+        //Проверяем, что в блоке присутствует счётчик Javascript
+        softAssert.assertTrue(stPromotions.javaClock.exists(),
+                "The countdown is not Javascript in the multi block!");
         //Проверяем, что в блоке присутствует кнопка быстрого просмотра
         softAssert.assertTrue(!$$(".ab__deal_of_the_day a[data-ca-target-id=\"product_quick_view\"]").isEmpty(),
                 "There is a quick view button at the products in the multi block but shouldn't!");
         //Проверяем, что в блоке отсутствует кнопка "Купить"
         softAssert.assertTrue($$(".ab__deal_of_the_day .ut2-icon-use_icon_cart").isEmpty(),
                 "There is a button 'Add to cart' at the products in the multi block but shouldn't!");
-        //Проверяем, что в блоке присутствует счётчик Javascript
-        softAssert.assertTrue(stPromotions.javaClock.exists(),
-                "The countdown is not Javascript in the multi block!");
         makePause();
         screenshot("900 MultiBlockTest_Var2 - Multi block");
         selectLanguage_RTL();

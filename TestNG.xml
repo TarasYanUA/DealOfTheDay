@@ -4,8 +4,10 @@
             <!-- Тест-кейсы модуля -->
            <class name="GeneralSettings_Var1" />
            <class name="GeneralSettings_Var2" />
+           <class name="GeneralSettings_Var3_AvailableFrom" />
            <class name="PromotionPage_Var1" />
            <class name="PromotionPage_Var2" />
+           <class name="PromotionPage_Var3_GroupByCategory" />
            <class name="ProductPage" />
            <class name="CategoryPage_Var1" />
            <class name="CategoryPage_Var2" />

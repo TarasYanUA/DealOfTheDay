@@ -124,18 +124,18 @@ public class MultiBlockTest_Var1 extends TestRunner {
         //Проверяем, что в блоке присутствует кнопка "Все промо-акции"
         softAssert.assertTrue(stPromotions.blockButton_AllPromotions.exists(),
                 "There is no button 'All promotions' in the multi block!");
+        //Проверяем, что в блоке присутствует счётчик Flipclock
+        softAssert.assertTrue(stPromotions.flipClock.exists(),
+                "The countdown is not FlipClock in the multi block!");
         //Проверяем, что в блоке присутствует цена
         softAssert.assertTrue($$(".ab__deal_of_the_day .ty-list-price.ty-nowrap").isEmpty(),
                 "There is no price at products in the multi block!");
         //Проверяем, что в блоке отсутствует кнопка быстрого просмотра
-        softAssert.assertFalse($$(".ab__deal_of_the_day a[data-ca-target-id=\"product_quick_view\"]").isEmpty(),
-                "There is no quick view button at the products in the multi block!");
+        softAssert.assertTrue($$(".ab__deal_of_the_day a[data-ca-target-id=\"product_quick_view\"]").isEmpty(),
+                "There is a quick view button at the products in the multi block but shouldn't!");
         //Проверяем, что в блоке присутствует кнопка "Купить"
-        softAssert.assertTrue($$(".ab__deal_of_the_day .ut2-icon-use_icon_cart").size() > 1,
+        softAssert.assertTrue(!$$(".ab__deal_of_the_day .ut2-icon-use_icon_cart").isEmpty(),
                 "There is no button 'Add to cart' at the products in the multi block!");
-        //Проверяем, что в блоке присутствует счётчик Flipclock
-        softAssert.assertTrue(stPromotions.flipClock.exists(),
-                "The countdown is not FlipClock in the multi block!");
         //Проверяем, что у блока 6 товаров
         softAssert.assertTrue(stPromotions.blockProducts.size() == 6,
                 "There are not 6 products in the multi block!");
