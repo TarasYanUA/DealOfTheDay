@@ -127,8 +127,9 @@ public class MultiBlockTest_Var1 extends TestRunner {
         //Проверяем, что в блоке присутствует счётчик Flipclock
         softAssert.assertTrue(stPromotions.flipClock.exists(),
                 "The countdown is not FlipClock in the multi block!");
+
         //Проверяем, что в блоке присутствует цена
-        softAssert.assertTrue($$(".ab__deal_of_the_day .ty-list-price.ty-nowrap").isEmpty(),
+        softAssert.assertTrue(!$$(".ab__deal_of_the_day .ty-list-price.ty-nowrap").isEmpty(),
                 "There is no price at products in the multi block!");
         //Проверяем, что в блоке отсутствует кнопка быстрого просмотра
         softAssert.assertTrue($$(".ab__deal_of_the_day a[data-ca-target-id=\"product_quick_view\"]").isEmpty(),

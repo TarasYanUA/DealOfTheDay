@@ -40,7 +40,7 @@ public class PromotionSettings {
     }
     public void setDateOfTodayForSetting_AvailableTill(){
         String date = LocalDate.now().format(DateTimeFormatter.ofPattern("MM-dd-yyy"));
-        setting_AvailableTill.click();
+        setting_AvailableTill.hover().click();
         setting_AvailableTill.clear();
         setting_AvailableTill.sendKeys(date);
         setting_AvailableTill.pressEnter();

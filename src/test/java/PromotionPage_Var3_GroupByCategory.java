@@ -33,7 +33,7 @@ public class PromotionPage_Var3_GroupByCategory extends TestRunner {
         promotionSettings.setDateOfTodayForSetting_AvailableTill();
 
         //Вкладка "Условия" у промо-акции
-        promotionSettings.tab_Conditions.click();
+        promotionSettings.tab_Conditions.scrollIntoView(false).click();
         if($$x("//label[contains(text(), 'Категории')]").isEmpty() && $$(".cm-delete-row").size() >= 2){
             $(".cm-delete-row").hover().click();
             csCartSettings.button_Save.click();
@@ -83,9 +83,9 @@ public class PromotionPage_Var3_GroupByCategory extends TestRunner {
 
         StPromotions stPromotions = new StPromotions();
         SoftAssert softAssert = new SoftAssert();
-        //Проверяем, что присутствует фильтр товаров на странице промо-акции
-        softAssert.assertTrue(stPromotions.filterByProducts.exists(),
-                "There is no product filters on the promotion page!");  //Ошибка https://abteam.planfix.com/task/42437
+        //Проверяем, что отсутствует фильтр товаров, когда выбрано категорию "Все категории"
+        softAssert.assertFalse(stPromotions.filterByProducts.exists(),
+                "There is the product filters on the category 'All categories', but shouldn't!");
         //Проверяем, что присутствует блок товаров на странице промо-акции
         softAssert.assertTrue(stPromotions.productBlock.exists(),
                 "There is no product block on the promotion page!");
@@ -98,20 +98,27 @@ public class PromotionPage_Var3_GroupByCategory extends TestRunner {
         $(".ab-dotd-more-icon").scrollIntoView("{behavior: \"instant\", block: \"center\", inline: \"center\"}");
         screenshot("450 PromotionPage_Var3_GroupByCategory - Promotion page, Grid");
         $(".ab-dotd-categories-filter a[href$='cid=166']").hover().click();
-        stPromotions.categoryTemplate_WithoutOptions.click();
+        //Проверяем, что отсутствует фильтр товаров, когда выбрано категорию "Все категории"
+        softAssert.assertTrue(stPromotions.filterByProducts.exists(),
+                "There is no product filters on the category 'Electronics'!");
+        stPromotions.categoryTemplate_WithoutOptions.hover().click();
+        $(".ty-product-list").scrollIntoView(true);
         makePause();
         screenshot("455 PromotionPage_Var3_GroupByCategory - Promotion page, Without options");
-        stPromotions.categoryTemplate_CompactList.click();
+        stPromotions.categoryTemplate_CompactList.hover().click();
+        $(".ty-compact-list__item").scrollIntoView(true);
         makePause();
         screenshot("460 PromotionPage_Var3_GroupByCategory - Promotion page, Compact list");
 
         selectLanguage_RTL();
+        $(".ty-compact-list__item").scrollIntoView(true);
         makePause();
         screenshot("465 PromotionPage_Var3_GroupByCategory - Promotion page, Compact list (RTL)");
-        stPromotions.categoryTemplate_WithoutOptions.click();
+        stPromotions.categoryTemplate_WithoutOptions.hover().click();
+        $(".ty-product-list").scrollIntoView(true);
         makePause();
         screenshot("470 PromotionPage_Var3_GroupByCategory - Promotion page, Without options (RTL)");
-        stPromotions.categoryTemplate_Grid.click();
+        stPromotions.categoryTemplate_Grid.hover().click();
         makePause();
         screenshot("475 PromotionPage_Var3_GroupByCategory - Promotion page, Grid (RTL)");
         softAssert.assertAll();
