@@ -11,7 +11,7 @@ import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 /* Проверка модуля "АВ: Расширенные промо-акции" v3.10.3 + тема UniTheme2 (Ult & MV). */
 
 public class TestRunner {
-    public static final String BASIC_URL = "https://trs.test.abt.team/4171ultru_deal_of_the_day/admin.php?dispatch=addons.manage";
+    public static final String BASIC_URL = "https://trs.test.abt.team/4171ulten_deal_of_the_day/admin.php?dispatch=abt__ut2.demodata";
 
     @BeforeClass
     public void openBrowser() {

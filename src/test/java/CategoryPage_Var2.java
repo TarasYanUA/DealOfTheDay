@@ -63,15 +63,13 @@ public class CategoryPage_Var2 extends TestRunner {
         promotionSettings.button_AddProductsToCondition.click();
         $(".ui-dialog-title").shouldBe(Condition.visible);
         promotionSettings.field_SearchProduct.click();
-        promotionSettings.field_SearchProduct.sendKeys("Samsung серии 3 15.6\" 300V5A");
+        promotionSettings.field_SearchProduct.sendKeys("M0219A3GX3");
         promotionSettings.field_SearchProduct.sendKeys(Keys.ENTER);
         promotionSettings.checkProductToCondition.click();
         promotionSettings.button_AddAndClose.click();
 
         //Вкладка "АВ: Расширенные промо-акции" у промо-акции
         promotionSettings.tab_ABExtPromotions.click();
-        if(promotionSettings.check_DisplayLabelInProductLists.isSelected()){
-            promotionSettings.check_DisplayLabelInProductLists.click(); }
         if(promotionSettings.check_DisplayLabelInProductLists.isSelected()){
             promotionSettings.check_DisplayLabelInProductLists.click(); }
         if(!promotionSettings.check_DisplayPromotionInProductLists.isSelected()){
