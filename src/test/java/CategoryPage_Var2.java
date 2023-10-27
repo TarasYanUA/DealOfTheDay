@@ -72,6 +72,8 @@ public class CategoryPage_Var2 extends TestRunner {
         promotionSettings.tab_ABExtPromotions.click();
         if(promotionSettings.check_DisplayLabelInProductLists.isSelected()){
             promotionSettings.check_DisplayLabelInProductLists.click(); }
+        if(promotionSettings.check_DisplayLabelInProductLists.isSelected()){
+            promotionSettings.check_DisplayLabelInProductLists.click(); }
         if(!promotionSettings.check_DisplayPromotionInProductLists.isSelected()){
             promotionSettings.check_DisplayPromotionInProductLists.click(); }
         csCartSettings.button_Save.click();
