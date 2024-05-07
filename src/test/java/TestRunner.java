@@ -9,7 +9,7 @@ import org.testng.annotations.BeforeClass;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
-/* Проверка модуля "АВ: Расширенные промо-акции" v3.10.3 + тема UniTheme2 (Ult & MV). */
+/* Проверка модуля "АВ: Расширенные промо-акции" v3.10.5 + тема UniTheme2 (Ult & MV). */
 
 public class TestRunner {
     public static final String BASIC_URL = "https://trs.test.abt.team/4181ultru/admin.php?dispatch=addons.manage";
@@ -17,10 +17,10 @@ public class TestRunner {
     @BeforeClass
     public void openBrowser() {
         Configuration.browser = "chrome";
+        open(BASIC_URL);
         Configuration.holdBrowserOpen = false; //не закрываем браузер пока ведём разработку
         Configuration.screenshots = true; //делаем скриншоты при падении
         WebDriverRunner.getWebDriver().manage().window().maximize(); //окно браузера на весь экран
-        open(BASIC_URL);
 
 /*        $(".signin-modal__form-field.cm-focus").click();
         $(".signin-modal__form-field.cm-focus").sendKeys("vtv.www@gmail.com");
