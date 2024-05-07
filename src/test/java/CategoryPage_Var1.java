@@ -26,20 +26,20 @@ public class CategoryPage_Var1 extends TestRunner {
     public void set_CategoryPage_Var1(){
         CsCartSettings csCartSettings = new CsCartSettings();
         //Задаём настройки CS-Cart
-        csCartSettings.navigateToAppearanceSettings();
-        if(!csCartSettings.settingQuickView.isSelected()){
-            csCartSettings.settingQuickView.click();
+        csCartSettings.navigateTo_AppearanceSettings();
+        if(!csCartSettings.setting_QuickView.isSelected()){
+            csCartSettings.setting_QuickView.click();
             csCartSettings.button_Save.click();
         }
 
         //Задаём настройки модуля
-        AddonSettings addonSettings = csCartSettings.navigateToAddonSettings();
+        AddonSettings addonSettings = csCartSettings.navigateTo_AddonSettings();
         addonSettings.setting_HighlightingThePromotion.selectOptionByValue("1");
         addonSettings.setting_AmountOfDisplayedPromotionsInProductLists.selectOptionByValue("1");
         addonSettings.button_SaveSettings.click();
 
         //Задаём настройки промо-акции
-        PromotionSettings promotionSettings = csCartSettings.navigateToPromotionSettings();
+        PromotionSettings promotionSettings = csCartSettings.navigateTo_PromotionSettings();
         promotionSettings.chooseRussianLanguage();
         promotionSettings.promotion_RacingCard.click();
         if(promotionSettings.setting_UseAvailablePeriod.isSelected()){  //убираем период доступности, чтобы промо-акция всегда отображалась
@@ -59,7 +59,7 @@ public class CategoryPage_Var1 extends TestRunner {
     public void check_CategoryPage(){
         //Переходим на страницу категории
         CsCartSettings csCartSettings = new CsCartSettings();
-        csCartSettings.navigateToCategoryPage();
+        csCartSettings.navigateTo_CategoryPage();
         csCartSettings.category_Notebooks.click();
         csCartSettings.gearWheelOnTop.click();
         csCartSettings.button_Preview.click();

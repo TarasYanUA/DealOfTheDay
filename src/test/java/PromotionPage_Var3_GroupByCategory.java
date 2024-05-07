@@ -24,7 +24,7 @@ public class PromotionPage_Var3_GroupByCategory extends TestRunner {
     public void setConfiguration_PromotionPage_Var3_GroupByCategory(){
         CsCartSettings csCartSettings = new CsCartSettings();
         //Задаём Условия промо-акции
-        PromotionSettings promotionSettings = csCartSettings.navigateToPromotionSettings();
+        PromotionSettings promotionSettings = csCartSettings.navigateTo_PromotionSettings();
         promotionSettings.chooseRussianLanguage();
         promotionSettings.promotion_BuyCamera.click();
         //Устанавливаем сегодняшнюю дату для поля "Доступна до"
@@ -73,7 +73,7 @@ public class PromotionPage_Var3_GroupByCategory extends TestRunner {
     @Test(priority = 2, dependsOnMethods = "setConfiguration_PromotionPage_Var3_GroupByCategory")
     public void check_PromotionPage_Var3_GroupByCategory() {
         CsCartSettings csCartSettings = new CsCartSettings();
-        PromotionSettings promotionSettings = csCartSettings.navigateToPromotionSettings();
+        PromotionSettings promotionSettings = csCartSettings.navigateTo_PromotionSettings();
         promotionSettings.chooseRussianLanguage();
         promotionSettings.promotion_BuyCamera.click();
         csCartSettings.gearWheelOnTop.click();

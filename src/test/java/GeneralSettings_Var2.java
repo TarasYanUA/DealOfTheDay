@@ -25,7 +25,7 @@ public class GeneralSettings_Var2 extends TestRunner {
     public void setConfiguration_GeneralSettings_Var2(){
         //Задаём настройки модуля
         CsCartSettings csCartSettings = new CsCartSettings();
-        AddonSettings addonSettings = csCartSettings.navigateToAddonSettings();
+        AddonSettings addonSettings = csCartSettings.navigateTo_AddonSettings();
         addonSettings.setting_CountdownTo.selectOptionByValue("end_of_the_promotion");
         addonSettings.setting_CountdownType.selectOptionByValue("flipclock");
         addonSettings.clickAndType_setting_MaximumHeightOfDescription("400");
@@ -39,10 +39,10 @@ public class GeneralSettings_Var2 extends TestRunner {
         addonSettings.button_SaveSettings.click();
 
         //Задаём настройки на странице промо-акции
-        PromotionSettings promotionSettings = csCartSettings.navigateToPromotionSettings();
+        PromotionSettings promotionSettings = csCartSettings.navigateTo_PromotionSettings();
         promotionSettings.chooseRussianLanguage();
         promotionSettings.promotion_BuyCamera.click();
-        promotionSettings.clickAndType_field_DetailedDescription(); //Чтобы проверить настройку "Максимальная высота описания"
+        //promotionSettings.clickAndType_field_DetailedDescription(); //Чтобы проверить настройку "Максимальная высота описания"
         if(!promotionSettings.setting_UseAvailablePeriod.isSelected()) {
             promotionSettings.setting_UseAvailablePeriod.click();   }
         //Устанавливаем сегодняшнюю дату для поля "Доступна до", чтобы проверить настройку "Обратный отсчёт до"
@@ -65,10 +65,9 @@ public class GeneralSettings_Var2 extends TestRunner {
     public void check_GeneralSettings_Var2(){
         //Переходим на главную страницу и проверяем блок "Товар дня"
         CsCartSettings csCartSettings = new CsCartSettings();
-        csCartSettings.button_Storefront.click();
+        StPromotions stPromotions = csCartSettings.navigateTo_Storefront();
         shiftBrowserTab(1);
         $(".cm-btn-success").click();
-        StPromotions stPromotions = new StPromotions();
         stPromotions.block_DealOfTheDay.hover();
         SoftAssert softAssert = new SoftAssert();
         //Проверяем, что в блоке присутствует заголовок

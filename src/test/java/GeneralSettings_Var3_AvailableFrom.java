@@ -24,7 +24,7 @@ public class GeneralSettings_Var3_AvailableFrom extends TestRunner {
     public void setConfiguration_GeneralSettings_Var3_AvailableFrom(){
         //Задаём настройки модуля
         CsCartSettings csCartSettings = new CsCartSettings();
-        AddonSettings addonSettings = csCartSettings.navigateToAddonSettings();
+        AddonSettings addonSettings = csCartSettings.navigateTo_AddonSettings();
         addonSettings.setting_CountdownTo.selectOptionByValue("end_of_the_promotion");
         if(!addonSettings.setting_ShowExpiredPromotions.isSelected()){
             addonSettings.setting_ShowExpiredPromotions.click(); }
@@ -33,7 +33,7 @@ public class GeneralSettings_Var3_AvailableFrom extends TestRunner {
         addonSettings.button_SaveSettings.click();
 
         //Задаём настройки на странице промо-акции
-        PromotionSettings promotionSettings = csCartSettings.navigateToPromotionSettings();
+        PromotionSettings promotionSettings = csCartSettings.navigateTo_PromotionSettings();
         promotionSettings.chooseRussianLanguage();
         promotionSettings.promotion_BuyCamera.click();
         if(!promotionSettings.setting_UseAvailablePeriod.isSelected()) {
@@ -57,7 +57,7 @@ public class GeneralSettings_Var3_AvailableFrom extends TestRunner {
     @Test(priority = 2, dependsOnMethods = "setConfiguration_GeneralSettings_Var3_AvailableFrom")
     public void check_GeneralSettings_Var3_AvailableFrom(){
         CsCartSettings csCartSettings = new CsCartSettings();
-        PromotionSettings promotionSettings = csCartSettings.navigateToPromotionSettings();
+        PromotionSettings promotionSettings = csCartSettings.navigateTo_PromotionSettings();
         //Переходим на страницу промо-акции
         promotionSettings.chooseRussianLanguage();
         promotionSettings.promotion_BuyCamera.click();

@@ -28,13 +28,13 @@ public class PromotionPage_Var2 extends TestRunner {
     public void setConfiguration_PromotionPage_Var2(){
         CsCartSettings csCartSettings = new CsCartSettings();
         //Задаём настройки модуля
-        AddonSettings addonSettings = csCartSettings.navigateToAddonSettings();
+        AddonSettings addonSettings = csCartSettings.navigateTo_AddonSettings();
         addonSettings.setting_AmountOfDisplayedPromotionsInProductLists.selectOptionByValue("2");
         addonSettings.setting_HighlightingThePromotion.selectOptionByValue("1");
         addonSettings.button_SaveSettings.click();
 
         //Задаём настройки промо-акции
-        PromotionSettings promotionSettings = csCartSettings.navigateToPromotionSettings();
+        PromotionSettings promotionSettings = csCartSettings.navigateTo_PromotionSettings();
         promotionSettings.chooseRussianLanguage();
         promotionSettings.promotion_RacingCard.click();
         if(promotionSettings.setting_StopOtherRules.isSelected()){
@@ -59,7 +59,7 @@ public class PromotionPage_Var2 extends TestRunner {
     @Test(priority = 2, dependsOnMethods = "setConfiguration_PromotionPage_Var2")
     public void check_PromotionPage_Var2() {
         CsCartSettings csCartSettings = new CsCartSettings();
-        PromotionSettings promotionSettings = csCartSettings.navigateToPromotionSettings();
+        PromotionSettings promotionSettings = csCartSettings.navigateTo_PromotionSettings();
         promotionSettings.chooseRussianLanguage();
         promotionSettings.promotion_RacingCard.click();
         csCartSettings.gearWheelOnTop.click();

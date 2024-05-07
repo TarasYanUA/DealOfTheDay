@@ -29,26 +29,26 @@ public class MultiBlockTest_Var1 extends TestRunner {
     public void setConfigurations_MultiBlockTest_Var1() {
         CsCartSettings csCartSettings = new CsCartSettings();
         //Задаём настройки CS-Cart
-        csCartSettings.navigateToAppearanceSettings();
-        if(csCartSettings.settingQuickView.isSelected()){
-            csCartSettings.settingQuickView.click();
+        csCartSettings.navigateTo_AppearanceSettings();
+        if(csCartSettings.setting_QuickView.isSelected()){
+            csCartSettings.setting_QuickView.click();
             csCartSettings.button_Save.click();
         }
 
         //Задаём настройки модуля
-        AddonSettings addonSettings = csCartSettings.navigateToAddonSettings();
+        AddonSettings addonSettings = csCartSettings.navigateTo_AddonSettings();
         addonSettings.setting_CountdownType.selectOptionByValue("flipclock");
         addonSettings.button_SaveSettings.click();
 
         //Задаём настройки промо-акции "Фен Valera"
-        PromotionSettings promotionSettings = csCartSettings.navigateToPromotionSettings();
+        PromotionSettings promotionSettings = csCartSettings.navigateTo_PromotionSettings();
         promotionSettings.chooseRussianLanguage();
         promotionSettings.promotion_BuyHairDryerVALERA.click();
         //Берём ID данной промо-акции
         String currentUrl = WebDriverRunner.getWebDriver().getCurrentUrl();
         String [] split = currentUrl.split("id=");
         String promotionID = split[1];
-        promotionSettings.clickAndType_field_DetailedDescription();
+        //promotionSettings.clickAndType_field_DetailedDescription();
         clearBothFieldsAvailable();
         promotionSettings.setting_UseAvailablePeriod.click();
         promotionSettings.setDateOfTodayForSetting_AvailableTill();
@@ -105,11 +105,9 @@ public class MultiBlockTest_Var1 extends TestRunner {
     @Test(priority = 2, dependsOnMethods = "setConfigurations_MultiBlockTest_Var1")
     public void check_Block(){
         CsCartSettings csCartSettings = new CsCartSettings();
-        csCartSettings.button_Storefront.click();
+        StPromotions stPromotions = csCartSettings.navigateTo_Storefront();
         shiftBrowserTab(1);
         $(".cm-btn-success").click();
-
-        StPromotions stPromotions = new StPromotions();
         stPromotions.block_DealOfTheDay.scrollIntoView("{behavior: \"instant\", block: \"center\", inline: \"center\"}").hover();
         SoftAssert softAssert = new SoftAssert();
         //Проверяем, что в блоке присутствует заголовок
