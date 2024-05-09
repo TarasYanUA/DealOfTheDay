@@ -1,5 +1,6 @@
 import adminPanel.AddonSettings;
 import adminPanel.CsCartSettings;
+import adminPanel.DisableLazyLoadFromBlock;
 import adminPanel.PromotionSettings;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -19,9 +20,10 @@ import static com.codeborne.selenide.Selenide.screenshot;
 * Отображать счётчик на странице промо-акции--  да (но счётчика не должно быть на странице)
 */
 
-public class GeneralSettings_Var3_AvailableFrom extends TestRunner {
+public class GeneralSettings_Var3_AvailableFrom extends TestRunner implements DisableLazyLoadFromBlock {
     @Test(priority = 1)
     public void setConfiguration_GeneralSettings_Var3_AvailableFrom(){
+        disableLazyLoadFromBlock("AB: Товар дня");
         //Задаём настройки модуля
         CsCartSettings csCartSettings = new CsCartSettings();
         AddonSettings addonSettings = csCartSettings.navigateTo_AddonSettings();

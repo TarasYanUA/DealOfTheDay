@@ -1,7 +1,4 @@
-import adminPanel.AddonSettings;
-import adminPanel.CsCartSettings;
-import adminPanel.MultiBlock;
-import adminPanel.PromotionSettings;
+import adminPanel.*;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.WebDriverRunner;
 import org.openqa.selenium.Keys;
@@ -24,7 +21,7 @@ import static com.codeborne.selenide.Selenide.*;
 * Отображать счётчик промо-акции -- да
 */
 
-public class MultiBlockTest_Var1 extends TestRunner {
+public class MultiBlockTest_Var1 extends TestRunner implements DisableLazyLoadFromBlock {
     @Test(priority = 1)
     public void setConfigurations_MultiBlockTest_Var1() {
         CsCartSettings csCartSettings = new CsCartSettings();
@@ -100,6 +97,7 @@ public class MultiBlockTest_Var1 extends TestRunner {
             multiBlock.setting_DisplayPromotionCountdown.click();
         }
         multiBlock.button_SaveBlockProperties.click();
+        disableLazyLoadFromBlock("Мульти Товар дня");
     }
 
     @Test(priority = 2, dependsOnMethods = "setConfigurations_MultiBlockTest_Var1")

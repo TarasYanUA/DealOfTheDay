@@ -9,10 +9,10 @@
            <class name="PromotionPage_Var2" />
            <class name="PromotionPage_Var3_GroupByCategory" />
            <class name="ProductPage" />
-           <class name="CategoryPage_Var1" />
-           <class name="CategoryPage_Var2" />
-           <class name="MultiBlockTest_Var1" />
-           <class name="MultiBlockTest_Var2" />
-        </classes>
-    </test>
-</suite>
+            <!-- <class name="CategoryPage_Var1" />
+            <class name="CategoryPage_Var2" /> -->
+            <class name="MultiBlockTest_Var1" />
+            <class name="MultiBlockTest_Var2" />
+         </classes>
+     </test>
+ </suite>

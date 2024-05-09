@@ -24,15 +24,16 @@ public class CsCartSettings implements CheckMenuToBeActive {
         return new StPromotions();
     }
 
+    private SelenideElement menu_Products = $("a[href$='dispatch=products.manage'].main-menu-1__link");
     private SelenideElement section_Categories = $("#products_categories");
 
-    private SelenideElement menu_Marketing = $x("//span[text()='Маркетинг']");
+    private SelenideElement menu_Marketing = $("a[href$='dispatch=promotions.manage'].main-menu-1__link");
     private SelenideElement section_PromotionsAndDiscounts = $("#marketing_promotions");
 
-    public SelenideElement menu_Addons = $x("//span[text()='Модули']");
-    public SelenideElement menu_DownloadedAddons = $("#addons_downloaded_add_ons");
+    public SelenideElement menu_Addons = $("a[href$='dispatch=addons.manage'].main-menu-1__link");
+    public SelenideElement section_DownloadedAddons = $("#addons_downloaded_add_ons");
     public SelenideElement gearwheelOfAddon = $("tr#addon_ab__deal_of_the_day button.btn.dropdown-toggle");
-    public SelenideElement section_GeneralSettings = $("div.nowrap a[href$='addon=ab__deal_of_the_day']");
+    public SelenideElement sectionOfAddon_GeneralSettings = $("div.nowrap a[href$='addon=ab__deal_of_the_day']");
     private SelenideElement tab_Settings = $("#settings");
     public SelenideElement field_SearchOnTop = $(".search__input--collapse");
     public SelenideElement productTemplate = $("#elm_details_layout");
@@ -44,14 +45,14 @@ public class CsCartSettings implements CheckMenuToBeActive {
     public SelenideElement category_Notebooks = $(".table-wrapper a[href$='category_id=169']");
 
     private void navigateTo_DownloadedAddonsPage() {
-        checkMenuToBeActive(menu_Addons);
-        menu_DownloadedAddons.click();
+        checkMenuToBeActive("dispatch=addons.manage", menu_Addons);
+        section_DownloadedAddons.click();
     }
 
     public AddonSettings navigateTo_AddonSettings() {
         navigateTo_DownloadedAddonsPage();
         gearwheelOfAddon.click();
-        section_GeneralSettings.click();
+        sectionOfAddon_GeneralSettings.click();
         tab_Settings.click();
         return new AddonSettings();
     }
@@ -63,25 +64,25 @@ public class CsCartSettings implements CheckMenuToBeActive {
     }
 
     public PromotionSettings navigateTo_PromotionSettings() {
-        checkMenuToBeActive(menu_Marketing);
+        checkMenuToBeActive("dispatch=promotions.manage", menu_Marketing);
         section_PromotionsAndDiscounts.click();
         return new PromotionSettings();
     }
 
     public void navigateTo_CategoryPage() {
-        checkMenu_Products_ToBeActive();
+        checkMenuToBeActive("dispatch=products.manage", menu_Products);
         section_Categories.click();
     }
 
 
     //Меню "Веб-сайт -- Темы -- Макеты"
-    private SelenideElement menu_Website = $x("//span[text()='Веб-сайт']");
-    private SelenideElement menu_Themes = $("#website_themes");
+    private SelenideElement menu_Website = $("a[href$='dispatch=themes.manage'].main-menu-1__link");
+    private SelenideElement section_Themes = $("#website_themes");
     private SelenideElement sectionLayouts = $(".nav__actions-bar a[href$='block_manager.manage']");
 
     public MultiBlock navigateToSectionLayouts() {
-        checkMenuToBeActive(menu_Website);
-        menu_Themes.click();
+        checkMenuToBeActive("dispatch=themes.manage", menu_Website);
+        section_Themes.click();
         sectionLayouts.click();
         return new MultiBlock();
     }

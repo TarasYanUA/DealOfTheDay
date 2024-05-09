@@ -1,5 +1,6 @@
 import adminPanel.AddonSettings;
 import adminPanel.CsCartSettings;
+import adminPanel.DisableLazyLoadFromBlock;
 import adminPanel.PromotionSettings;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -20,9 +21,10 @@ import static com.codeborne.selenide.Selenide.*;
 * Показ ожидаемых промо-акций --    нет
 */
 
-public class GeneralSettings_Var2 extends TestRunner {
+public class GeneralSettings_Var2 extends TestRunner implements DisableLazyLoadFromBlock {
     @Test(priority = 1)
     public void setConfiguration_GeneralSettings_Var2(){
+        disableLazyLoadFromBlock("AB: Товар дня");
         //Задаём настройки модуля
         CsCartSettings csCartSettings = new CsCartSettings();
         AddonSettings addonSettings = csCartSettings.navigateTo_AddonSettings();
