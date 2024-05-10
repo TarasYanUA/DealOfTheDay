@@ -24,7 +24,7 @@ public class PromotionPage_Var3_GroupByCategory extends TestRunner {
     @Test(priority = 1)
     public void setConfiguration_PromotionPage_Var3_GroupByCategory() {
         CsCartSettings csCartSettings = new CsCartSettings();
-        //Задаём Условия промо-акции
+        //Задаём Условия промо-акции "Купите фотоаппарат"
         PromotionSettings promotionSettings = csCartSettings.navigateTo_PromotionSettings();
         promotionSettings.chooseRussianLanguage();
         promotionSettings.promotion_BuyCamera.click();
@@ -43,7 +43,6 @@ public class PromotionPage_Var3_GroupByCategory extends TestRunner {
             promotionSettings.selectCondition.selectOptionByValue("categories");
             promotionSettings.button_AddCategories.shouldBe(Condition.enabled).click();
             $(".ui-dialog-title").shouldBe(Condition.visible);
-            $("#input_cat_169").click(); //Ноутбуки
             $("#input_cat_165").click(); //Планшеты
             $("#input_cat_217").click(); //Спальники
             $("#input_cat_218").click(); //Палатки

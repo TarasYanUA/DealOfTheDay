@@ -82,6 +82,7 @@ public class CategoryPage_Var2 extends TestRunner {
         CsCartSettings csCartSettings = new CsCartSettings();
         csCartSettings.navigateTo_CategoryPage();
         csCartSettings.category_Notebooks.click();
+        makePause();
         csCartSettings.gearWheelOnTop.click();
         csCartSettings.button_Preview.click();
         shiftBrowserTab(1);
@@ -99,6 +100,7 @@ public class CategoryPage_Var2 extends TestRunner {
         softAssert.assertTrue($$("form[name=\"product_form_219\"] .ab-dotd-category-promo").size() ==2,
                 "There are no two promotions in one product on the category page, Grid template!");
         $("#det_img_219desktop").scrollIntoView("{behavior: \"instant\", block: \"center\", inline: \"center\"}");
+        $("form[name='product_form_219'] .ut2-gl__image").hover();
         screenshot("700 CategoryPage_Var2 - Template Grid");
         stPromotions.button_QuickView.hover().click();
         $(".ui-dialog-titlebar").shouldBe(Condition.visible);
@@ -111,6 +113,7 @@ public class CategoryPage_Var2 extends TestRunner {
         stPromotions.button_ClosePopupWindow.click();
         selectLanguage_RTL();
         $("#det_img_219desktop").scrollIntoView("{behavior: \"instant\", block: \"center\", inline: \"center\"}");
+        $("form[name='product_form_219'] .ut2-gl__image").hover();
         screenshot("710 CategoryPage_Var2 - Template Grid (RTL)");
         stPromotions.button_QuickView.hover().click();
         makePause();
