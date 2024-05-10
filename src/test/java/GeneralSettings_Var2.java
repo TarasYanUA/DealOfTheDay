@@ -44,7 +44,7 @@ public class GeneralSettings_Var2 extends TestRunner implements DisableLazyLoadF
         PromotionSettings promotionSettings = csCartSettings.navigateTo_PromotionSettings();
         promotionSettings.chooseRussianLanguage();
         promotionSettings.promotion_BuyCamera.click();
-        //promotionSettings.clickAndType_field_DetailedDescription(); //Чтобы проверить настройку "Максимальная высота описания"
+        promotionSettings.clickAndType_field_DetailedDescription(); //Чтобы проверить настройку "Максимальная высота описания"
         if(!promotionSettings.setting_UseAvailablePeriod.isSelected()) {
             promotionSettings.setting_UseAvailablePeriod.click();   }
         //Устанавливаем сегодняшнюю дату для поля "Доступна до", чтобы проверить настройку "Обратный отсчёт до"
