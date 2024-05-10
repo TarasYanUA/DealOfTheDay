@@ -53,7 +53,7 @@ public class PromotionSettings {
     public SelenideElement checkProductToCondition = $(".cm-item.mrg-check");
     public SelenideElement button_AddAndClose = $(".cm-process-items.cm-dialog-closer");
     public SelenideElement button_AddCondition = $x("(//a[contains(@onclick, 'fn_promotion_add')])[1]");
-    public SelenideElement selectCondition = $("select[name='promotion_data[conditions][conditions][1]']");
+    public SelenideElement selectCondition = $("li[id^='container_add_condition'] select[name*='promotion_data[conditions][conditions]']");
     public SelenideElement button_AddCategories = $("a[id^='opener_picker_objects_add_condition_']");
 
     public SelenideElement tab_ABExtPromotions = $(By.id("ab__dotd"));

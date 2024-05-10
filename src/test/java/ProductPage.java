@@ -48,6 +48,7 @@ public class ProductPage extends TestRunner {
         csCartSettings.gearWheelOnTop.click();
         csCartSettings.button_Preview.click();
         shiftBrowserTab(1);
+        $(".cm-btn.cm-btn-success").click();
         selectLanguage_RU();
         StPromotions stPromotions = new StPromotions();
         SoftAssert softAssert = new SoftAssert();

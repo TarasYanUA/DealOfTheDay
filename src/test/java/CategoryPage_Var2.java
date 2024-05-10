@@ -67,7 +67,6 @@ public class CategoryPage_Var2 extends TestRunner {
         promotionSettings.field_SearchProduct.sendKeys(Keys.ENTER);
         promotionSettings.checkProductToCondition.click();
         promotionSettings.button_AddAndClose.click();
-
         //Вкладка "АВ: Расширенные промо-акции" у промо-акции
         promotionSettings.tab_ABExtPromotions.click();
         if(promotionSettings.check_DisplayLabelInProductLists.isSelected()){

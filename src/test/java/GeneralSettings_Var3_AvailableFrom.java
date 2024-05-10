@@ -63,6 +63,7 @@ public class GeneralSettings_Var3_AvailableFrom extends TestRunner implements Di
         //Переходим на страницу промо-акции
         promotionSettings.chooseRussianLanguage();
         promotionSettings.promotion_BuyCamera.click();
+        makePause();
         csCartSettings.gearWheelOnTop.click();
         promotionSettings.button_PreviewPromotion.click();
         shiftBrowserTab(1);

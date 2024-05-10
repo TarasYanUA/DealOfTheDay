@@ -13,6 +13,7 @@
             <class name="CategoryPage_Var2"/>
             <class name="MultiBlockTest_Var1"/>
             <class name="MultiBlockTest_Var2"/>
+
         </classes>
     </test>
 </suite>

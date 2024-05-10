@@ -35,7 +35,7 @@ public class CsCartSettings implements CheckMenuToBeActive {
     public SelenideElement gearwheelOfAddon = $("tr#addon_ab__deal_of_the_day button.btn.dropdown-toggle");
     public SelenideElement sectionOfAddon_GeneralSettings = $("div.nowrap a[href$='addon=ab__deal_of_the_day']");
     private SelenideElement tab_Settings = $("#settings");
-    public SelenideElement field_SearchOnTop = $(".search__input--collapse");
+    public SelenideElement field_SearchOnTop = $(".cm-autocomplete-off.search__input");
     public SelenideElement productTemplate = $("#elm_details_layout");
 
     private SelenideElement menu_Settings = $("#administration");

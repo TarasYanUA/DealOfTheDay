@@ -1,7 +1,6 @@
 import adminPanel.CsCartSettings;
 import adminPanel.PromotionSettings;
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.Selenide;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import storefront.StPromotions;
@@ -76,7 +75,7 @@ public class PromotionPage_Var3_GroupByCategory extends TestRunner {
         PromotionSettings promotionSettings = csCartSettings.navigateTo_PromotionSettings();
         promotionSettings.chooseRussianLanguage();
         promotionSettings.promotion_BuyCamera.click();
-        Selenide.sleep(1500);
+        makePause();
         csCartSettings.gearWheelOnTop.click();
         promotionSettings.button_PreviewPromotion.click();
         shiftBrowserTab(1);

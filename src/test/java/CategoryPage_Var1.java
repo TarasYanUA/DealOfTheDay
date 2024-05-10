@@ -61,6 +61,7 @@ public class CategoryPage_Var1 extends TestRunner {
         CsCartSettings csCartSettings = new CsCartSettings();
         csCartSettings.navigateTo_CategoryPage();
         csCartSettings.category_Notebooks.click();
+        makePause();
         csCartSettings.gearWheelOnTop.click();
         csCartSettings.button_Preview.click();
         shiftBrowserTab(1);
