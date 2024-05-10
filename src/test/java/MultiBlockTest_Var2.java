@@ -88,7 +88,7 @@ public class MultiBlockTest_Var2 extends TestRunner implements DisableLazyLoadFr
             multiBlock.setting_DisplayPromotionCountdown.click();
         }
         multiBlock.button_SaveBlockProperties.click();
-        disableLazyLoadFromBlock("Мульти Товар дня");
+        disableLazyLoadFromBlock("MultiBlock - AutoTest");
     }
 
     @Test(priority = 2, dependsOnMethods = "setConfigurations_MultiBlockTest_Var2")

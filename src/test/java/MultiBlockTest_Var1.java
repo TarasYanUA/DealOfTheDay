@@ -16,7 +16,7 @@ import static com.codeborne.selenide.Selenide.*;
 * Задать период доступности --  да, для поля "Доступна до"
 
 Настройки блока:
-* Количество элементов --           6
+* Количество элементов --           5
 * Спрятать кнопку добавления товара в корзину --    нет
 * Отображать счётчик промо-акции -- да
 */
@@ -97,7 +97,7 @@ public class MultiBlockTest_Var1 extends TestRunner implements DisableLazyLoadFr
             multiBlock.setting_DisplayPromotionCountdown.click();
         }
         multiBlock.button_SaveBlockProperties.click();
-        disableLazyLoadFromBlock("Мульти Товар дня");
+        disableLazyLoadFromBlock("MultiBlock - AutoTest");
     }
 
     @Test(priority = 2, dependsOnMethods = "setConfigurations_MultiBlockTest_Var1")

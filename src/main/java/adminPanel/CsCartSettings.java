@@ -104,7 +104,7 @@ public class CsCartSettings implements CheckMenuToBeActive {
 
     public void switchOffBlock_DealOfTheDay() {  //Выключаем  блок "Товар дня"
         if (!$("div.block-off[data-ca-block-name=\"AB: Товар дня\"]").exists()) {
-            $("div[data-ca-block-name=\"AB: Товар дня\"]").$(".icon-off").click();
+            $("div[data-ca-block-name=\"AB: Товар дня\"]").$(".cs-icon--type-off").click();
         }
     }
 }

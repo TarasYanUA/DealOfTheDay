@@ -10,7 +10,7 @@ public class MultiBlock {
     public MultiBlock(){super();}
     public void addNewBlock(){
         String layoutID = $x("//div[@title='AB: Товар дня']/../..").getAttribute("id");
-        $(By.id(layoutID)).$(".icon-plus").hover().click();
+        $(By.id(layoutID)).$(".cs-icon--type-plus").hover().click();
         $(By.id(layoutID)).$(".bm-action-add-block").click();
     }
     public SelenideElement blockProperties = $("div[data-ca-block-name=\"MultiBlock - AutoTest\"] .bm-action-properties.action");
