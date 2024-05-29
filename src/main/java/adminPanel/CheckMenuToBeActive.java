@@ -2,12 +2,12 @@ package adminPanel;
 
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.ex.ElementNotFound;
-import org.openqa.selenium.WebElement;
 import static com.codeborne.selenide.Selenide.*;
 
 public interface CheckMenuToBeActive {
-    default void checkMenuToBeActive(String menuDispatch, WebElement menu) {
+    default void checkMenuToBeActive(String menuDispatch, SelenideElement menu) {
         checkMenu_Addons_ToBeActive();
 
         String selector = "a[href$='" + menuDispatch + "'].main-menu-1__link";
