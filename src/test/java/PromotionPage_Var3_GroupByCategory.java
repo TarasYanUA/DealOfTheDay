@@ -82,24 +82,31 @@ public class PromotionPage_Var3_GroupByCategory extends TestRunner {
 
         StPromotions stPromotions = new StPromotions();
         SoftAssert softAssert = new SoftAssert();
+
         //Проверяем, что отсутствует фильтр товаров, когда выбрано категорию "Все категории"
         softAssert.assertFalse(stPromotions.filterByProducts.exists(),
-                "There is the product filters on the category 'All categories', but shouldn't!");
-        //Проверяем, что присутствует блок товаров на странице промо-акции
-        softAssert.assertTrue(stPromotions.productBlock.exists(),
-                "There is no product block on the promotion page!");
+                "There is the product filters on the category 'All categories' but shouldn't on the promotion page 'All categories'!");
+
         //Проверяем, что присутствует счётчик на странице промо-акции
         softAssert.assertTrue(stPromotions.countdown.exists(),
                 "There is no countdown on the promotion page!");
+
         //Проверяем, что присутствует кнопка "Больше товаров из категории" -- настройка "Группировать по категории"
         softAssert.assertTrue(!stPromotions.button_MoreProductsFromCategory.isEmpty(),
                 "There is no any button 'More products from category' on the promotion page!");
+
         $(".ab-dotd-more-icon").scrollIntoView("{behavior: \"instant\", block: \"center\", inline: \"center\"}");
         screenshot("450 PromotionPage_Var3_GroupByCategory - Promotion page, Grid");
         $(".ab-dotd-categories-filter a[href$='cid=166']").hover().click();
-        //Проверяем, что отсутствует фильтр товаров, когда выбрано категорию "Все категории"
+
+        //Проверяем, что присутствует блок товаров на странице промо-акции, когда выбрано категорию "Электроника"
+        softAssert.assertTrue(stPromotions.productBlock.exists(),
+                "There is no product block on the promotion page!");
+
+        //Проверяем, что присутствует фильтр товаров, когда выбрано категорию "Электроника"
         softAssert.assertTrue(stPromotions.filterByProducts.exists(),
-                "There is no product filters on the category 'Electronics'!");
+                "There is no product filters on the promotion page 'Electronics'!");
+
         stPromotions.categoryTemplate_WithoutOptions.hover().click();
         $(".ty-product-list").scrollIntoView(true);
         makePause();

@@ -40,7 +40,7 @@ public class CsCartSettings implements CheckMenuToBeActive {
 
     private SelenideElement menu_Settings = $("#administration");
     private SelenideElement section_Appearance = $("a[href$='section_id=Appearance']");
-    private SelenideElement section_Appearance_GeneralSettings = $("a[href$='section_id=General']");
+    private SelenideElement section_GeneralSettings = $("a[href$='section_id=General']");
     public SelenideElement setting_QuickView = $x("//input[contains(@id, 'field___enable_quick_view_')]");
     public SelenideElement category_Notebooks = $(".table-wrapper a[href$='category_id=169']");
 
@@ -59,7 +59,7 @@ public class CsCartSettings implements CheckMenuToBeActive {
 
     public void navigateTo_AppearanceSettings() {
         menu_Settings.click();
-        section_Appearance_GeneralSettings.click();
+        section_GeneralSettings.click();
         section_Appearance.click();
     }
 
@@ -78,12 +78,12 @@ public class CsCartSettings implements CheckMenuToBeActive {
     //Меню "Веб-сайт -- Темы -- Макеты"
     private SelenideElement menu_Website = $("a[href$='dispatch=themes.manage'].main-menu-1__link");
     private SelenideElement section_Themes = $("#website_themes");
-    private SelenideElement sectionLayouts = $(".nav__actions-bar a[href$='block_manager.manage']");
+    private SelenideElement section_Layouts = $(".nav__actions-bar a[href$='block_manager.manage']");
 
     public MultiBlock navigateToSectionLayouts() {
         checkMenuToBeActive("dispatch=themes.manage", menu_Website);
         section_Themes.click();
-        sectionLayouts.click();
+        section_Layouts.click();
         return new MultiBlock();
     }
 

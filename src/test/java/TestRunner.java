@@ -12,7 +12,7 @@ import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 /* Проверка модуля "АВ: Расширенные промо-акции" v3.10.5 + тема UniTheme2 (Ult & MV). */
 
 public class TestRunner {
-    public static final String BASIC_URL = "https://trs.test.abt.team/4181ultru/admin.php?dispatch=addons.manage";
+    public static final String BASIC_URL = "https://trs.test.abt.team/4183ultru/admin.php?dispatch=shippings.manage";
 
     @BeforeClass
     public void openBrowser() {
@@ -21,11 +21,6 @@ public class TestRunner {
         Configuration.holdBrowserOpen = false; //не закрываем браузер пока ведём разработку
         Configuration.screenshots = true; //делаем скриншоты при падении
         WebDriverRunner.getWebDriver().manage().window().maximize(); //окно браузера на весь экран
-
-/*        $(".signin-modal__form-field.cm-focus").click();
-        $(".signin-modal__form-field.cm-focus").sendKeys("vtv.www@gmail.com");
-        $("#password").click();
-        $("#password").sendKeys("vtv.www");*/
 
         $(".btn.btn-primary").click();
         $("#bp_off_bottom_panel").click();
@@ -44,6 +39,7 @@ public class TestRunner {
     public void selectLanguage_RU() {
         $("a[id*='_wrap_language_']").hover().click();
         $(".ty-select-block__list-item a[data-ca-name='ru']").click();
+        $("a[id*='_wrap_language_']").hover();
     }
     public void shiftBrowserTab(int tabNumber){
         getWebDriver().getWindowHandle(); switchTo().window(tabNumber);
@@ -62,6 +58,7 @@ public class TestRunner {
             promotionSettings.setting_UseAvailablePeriod.click();   }
         promotionSettings.setting_AvailableFrom.click();
         promotionSettings.setting_AvailableFrom.clear();
+        sleep(1000);
         promotionSettings.setting_AvailableTill.click();
         promotionSettings.setting_AvailableTill.clear();
         CsCartSettings csCartSettings = new CsCartSettings();
