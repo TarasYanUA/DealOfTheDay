@@ -2,24 +2,26 @@ import adminPanel.CsCartSettings;
 import adminPanel.PromotionSettings;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.WebDriverRunner;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
-/* Проверка модуля "АВ: Расширенные промо-акции" v3.10.3 + тема UniTheme2 (Ult & MV). */
+/* Проверка модуля "АВ: Расширенные промо-акции" v3.10.5 + тема UniTheme2 (Ult & MV). */
 
 public class TestRunner {
-    public static final String BASIC_URL = "https://trs.test.abt.team/4171ulten_deal_of_the_day/admin.php?dispatch=abt__ut2.demodata";
+    public static final String BASIC_URL = "https://trs.test.abt.team/4183ultru/admin.php?dispatch=shippings.manage";
 
     @BeforeClass
     public void openBrowser() {
         Configuration.browser = "chrome";
+        open(BASIC_URL);
         Configuration.holdBrowserOpen = false; //не закрываем браузер пока ведём разработку
         Configuration.screenshots = true; //делаем скриншоты при падении
-        Configuration.browserSize = "1920x1050"; //увеличиваем размер экрана
-        open(BASIC_URL);
+        WebDriverRunner.getWebDriver().manage().window().maximize(); //окно браузера на весь экран
+
         $(".btn.btn-primary").click();
         $("#bp_off_bottom_panel").click();
     }
@@ -37,6 +39,7 @@ public class TestRunner {
     public void selectLanguage_RU() {
         $("a[id*='_wrap_language_']").hover().click();
         $(".ty-select-block__list-item a[data-ca-name='ru']").click();
+        $("a[id*='_wrap_language_']").hover();
     }
     public void shiftBrowserTab(int tabNumber){
         getWebDriver().getWindowHandle(); switchTo().window(tabNumber);
@@ -55,6 +58,7 @@ public class TestRunner {
             promotionSettings.setting_UseAvailablePeriod.click();   }
         promotionSettings.setting_AvailableFrom.click();
         promotionSettings.setting_AvailableFrom.clear();
+        sleep(1000);
         promotionSettings.setting_AvailableTill.click();
         promotionSettings.setting_AvailableTill.clear();
         CsCartSettings csCartSettings = new CsCartSettings();

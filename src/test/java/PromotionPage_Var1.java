@@ -24,13 +24,13 @@ public class PromotionPage_Var1 extends TestRunner {
     public void setConfiguration_PromotionPage_Var1(){
         CsCartSettings csCartSettings = new CsCartSettings();
         //Задаём настройки модуля
-        AddonSettings addonSettings = csCartSettings.navigateToAddonSettings();
+        AddonSettings addonSettings = csCartSettings.navigateTo_AddonSettings();
         addonSettings.setting_CountdownType.selectOptionByValue("flipclock");
         addonSettings.setting_AmountOfDisplayedPromotionsInProductLists.selectOptionByValue("2");
         addonSettings.button_SaveSettings.click();
 
         //Задаём настройки промо-акции
-        PromotionSettings promotionSettings = csCartSettings.navigateToPromotionSettings();
+        PromotionSettings promotionSettings = csCartSettings.navigateTo_PromotionSettings();
         promotionSettings.chooseRussianLanguage();
         promotionSettings.promotion_RacingCard.click();
         //Устанавливаем сегодняшнюю дату для поля "Доступна до"
@@ -57,9 +57,10 @@ public class PromotionPage_Var1 extends TestRunner {
     @Test(priority = 2, dependsOnMethods = "setConfiguration_PromotionPage_Var1")
     public void check_PromotionPage_Var1() {
         CsCartSettings csCartSettings = new CsCartSettings();
-        PromotionSettings promotionSettings = csCartSettings.navigateToPromotionSettings();
+        PromotionSettings promotionSettings = csCartSettings.navigateTo_PromotionSettings();
         promotionSettings.chooseRussianLanguage();
         promotionSettings.promotion_RacingCard.click();
+        makePause();
         csCartSettings.gearWheelOnTop.click();
         promotionSettings.button_PreviewPromotion.click();
         shiftBrowserTab(1);

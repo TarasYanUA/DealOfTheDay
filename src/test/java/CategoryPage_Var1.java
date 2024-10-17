@@ -26,20 +26,20 @@ public class CategoryPage_Var1 extends TestRunner {
     public void set_CategoryPage_Var1(){
         CsCartSettings csCartSettings = new CsCartSettings();
         //Задаём настройки CS-Cart
-        csCartSettings.navigateToAppearanceSettings();
-        if(!csCartSettings.settingQuickView.isSelected()){
-            csCartSettings.settingQuickView.click();
+        csCartSettings.navigateTo_AppearanceSettings();
+        if(!csCartSettings.setting_QuickView.isSelected()){
+            csCartSettings.setting_QuickView.click();
             csCartSettings.button_Save.click();
         }
 
         //Задаём настройки модуля
-        AddonSettings addonSettings = csCartSettings.navigateToAddonSettings();
+        AddonSettings addonSettings = csCartSettings.navigateTo_AddonSettings();
         addonSettings.setting_HighlightingThePromotion.selectOptionByValue("1");
         addonSettings.setting_AmountOfDisplayedPromotionsInProductLists.selectOptionByValue("1");
         addonSettings.button_SaveSettings.click();
 
         //Задаём настройки промо-акции
-        PromotionSettings promotionSettings = csCartSettings.navigateToPromotionSettings();
+        PromotionSettings promotionSettings = csCartSettings.navigateTo_PromotionSettings();
         promotionSettings.chooseRussianLanguage();
         promotionSettings.promotion_RacingCard.click();
         if(promotionSettings.setting_UseAvailablePeriod.isSelected()){  //убираем период доступности, чтобы промо-акция всегда отображалась
@@ -59,8 +59,9 @@ public class CategoryPage_Var1 extends TestRunner {
     public void check_CategoryPage(){
         //Переходим на страницу категории
         CsCartSettings csCartSettings = new CsCartSettings();
-        csCartSettings.navigateToCategoryPage();
+        csCartSettings.navigateTo_CategoryPage();
         csCartSettings.category_Notebooks.click();
+        makePause();
         csCartSettings.gearWheelOnTop.click();
         csCartSettings.button_Preview.click();
         shiftBrowserTab(1);
@@ -68,19 +69,24 @@ public class CategoryPage_Var1 extends TestRunner {
 
         StPromotions stPromotions = new StPromotions();
         SoftAssert softAssert = new SoftAssert();
+
         //Проверяем, что присутствует лейбл на странице категории с шаблоном "Сетка"
         softAssert.assertTrue(!stPromotions.labelOnCategoryPage.isEmpty(),
                 "There is no any promotion label on the category page 'Grid'!");
+
         //Проверяем, что промо-акция отображается на странице категории с шаблоном "Сетка"
         softAssert.assertTrue(!stPromotions.promotionOnCategoryPage.isEmpty(),
                 "There is no any promotion on the category page 'Grid'!");
+
         stPromotions.chooseAnyProduct.hover();
         screenshot("600 CategoryPage_Var1 - Template Grid");
         stPromotions.button_QuickView.hover().click();
         $(".ui-dialog-titlebar").shouldBe(Condition.visible);
+
         //Проверяем, что присутствует шапка промо-акции в окне Быстрого просмотра
         softAssert.assertTrue(stPromotions.promotionHeaderInQuickView.exists(),
                 "There is no promotion header in the quick view window!");
+
         makePause();
         stPromotions.button_ClosePopupWindow.hover();
         screenshot("605 CategoryPage_Var1 - Quick view");
@@ -97,18 +103,23 @@ public class CategoryPage_Var1 extends TestRunner {
         stPromotions.button_ClosePopupWindow.click();
         stPromotions.categoryTemplate_WithoutOptions.click();
         makePause();
+
         //Проверяем, что присутствует лейбл на странице категории с шаблоном "Список без опций"
         softAssert.assertTrue(!stPromotions.labelOnCategoryPage.isEmpty(),
                 "There is no any promotion label on the category page 'Without options'!");
+
         //Проверяем, что промо-акция отображается на странице категории с шаблоном "Список без опций"
         softAssert.assertTrue(!stPromotions.promotionOnCategoryPage.isEmpty(),
                 "There is no any promotion on the category page 'Without options'!");
+
         screenshot("620 CategoryPage_Var1 - Template Without options (RTL)");
         stPromotions.categoryTemplate_CompactList.click();
         makePause();
+
         //Проверяем, что присутствует лейбл на странице категории с шаблоном "Компактный список"
         softAssert.assertTrue(!stPromotions.labelOnCategoryPage.isEmpty(),
                 "There is no any promotion label on the category page 'Compact list'!");
+
         screenshot("625 CategoryPage_Var1 - Template Compact list (RTL)");
         selectLanguage_RU();
         makePause();

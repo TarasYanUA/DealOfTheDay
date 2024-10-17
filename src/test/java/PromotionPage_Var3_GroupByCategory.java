@@ -4,6 +4,7 @@ import com.codeborne.selenide.Condition;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import storefront.StPromotions;
+
 import static com.codeborne.selenide.Selenide.*;
 
 /*
@@ -21,10 +22,10 @@ import static com.codeborne.selenide.Selenide.*;
 
 public class PromotionPage_Var3_GroupByCategory extends TestRunner {
     @Test(priority = 1)
-    public void setConfiguration_PromotionPage_Var3_GroupByCategory(){
+    public void setConfiguration_PromotionPage_Var3_GroupByCategory() {
         CsCartSettings csCartSettings = new CsCartSettings();
-        //Задаём Условия промо-акции
-        PromotionSettings promotionSettings = csCartSettings.navigateToPromotionSettings();
+        //Задаём Условия промо-акции "Купите фотоаппарат"
+        PromotionSettings promotionSettings = csCartSettings.navigateTo_PromotionSettings();
         promotionSettings.chooseRussianLanguage();
         promotionSettings.promotion_BuyCamera.click();
         //Устанавливаем сегодняшнюю дату для поля "Доступна до"
@@ -34,37 +35,34 @@ public class PromotionPage_Var3_GroupByCategory extends TestRunner {
 
         //Вкладка "Условия" у промо-акции
         promotionSettings.tab_Conditions.scrollIntoView(false).click();
-        if($$x("//label[contains(text(), 'Категории')]").isEmpty() && $$(".cm-delete-row").size() >= 2){
-            $(".cm-delete-row").hover().click();
-            csCartSettings.button_Save.click();
-        $(".cm-notification-close").shouldBe(Condition.enabled).click();
-        $("a[id='sw_promotion_data[conditions][set]']").click();
-        $("a[title='любое']").click();
-        promotionSettings.button_AddCondition.click();
-        promotionSettings.selectCondition.selectOptionByValue("categories");
-        promotionSettings.button_AddCategories.shouldBe(Condition.enabled).click();
-        $(".ui-dialog-title").shouldBe(Condition.visible);
-        $("#input_cat_169").click(); //Ноутбуки
-        $("#input_cat_165").click(); //Планшеты
-        $("#input_cat_217").click(); //Спальники
-        $("#input_cat_218").click(); //Палатки
-        $("#input_cat_251").click(); //Калькуляторы
-        $("#input_cat_231").click(); //Джаз
-        $(".cm-form-dialog-closer").click();
+        if ($$x("//label[contains(text(), 'Категории')]").isEmpty()) {
+            $("a[id='sw_promotion_data[conditions][set]']").click();
+            $("div[class='cm-popup-box btn-group open']").shouldBe(Condition.appear);
+            $("a[title='любое']").click();
+            promotionSettings.button_AddCondition.click();
+            promotionSettings.selectCondition.selectOptionByValue("categories");
+            promotionSettings.button_AddCategories.shouldBe(Condition.enabled).click();
+            $(".ui-dialog-title").shouldBe(Condition.visible);
+            $("#input_cat_165").click(); //Планшеты
+            $("#input_cat_217").click(); //Спальники
+            $("#input_cat_218").click(); //Палатки
+            $("#input_cat_251").click(); //Калькуляторы
+            $("#input_cat_231").click(); //Джаз
+            $(".cm-form-dialog-closer").click();
         }
 
         //Вкладка "АВ: Расширенные промо-акции" у промо-акции
         promotionSettings.tab_ABExtPromotions.click();
-        if(!promotionSettings.check_GroupByCategory.isSelected()){
+        if (!promotionSettings.check_GroupByCategory.isSelected()) {
             promotionSettings.check_GroupByCategory.click();
         }
-        if(!promotionSettings.check_UseFilterByProducts.isSelected()){
+        if (!promotionSettings.check_UseFilterByProducts.isSelected()) {
             promotionSettings.check_UseFilterByProducts.click();
         }
-        if (promotionSettings.check_HideProductBlock.isSelected()){
+        if (promotionSettings.check_HideProductBlock.isSelected()) {
             promotionSettings.check_HideProductBlock.click();
         }
-        if(!promotionSettings.check_DisplayCountdownOnPromotionPage.isSelected()){
+        if (!promotionSettings.check_DisplayCountdownOnPromotionPage.isSelected()) {
             promotionSettings.check_DisplayCountdownOnPromotionPage.click();
         }
         csCartSettings.button_Save.click();
@@ -73,9 +71,10 @@ public class PromotionPage_Var3_GroupByCategory extends TestRunner {
     @Test(priority = 2, dependsOnMethods = "setConfiguration_PromotionPage_Var3_GroupByCategory")
     public void check_PromotionPage_Var3_GroupByCategory() {
         CsCartSettings csCartSettings = new CsCartSettings();
-        PromotionSettings promotionSettings = csCartSettings.navigateToPromotionSettings();
+        PromotionSettings promotionSettings = csCartSettings.navigateTo_PromotionSettings();
         promotionSettings.chooseRussianLanguage();
         promotionSettings.promotion_BuyCamera.click();
+        makePause();
         csCartSettings.gearWheelOnTop.click();
         promotionSettings.button_PreviewPromotion.click();
         shiftBrowserTab(1);
@@ -83,24 +82,31 @@ public class PromotionPage_Var3_GroupByCategory extends TestRunner {
 
         StPromotions stPromotions = new StPromotions();
         SoftAssert softAssert = new SoftAssert();
+
         //Проверяем, что отсутствует фильтр товаров, когда выбрано категорию "Все категории"
         softAssert.assertFalse(stPromotions.filterByProducts.exists(),
-                "There is the product filters on the category 'All categories', but shouldn't!");
-        //Проверяем, что присутствует блок товаров на странице промо-акции
-        softAssert.assertTrue(stPromotions.productBlock.exists(),
-                "There is no product block on the promotion page!");
+                "There is the product filters on the category 'All categories' but shouldn't on the promotion page 'All categories'!");
+
         //Проверяем, что присутствует счётчик на странице промо-акции
         softAssert.assertTrue(stPromotions.countdown.exists(),
                 "There is no countdown on the promotion page!");
+
         //Проверяем, что присутствует кнопка "Больше товаров из категории" -- настройка "Группировать по категории"
         softAssert.assertTrue(!stPromotions.button_MoreProductsFromCategory.isEmpty(),
                 "There is no any button 'More products from category' on the promotion page!");
+
         $(".ab-dotd-more-icon").scrollIntoView("{behavior: \"instant\", block: \"center\", inline: \"center\"}");
         screenshot("450 PromotionPage_Var3_GroupByCategory - Promotion page, Grid");
         $(".ab-dotd-categories-filter a[href$='cid=166']").hover().click();
-        //Проверяем, что отсутствует фильтр товаров, когда выбрано категорию "Все категории"
+
+        //Проверяем, что присутствует блок товаров на странице промо-акции, когда выбрано категорию "Электроника"
+        softAssert.assertTrue(stPromotions.productBlock.exists(),
+                "There is no product block on the promotion page!");
+
+        //Проверяем, что присутствует фильтр товаров, когда выбрано категорию "Электроника"
         softAssert.assertTrue(stPromotions.filterByProducts.exists(),
-                "There is no product filters on the category 'Electronics'!");
+                "There is no product filters on the promotion page 'Electronics'!");
+
         stPromotions.categoryTemplate_WithoutOptions.hover().click();
         $(".ty-product-list").scrollIntoView(true);
         makePause();

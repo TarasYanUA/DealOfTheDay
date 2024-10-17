@@ -1,5 +1,6 @@
 import adminPanel.AddonSettings;
 import adminPanel.CsCartSettings;
+import adminPanel.DisableLazyLoadFromBlock;
 import adminPanel.PromotionSettings;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -20,12 +21,13 @@ import static com.codeborne.selenide.Selenide.*;
 * Показ ожидаемых промо-акций --    нет
 */
 
-public class GeneralSettings_Var2 extends TestRunner {
+public class GeneralSettings_Var2 extends TestRunner implements DisableLazyLoadFromBlock {
     @Test(priority = 1)
     public void setConfiguration_GeneralSettings_Var2(){
+        disableLazyLoadFromBlock("AB: Товар дня");
         //Задаём настройки модуля
         CsCartSettings csCartSettings = new CsCartSettings();
-        AddonSettings addonSettings = csCartSettings.navigateToAddonSettings();
+        AddonSettings addonSettings = csCartSettings.navigateTo_AddonSettings();
         addonSettings.setting_CountdownTo.selectOptionByValue("end_of_the_promotion");
         addonSettings.setting_CountdownType.selectOptionByValue("flipclock");
         addonSettings.clickAndType_setting_MaximumHeightOfDescription("400");
@@ -39,7 +41,7 @@ public class GeneralSettings_Var2 extends TestRunner {
         addonSettings.button_SaveSettings.click();
 
         //Задаём настройки на странице промо-акции
-        PromotionSettings promotionSettings = csCartSettings.navigateToPromotionSettings();
+        PromotionSettings promotionSettings = csCartSettings.navigateTo_PromotionSettings();
         promotionSettings.chooseRussianLanguage();
         promotionSettings.promotion_BuyCamera.click();
         promotionSettings.clickAndType_field_DetailedDescription(); //Чтобы проверить настройку "Максимальная высота описания"
@@ -65,10 +67,9 @@ public class GeneralSettings_Var2 extends TestRunner {
     public void check_GeneralSettings_Var2(){
         //Переходим на главную страницу и проверяем блок "Товар дня"
         CsCartSettings csCartSettings = new CsCartSettings();
-        csCartSettings.button_Storefront.click();
+        StPromotions stPromotions = csCartSettings.navigateTo_Storefront();
         shiftBrowserTab(1);
         $(".cm-btn-success").click();
-        StPromotions stPromotions = new StPromotions();
         stPromotions.block_DealOfTheDay.hover();
         SoftAssert softAssert = new SoftAssert();
         //Проверяем, что в блоке присутствует заголовок

@@ -1,5 +1,6 @@
 import adminPanel.AddonSettings;
 import adminPanel.CsCartSettings;
+import adminPanel.DisableLazyLoadFromBlock;
 import adminPanel.PromotionSettings;
 import com.codeborne.selenide.Condition;
 import org.testng.annotations.Test;
@@ -21,12 +22,13 @@ import static com.codeborne.selenide.Selenide.*;
 * Показ ожидаемых промо-акций --    да
 */
 
-public class GeneralSettings_Var1 extends TestRunner {
+public class GeneralSettings_Var1 extends TestRunner implements DisableLazyLoadFromBlock {
     @Test(priority = 1)
     public void setConfiguration_GeneralSettings_Var1(){
+        disableLazyLoadFromBlock("AB: Товар дня");
         //Задаём настройки модуля
         CsCartSettings csCartSettings = new CsCartSettings();
-        AddonSettings addonSettings = csCartSettings.navigateToAddonSettings();
+        AddonSettings addonSettings = csCartSettings.navigateTo_AddonSettings();
         addonSettings.setting_CountdownTo.selectOptionByValue("end_of_the_day");
         addonSettings.setting_CountdownType.selectOptionByValue("javascript");
         addonSettings.clickAndType_setting_MaximumHeightOfDescription("250");
@@ -40,7 +42,7 @@ public class GeneralSettings_Var1 extends TestRunner {
         addonSettings.button_SaveSettings.click();
 
         //Задаём настройки на странице промо-акции
-        PromotionSettings promotionSettings = csCartSettings.navigateToPromotionSettings();
+        PromotionSettings promotionSettings = csCartSettings.navigateTo_PromotionSettings();
         promotionSettings.chooseRussianLanguage();
         promotionSettings.promotion_BuyCamera.click();
         promotionSettings.clickAndType_field_DetailedDescription(); //Чтобы проверить настройку "Максимальная высота описания"
@@ -52,7 +54,7 @@ public class GeneralSettings_Var1 extends TestRunner {
         promotionSettings.setDateOfTodayForSetting_AvailableTill();
         csCartSettings.button_Save.click();
         //Устанавливаем прошлую дату в поле "Доступна до", чтобы проверить настройку "Показ истекших промо-акций"
-        csCartSettings.navigateToPromotionSettings();
+        csCartSettings.navigateTo_PromotionSettings();
         promotionSettings.promotion_RacingCard.click();
         if(!promotionSettings.setting_UseAvailablePeriod.isSelected()) {
             promotionSettings.setting_UseAvailablePeriod.click();   }
@@ -63,7 +65,7 @@ public class GeneralSettings_Var1 extends TestRunner {
         promotionSettings.calendar_Day15.click();
         csCartSettings.button_Save.click();
         //Устанавливаем будущую дату в поле "Доступна с", чтобы проверить настройку "Показ ожидаемых промо-акций"
-        csCartSettings.navigateToPromotionSettings();
+        csCartSettings.navigateTo_PromotionSettings();
         promotionSettings.promotion_BuyHairDryerVALERA.click();
         if(!promotionSettings.setting_UseAvailablePeriod.isSelected()) {
             promotionSettings.setting_UseAvailablePeriod.click();   }
@@ -94,10 +96,9 @@ public class GeneralSettings_Var1 extends TestRunner {
     public void check_GeneralSettings_Var1(){
         //Переходим на главную страницу и проверяем блок "Товар дня"
         CsCartSettings csCartSettings = new CsCartSettings();
-        csCartSettings.button_Storefront.click();
+        StPromotions stPromotions = csCartSettings.navigateTo_Storefront();
         shiftBrowserTab(1);
         $(".cm-btn-success").click();
-        StPromotions stPromotions = new StPromotions();
         stPromotions.block_DealOfTheDay.hover();
         SoftAssert softAssert = new SoftAssert();
         //Проверяем, что в блоке присутствует заголовок

@@ -24,19 +24,19 @@ public class CategoryPage_Var2 extends TestRunner {
     public void set_CategoryPage_Var2(){
         CsCartSettings csCartSettings = new CsCartSettings();
         //Задаём настройки CS-Cart
-        csCartSettings.navigateToAppearanceSettings();
-        if(!csCartSettings.settingQuickView.isSelected()){
-            csCartSettings.settingQuickView.click();
+        csCartSettings.navigateTo_AppearanceSettings();
+        if(!csCartSettings.setting_QuickView.isSelected()){
+            csCartSettings.setting_QuickView.click();
             csCartSettings.button_Save.click();
         }
 
         //Задаём настройки модуля
-        AddonSettings addonSettings = csCartSettings.navigateToAddonSettings();
+        AddonSettings addonSettings = csCartSettings.navigateTo_AddonSettings();
         addonSettings.setting_AmountOfDisplayedPromotionsInProductLists.selectOptionByValue("2");
         addonSettings.button_SaveSettings.click();
 
         //Задаём настройки промо-акции "Гоночный картинг"
-        PromotionSettings promotionSettings = csCartSettings.navigateToPromotionSettings();
+        PromotionSettings promotionSettings = csCartSettings.navigateTo_PromotionSettings();
         promotionSettings.chooseRussianLanguage();
         promotionSettings.promotion_RacingCard.click();
         if(promotionSettings.setting_UseAvailablePeriod.isSelected()){  //убираем период доступности, чтобы промо-акция всегда отображалась
@@ -52,7 +52,7 @@ public class CategoryPage_Var2 extends TestRunner {
         csCartSettings.button_Save.click();
 
         //Задаём настройки промо-акции "фен VALERA"
-        csCartSettings.navigateToPromotionSettings();
+        csCartSettings.navigateTo_PromotionSettings();
         promotionSettings.promotion_BuyHairDryerVALERA.click();
         if(promotionSettings.setting_UseAvailablePeriod.isSelected()){  //убираем период доступности, чтобы промо-акция всегда отображалась
             promotionSettings.setting_UseAvailablePeriod.click(); }
@@ -67,7 +67,6 @@ public class CategoryPage_Var2 extends TestRunner {
         promotionSettings.field_SearchProduct.sendKeys(Keys.ENTER);
         promotionSettings.checkProductToCondition.click();
         promotionSettings.button_AddAndClose.click();
-
         //Вкладка "АВ: Расширенные промо-акции" у промо-акции
         promotionSettings.tab_ABExtPromotions.click();
         if(promotionSettings.check_DisplayLabelInProductLists.isSelected()){
@@ -81,8 +80,9 @@ public class CategoryPage_Var2 extends TestRunner {
     public void check_CategoryPage(){
         //Переходим на страницу категории
         CsCartSettings csCartSettings = new CsCartSettings();
-        csCartSettings.navigateToCategoryPage();
+        csCartSettings.navigateTo_CategoryPage();
         csCartSettings.category_Notebooks.click();
+        makePause();
         csCartSettings.gearWheelOnTop.click();
         csCartSettings.button_Preview.click();
         shiftBrowserTab(1);
@@ -100,6 +100,7 @@ public class CategoryPage_Var2 extends TestRunner {
         softAssert.assertTrue($$("form[name=\"product_form_219\"] .ab-dotd-category-promo").size() ==2,
                 "There are no two promotions in one product on the category page, Grid template!");
         $("#det_img_219desktop").scrollIntoView("{behavior: \"instant\", block: \"center\", inline: \"center\"}");
+        $("form[name='product_form_219'] .ut2-gl__image").hover();
         screenshot("700 CategoryPage_Var2 - Template Grid");
         stPromotions.button_QuickView.hover().click();
         $(".ui-dialog-titlebar").shouldBe(Condition.visible);
@@ -112,6 +113,7 @@ public class CategoryPage_Var2 extends TestRunner {
         stPromotions.button_ClosePopupWindow.click();
         selectLanguage_RTL();
         $("#det_img_219desktop").scrollIntoView("{behavior: \"instant\", block: \"center\", inline: \"center\"}");
+        $("form[name='product_form_219'] .ut2-gl__image").hover();
         screenshot("710 CategoryPage_Var2 - Template Grid (RTL)");
         stPromotions.button_QuickView.hover().click();
         makePause();

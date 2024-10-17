@@ -11,8 +11,8 @@ import static com.codeborne.selenide.Selenide.$x;
 public class PromotionSettings {
     public PromotionSettings(){super();}
 
-    private SelenideElement button_Languages = $("a[id*='sw_select_'][id*='_wrap_content']");
-    private SelenideElement russianLanguage = $(".popup-icons a[href$='descr_sl=ru']");
+    private SelenideElement button_Languages = $("a[id*='_wrap_content']");
+    private SelenideElement russianLanguage = $("#content_top_navigation .popup-icons a[href$='descr_sl=ru']");
     public void chooseRussianLanguage(){
         button_Languages.click();
         russianLanguage.shouldBe(Condition.visible).click();
@@ -20,9 +20,9 @@ public class PromotionSettings {
     public SelenideElement promotion_RacingCard = $x("//a[contains(text(), 'AB: Гоночный картинг')]");
     public SelenideElement promotion_BuyCamera = $x("//a[contains(text(), 'AB: Купите фотоаппарат')]");
     public SelenideElement promotion_BuyHairDryerVALERA = $x("//a[contains(text(), 'Купи акционный фен VALERA')]");
-    private SelenideElement field_DetailedDescription = $(".redactor2-box p");
+    private SelenideElement field_DetailedDescription = $("#redactor-uuid-1");
     public void clickAndType_field_DetailedDescription(){
-        field_DetailedDescription.click();
+        field_DetailedDescription.hover().click();
         field_DetailedDescription.clear();
         field_DetailedDescription.sendKeys("Перед покупкою ноутбука визначте, для яких цілей вам він потрібен. Шукаєте робочий інструмент для офісних або базових мультимедійних завдань? Вибирайте моделі з інтегрованою відеокартою, її вистачить для комфортної та швидкої роботи. Нерідко такі ноутбуки менше важать, їх система охолодження працює тихіше, а час автономної роботи значно довший. Плануєте грати на ноутбуці в сучасні ігри? Тоді краще купити модель з відеокартою починаючи від NVIDIA GeForce GTX 1050 Ti, але й вона не потягне сучасні ігри на максимальній графіці з роздільною здатністю Full HD. Якщо ж хочете грати без компромісів, зверніть увагу на відеокарти починаючи з NVIDIA GeForce GTX 1660 Ti. Ноутбуки з відеокартами серії NVIDIA GeForce MX підійдуть для ігор з натяжкою, цей тип відеокарт не дасть можливість отримати насолоду від красивої сучасної графіки. Вони стануть у пригоді тим, хто працює з графікою в додатках для дизайну або CAD системами. У будь-яких інших випадках на ноутбуки з такими відеокартами не варто звертати увагу, і це допоможе заощадити чималу суму.");
     }
@@ -53,7 +53,7 @@ public class PromotionSettings {
     public SelenideElement checkProductToCondition = $(".cm-item.mrg-check");
     public SelenideElement button_AddAndClose = $(".cm-process-items.cm-dialog-closer");
     public SelenideElement button_AddCondition = $x("(//a[contains(@onclick, 'fn_promotion_add')])[1]");
-    public SelenideElement selectCondition = $("select[name='promotion_data[conditions][conditions][1]']");
+    public SelenideElement selectCondition = $("li[id^='container_add_condition'] select[name*='promotion_data[conditions][conditions]']");
     public SelenideElement button_AddCategories = $("a[id^='opener_picker_objects_add_condition_']");
 
     public SelenideElement tab_ABExtPromotions = $(By.id("ab__dotd"));

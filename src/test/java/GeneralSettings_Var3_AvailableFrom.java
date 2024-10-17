@@ -1,5 +1,6 @@
 import adminPanel.AddonSettings;
 import adminPanel.CsCartSettings;
+import adminPanel.DisableLazyLoadFromBlock;
 import adminPanel.PromotionSettings;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -19,12 +20,13 @@ import static com.codeborne.selenide.Selenide.screenshot;
 * Отображать счётчик на странице промо-акции--  да (но счётчика не должно быть на странице)
 */
 
-public class GeneralSettings_Var3_AvailableFrom extends TestRunner {
+public class GeneralSettings_Var3_AvailableFrom extends TestRunner implements DisableLazyLoadFromBlock {
     @Test(priority = 1)
     public void setConfiguration_GeneralSettings_Var3_AvailableFrom(){
+        disableLazyLoadFromBlock("AB: Товар дня");
         //Задаём настройки модуля
         CsCartSettings csCartSettings = new CsCartSettings();
-        AddonSettings addonSettings = csCartSettings.navigateToAddonSettings();
+        AddonSettings addonSettings = csCartSettings.navigateTo_AddonSettings();
         addonSettings.setting_CountdownTo.selectOptionByValue("end_of_the_promotion");
         if(!addonSettings.setting_ShowExpiredPromotions.isSelected()){
             addonSettings.setting_ShowExpiredPromotions.click(); }
@@ -33,7 +35,7 @@ public class GeneralSettings_Var3_AvailableFrom extends TestRunner {
         addonSettings.button_SaveSettings.click();
 
         //Задаём настройки на странице промо-акции
-        PromotionSettings promotionSettings = csCartSettings.navigateToPromotionSettings();
+        PromotionSettings promotionSettings = csCartSettings.navigateTo_PromotionSettings();
         promotionSettings.chooseRussianLanguage();
         promotionSettings.promotion_BuyCamera.click();
         if(!promotionSettings.setting_UseAvailablePeriod.isSelected()) {
@@ -57,10 +59,11 @@ public class GeneralSettings_Var3_AvailableFrom extends TestRunner {
     @Test(priority = 2, dependsOnMethods = "setConfiguration_GeneralSettings_Var3_AvailableFrom")
     public void check_GeneralSettings_Var3_AvailableFrom(){
         CsCartSettings csCartSettings = new CsCartSettings();
-        PromotionSettings promotionSettings = csCartSettings.navigateToPromotionSettings();
+        PromotionSettings promotionSettings = csCartSettings.navigateTo_PromotionSettings();
         //Переходим на страницу промо-акции
         promotionSettings.chooseRussianLanguage();
         promotionSettings.promotion_BuyCamera.click();
+        makePause();
         csCartSettings.gearWheelOnTop.click();
         promotionSettings.button_PreviewPromotion.click();
         shiftBrowserTab(1);

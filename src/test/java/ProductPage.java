@@ -20,7 +20,7 @@ public class ProductPage extends TestRunner {
     public void setConfiguration_ProductPage(){
         CsCartSettings csCartSettings = new CsCartSettings();
         //Задаём настройки промо-акции
-        PromotionSettings promotionSettings = csCartSettings.navigateToPromotionSettings();
+        PromotionSettings promotionSettings = csCartSettings.navigateTo_PromotionSettings();
         promotionSettings.chooseRussianLanguage();
         promotionSettings.promotion_RacingCard.click();
         if(promotionSettings.setting_UseAvailablePeriod.isSelected()){  //убираем период доступности, чтобы промо-акция всегда отображалась
@@ -33,7 +33,7 @@ public class ProductPage extends TestRunner {
             promotionSettings.check_DisplayCountdownOnProductPage.click(); }
 
         //Задаём настройки модуля
-        AddonSettings addonSettings = csCartSettings.navigateToAddonSettings();
+        AddonSettings addonSettings = csCartSettings.navigateTo_AddonSettings();
         addonSettings.setting_CountdownType.selectOptionByValue("flipclock");
         addonSettings.button_SaveSettings.click();
     }
@@ -48,6 +48,7 @@ public class ProductPage extends TestRunner {
         csCartSettings.gearWheelOnTop.click();
         csCartSettings.button_Preview.click();
         shiftBrowserTab(1);
+        $(".cm-btn.cm-btn-success").click();
         selectLanguage_RU();
         StPromotions stPromotions = new StPromotions();
         SoftAssert softAssert = new SoftAssert();
