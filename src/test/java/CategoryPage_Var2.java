@@ -90,20 +90,26 @@ public class CategoryPage_Var2 extends TestRunner {
 
         StPromotions stPromotions = new StPromotions();
         SoftAssert softAssert = new SoftAssert();
+
         //Проверяем, что отсутствует лейбл на странице категории с шаблоном "Сетка"
         softAssert.assertFalse(!stPromotions.labelOnCategoryPage.isEmpty(),
                 "There is a promotion label on the category page 'Grid' but shouldn't!");
+
         //Проверяем, что промо-акция отображается на странице категории с шаблоном "Сетка"
         softAssert.assertTrue(!stPromotions.promotionOnCategoryPage.isEmpty(),
                 "There is no any promotion on the category page 'Grid'!");
+
         //Проверяем, что у одного товара присутствует сразу две промо-акции
         softAssert.assertTrue($$("form[name=\"product_form_219\"] .ab-dotd-category-promo").size() ==2,
                 "There are no two promotions in one product on the category page, Grid template!");
+
         $("#det_img_219desktop").scrollIntoView("{behavior: \"instant\", block: \"center\", inline: \"center\"}");
         $("form[name='product_form_219'] .ut2-gl__image").hover();
+        makePause();
         screenshot("700 CategoryPage_Var2 - Template Grid");
-        stPromotions.button_QuickView.hover().click();
+        $("a[data-ca-view-id=\"219\"][data-ca-target-id='product_quick_view']").click();
         $(".ui-dialog-titlebar").shouldBe(Condition.visible);
+
         //Проверяем, что присутствует шапка промо-акции в окне Быстрого просмотра
         softAssert.assertTrue(stPromotions.promotionHeaderInQuickView.exists(),
                 "There is no promotion header in the quick view window!");
@@ -124,17 +130,21 @@ public class CategoryPage_Var2 extends TestRunner {
         stPromotions.button_ClosePopupWindow.click();
         stPromotions.categoryTemplate_WithoutOptions.click();
         makePause();
+
         //Проверяем, что промо-акция отображается на странице категории с шаблоном "Список без опций"
         softAssert.assertTrue(!stPromotions.promotionOnCategoryPage.isEmpty(),
                 "There is no any promotion on the category page 'Without options'!");
+
         //Проверяем, что у одного товара присутствует сразу две промо-акции, "Список без опций"
         softAssert.assertTrue($$("form[name=\"product_form_219\"] .ab-dotd-category-promo").size() ==2,
                 "There are no two promotions in one product on the category page, 'List without options' template!");
+
         //Проверяем, что отсутствует лейбл на странице категории с шаблоном "Список без опций"
         softAssert.assertFalse(!stPromotions.labelOnCategoryPage.isEmpty(),
                 "There is a promotion label on the category page 'Without options' but shouldn't!");
         screenshot("720 CategoryPage_Var2 - Template Without options (RTL)");
         stPromotions.categoryTemplate_CompactList.click();
+
         //Проверяем, что отсутствует лейбл на странице категории с шаблоном "Компактный список"
         softAssert.assertFalse(!stPromotions.labelOnCategoryPage.isEmpty(),
                 "There is a promotion label on the category page 'Compact list' but shouldn't!");

@@ -51,15 +51,19 @@ public class ProductPage extends TestRunner {
         $(".cm-btn.cm-btn-success").click();
         selectLanguage_RU();
         StPromotions stPromotions = new StPromotions();
+
         SoftAssert softAssert = new SoftAssert();
+
         //Проверяем, что шапка промо-акции присутствует на странице товара
         softAssert.assertTrue(stPromotions.promotionHeader.exists(),
                 "There is no promotion header on the product page!");
+
         //Проверяем, что присутствует FlipClock счётчик на страницу товара
         softAssert.assertTrue(stPromotions.flipClock.exists(),
                 "Countdown type is not FlipClock on the product page!");
         makePause();
         screenshot("500 ProductPage - Product page, Default");
+
         selectLanguage_RTL();
         screenshot("502 ProductPage - Product page, Default (RTL)");
         shiftBrowserTab(0);

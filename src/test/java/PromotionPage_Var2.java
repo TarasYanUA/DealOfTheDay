@@ -67,17 +67,22 @@ public class PromotionPage_Var2 extends TestRunner {
         promotionSettings.button_PreviewPromotion.click();
         shiftBrowserTab(1);
         $(".cm-btn-success").click();
-        //Проверяем, что отсутствует фильтр товаров на странице промо-акции
+
         SoftAssert softAssert = new SoftAssert();
+
+        //Проверяем, что отсутствует фильтр товаров на странице промо-акции
         StPromotions stPromotions = new StPromotions();
         softAssert.assertFalse(stPromotions.filterByProducts.exists(),
                 "There are the product filters on the promotion page but shouldn't!");
+
         //Проверяем, что отсутствует блок товаров на странице промо-акции
         softAssert.assertFalse(stPromotions.productBlock.exists(),
                 "There is a product block on the promotion page but shouldn't!");
+
         //Проверяем, что отсутствует счётчик на странице промо-акции
         softAssert.assertFalse(stPromotions.countdown.exists(),
                 "There is a countdown on the promotion page but shouldn't!");
+
         //Проверяем, что период проведения промо-акции -- до конца текущего дня - настройка промо-акции "Доступна до"
         String currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("MM/dd/yyy"));
         String promotionDate = $(".ab__dotd_promotion_date p").getText();

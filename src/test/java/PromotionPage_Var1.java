@@ -65,21 +65,27 @@ public class PromotionPage_Var1 extends TestRunner {
         promotionSettings.button_PreviewPromotion.click();
         shiftBrowserTab(1);
         $(".cm-btn-success").click();
-        //Проверяем, что присутствует фильтр товаров на странице промо-акции
+
         StPromotions stPromotions = new StPromotions();
         SoftAssert softAssert = new SoftAssert();
+
+        //Проверяем, что присутствует фильтр товаров на странице промо-акции
         softAssert.assertTrue(stPromotions.filterByProducts.exists(),
                 "There is no product filters on the promotion page!");
+
         //Проверяем, что присутствует блок товаров на странице промо-акции
         softAssert.assertTrue(stPromotions.productBlock.exists(),
                 "There is no product block on the promotion page!");
+
         //Проверяем, что присутствует счётчик на странице промо-акции
         softAssert.assertTrue(stPromotions.countdown.exists(),
                 "There is no countdown on the promotion page!");
+
         //Проверяем, что присутствует FlipClock счётчик на странице промо-акции
         softAssert.assertTrue(stPromotions.flipClock.exists(),
                 "Countdown type is not FlipClock on the promotion page!");
         screenshot("300 PromotionPage_Var1 - Promotion page");
+
         selectLanguage_RTL();
         makePause();
         screenshot("305 PromotionPage_Var1 - Promotion page (RTL)");

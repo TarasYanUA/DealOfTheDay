@@ -101,24 +101,31 @@ public class GeneralSettings_Var1 extends TestRunner implements DisableLazyLoadF
         $(".cm-btn-success").click();
         stPromotions.block_DealOfTheDay.hover();
         SoftAssert softAssert = new SoftAssert();
+
         //Проверяем, что в блоке присутствует заголовок
         softAssert.assertTrue(stPromotions.blockTitle.exists(),
                 "There is no title of the promotion in the block!");
+
         //Проверяем, что в блоке присутствует описание
         softAssert.assertTrue(stPromotions.blockDescription.exists(),
                 "There is no description of the promotion in the block!");
+
         //Проверяем, что в блоке присутствует Javascript счётчик
         softAssert.assertTrue(stPromotions.javaClock.exists(),
                 "Countdown type is not Javascript in the block!");
+
         //Проверяем, что в блоке присутствует кнопка "Подробнее"
         softAssert.assertTrue(stPromotions.blockButton_More.exists(),
                 "There is no button 'More' in the block!");
+
         //Проверяем, что в блоке присутствует кнопка "Все промо-акции"
         softAssert.assertTrue(stPromotions.blockButton_AllPromotions.exists(),
                 "There is no button 'All promotions' in the block!");
+
         //Проверяем, что у блока присутствуют товары
         softAssert.assertTrue(!stPromotions.blockProducts.isEmpty(),
                 "There are no products in the block!");
+
         makePause();
         screenshot("100 GeneralSettings_Var1 - Block 'DealOfTheDay'");
         selectLanguage_RTL();
@@ -128,18 +135,23 @@ public class GeneralSettings_Var1 extends TestRunner implements DisableLazyLoadF
         //Переходим на страницу списка промо-акций
         stPromotions.blockButton_AllPromotions.click();
         selectLanguage_RU();
+
         //Проверяем, что у промо-акции присутствует текст "Только сегодня" (у промо-акции "Купите фотоаппарат")
         softAssert.assertTrue(stPromotions.text_OnlyToday.exists(),
                 "There is no text 'Only today' at promotion on the promotion list page!");
+
         //Проверяем, что у промо-акции присутствует текст "До начала" (у промо-акции "Купите фен") - настройка "Показ ожидаемых промо-акций"
         softAssert.assertTrue(stPromotions.text_DaysLeftBeforeStart.exists(),
                 "There is no text 'days left before the start' at promotion on the promotion list page!");
+
         //Проверяем, что у промо-акции присутствует текст "Акция завершена" (у промо-акции "Гоночный картинг") - настройка "Показ истекших промо-акций"
         softAssert.assertTrue(stPromotions.text_PromotionHasExpired.exists(),
                 "There is no text 'Promotion has expired' at promotion on the promotion list page!");
+
         //Проверяем, что "Промо-акций на страницу" присутствует не меньше 10 на странице списка промо-акций
         softAssert.assertTrue(stPromotions.promotionsPerPage.size() >= 10,
                 "Promotions per page are less than 10 on the promotion list page!");
+
         //Проверяем, что присутствует "Выделение промо-акции" (у промо-акции "Купите фотоаппарат")
         softAssert.assertTrue(stPromotions.highlight.exists(),
                 "There is no Highlighting of the promotion on the promotion list page!");
@@ -150,20 +162,25 @@ public class GeneralSettings_Var1 extends TestRunner implements DisableLazyLoadF
         //Переходим на страницу промо-акции "Купите фотоаппарат"
         selectLanguage_RU();
         stPromotions.promotion_BuyCamera.click();
+
         //Проверяем, что шапка промо-акции присутствует на странице конкретной промо-акции
         softAssert.assertTrue(stPromotions.promotionHeaderOnPromoPage.exists(),
                 "There is no promotion header on the promotion page!");
+
         //Проверяем, что "Максимальная высота описания" -- 250
         softAssert.assertTrue($("div[style*='max-height: 250px']").exists(),
                 "Maximum height of description is not 250 px on the promotion page!");
+
         //Проверяем, что кнопка "Больше" присутствует в описании промо-акции
         softAssert.assertTrue(!$$(".ab__dotd_more").isEmpty(),
                 "There is no button 'More' at the promotion description on the promotion page!");
+
         String currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("MM/dd/yyy"));
         String promotionDate = $(".ab__dotd_promotion_date p").getText();
         String[] splitPromotionDate = promotionDate.split(": ");
         String resultPromotionDate = splitPromotionDate[1];
         softAssert.assertEquals(resultPromotionDate, "по " + currentDate, "Promotion period is not till the end of the current day!");
+
         //Проверяем, что в промо-акции присутствуют товары
         softAssert.assertTrue(!stPromotions.promotionProducts.isEmpty(),
                 "There are no products on the promotion page!");

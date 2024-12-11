@@ -69,13 +69,17 @@ public class GeneralSettings_Var3_AvailableFrom extends TestRunner implements Di
         shiftBrowserTab(1);
         $(".cm-btn-success").click();
         StPromotions stPromotions = new StPromotions();
+
         SoftAssert softAssert = new SoftAssert();
+
         //Проверяем, что шапка промо-акции присутствует на странице конкретной промо-акции
         softAssert.assertTrue(stPromotions.promotionHeaderOnPromoPage.exists(),
                 "There is no promotion header on the promotion page!");
+
         //Проверяем, что отсутствует счётчик на странице конкретной промо-акции
         softAssert.assertFalse(stPromotions.countdown.exists(),
                 "There is a countdown on the promotion page but shouldn't!");
+
         //Проверяем, что в промо-акции присутствуют товары
         softAssert.assertTrue(!stPromotions.promotionProducts.isEmpty(),
                 "There are no products on the promotion page!");
@@ -83,11 +87,14 @@ public class GeneralSettings_Var3_AvailableFrom extends TestRunner implements Di
         screenshot("250 GeneralSettings_Var3_AvailableFrom - Promotion page");
         selectLanguage_RTL();
         screenshot("252 GeneralSettings_Var3_AvailableFrom - Promotion page (RTL)");
+
         //Переходим на страницу товара
         $(".ut2-gl__body").click();
+
         //Проверяем, что шапка промо-акции присутствует на странице товара
         softAssert.assertTrue(stPromotions.promotionHeader.exists(),
                 "There is no promotion header on the product page!");
+
         //Проверяем, что отсутствует счётчик на странице товара
         softAssert.assertFalse($(".wrapped").exists(),
                 "There is a countdown on the product page but shouldn't!");
@@ -99,21 +106,27 @@ public class GeneralSettings_Var3_AvailableFrom extends TestRunner implements Di
         //Переходим на главную страницу и проверяем блок
         $(".ty-breadcrumbs__a").click();
         stPromotions.block_DealOfTheDay.hover();
+
         //Проверяем, что в блоке присутствует заголовок
         softAssert.assertTrue(stPromotions.blockTitle.exists(),
                 "There is no title of the promotion in the block!");
+
         //Проверяем, что в блоке присутствует описание
         softAssert.assertTrue(stPromotions.blockDescription.exists(),
                 "There is no description of the promotion in the block!");
+
         //Проверяем, что в блоке присутствует кнопка "Подробнее"
         softAssert.assertTrue(stPromotions.blockButton_More.exists(),
                 "There is no button 'More' in the block!");
+
         //Проверяем, что в блоке присутствует кнопка "Все промо-акции"
         softAssert.assertTrue(stPromotions.blockButton_AllPromotions.exists(),
                 "There is no button 'All promotions' in the block!");
+
         //Проверяем, что у блока присутствуют товары
         softAssert.assertTrue(!stPromotions.blockProducts.isEmpty(),
                 "There are no products in the block!");
+
         //Проверяем, что у блока отсутствует счётчик
         softAssert.assertFalse(stPromotions.countdown.exists(),
                 "There is a countdown in the block but shouldn't!");
@@ -122,10 +135,6 @@ public class GeneralSettings_Var3_AvailableFrom extends TestRunner implements Di
         selectLanguage_RTL();
         stPromotions.block_DealOfTheDay.hover();
         screenshot("262 GeneralSettings_Var3_AvailableFrom - Block 'DealOfTheDay' (RTL)");
-
-
-
-
         softAssert.assertAll();
     }
 }

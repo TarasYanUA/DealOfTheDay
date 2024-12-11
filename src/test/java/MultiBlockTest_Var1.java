@@ -107,19 +107,25 @@ public class MultiBlockTest_Var1 extends TestRunner implements DisableLazyLoadFr
         shiftBrowserTab(1);
         $(".cm-btn-success").click();
         stPromotions.block_DealOfTheDay.scrollIntoView("{behavior: \"instant\", block: \"center\", inline: \"center\"}").hover();
+
         SoftAssert softAssert = new SoftAssert();
+
         //Проверяем, что в блоке присутствует заголовок
         softAssert.assertTrue(stPromotions.blockTitle.exists(),
                 "There is no title of the promotion in the multi block!");
+
         //Проверяем, что в блоке присутствует описание
         softAssert.assertTrue(stPromotions.blockDescription.exists(),
                 "There is no description of the promotion in the multi block!");
+
         //Проверяем, что в блоке присутствует кнопка "Подробнее"
         softAssert.assertTrue(stPromotions.blockButton_More.exists(),
                 "There is no button 'More' in the multi block!");
+
         //Проверяем, что в блоке присутствует кнопка "Все промо-акции"
         softAssert.assertTrue(stPromotions.blockButton_AllPromotions.exists(),
                 "There is no button 'All promotions' in the multi block!");
+
         //Проверяем, что в блоке присутствует счётчик Flipclock
         softAssert.assertTrue(stPromotions.flipClock.exists(),
                 "The countdown is not FlipClock in the multi block!");
@@ -127,12 +133,15 @@ public class MultiBlockTest_Var1 extends TestRunner implements DisableLazyLoadFr
         //Проверяем, что в блоке присутствует цена
         softAssert.assertTrue(!$$(".ab__deal_of_the_day .ty-list-price.ty-nowrap").isEmpty(),
                 "There is no price at products in the multi block!");
+
         //Проверяем, что в блоке отсутствует кнопка быстрого просмотра
         softAssert.assertTrue($$(".ab__deal_of_the_day a[data-ca-target-id=\"product_quick_view\"]").isEmpty(),
                 "There is a quick view button at the products in the multi block but shouldn't!");
+
         //Проверяем, что в блоке присутствует кнопка "Купить"
         softAssert.assertTrue(!$$(".ab__deal_of_the_day .ut2-icon-use_icon_cart").isEmpty(),
                 "There is no button 'Add to cart' at the products in the multi block!");
+
         //Проверяем, что у блока 6 товаров
         softAssert.assertTrue(stPromotions.blockProducts.size() == 6,
                 "There are not 6 products in the multi block!");
