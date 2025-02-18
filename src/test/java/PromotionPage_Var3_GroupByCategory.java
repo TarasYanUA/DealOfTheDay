@@ -108,20 +108,20 @@ public class PromotionPage_Var3_GroupByCategory extends TestRunner {
                 "There is no product filters on the promotion page 'Electronics'!");
 
         stPromotions.categoryTemplate_WithoutOptions.hover().click();
-        $(".ty-product-list").scrollIntoView(true);
+        $(".ab__dotd_promotions-products").scrollIntoView(true);
         makePause();
         screenshot("455 PromotionPage_Var3_GroupByCategory - Promotion page, Without options");
         stPromotions.categoryTemplate_CompactList.hover().click();
-        $(".ty-compact-list__item").scrollIntoView(true);
+        $(".ab__dotd_promotions-products").scrollIntoView(true);
         makePause();
         screenshot("460 PromotionPage_Var3_GroupByCategory - Promotion page, Compact list");
 
         selectLanguage_RTL();
-        $(".ty-compact-list__item").scrollIntoView(true);
+        $(".ab__dotd_promotions-products").scrollIntoView(true);
         makePause();
         screenshot("465 PromotionPage_Var3_GroupByCategory - Promotion page, Compact list (RTL)");
         stPromotions.categoryTemplate_WithoutOptions.hover().click();
-        $(".ty-product-list").scrollIntoView(true);
+        $(".ab__dotd_promotions-products").scrollIntoView(true);
         makePause();
         screenshot("470 PromotionPage_Var3_GroupByCategory - Promotion page, Without options (RTL)");
         stPromotions.categoryTemplate_Grid.hover().click();
