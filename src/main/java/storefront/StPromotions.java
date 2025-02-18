@@ -22,6 +22,7 @@ public class StPromotions {
     public SelenideElement categoryTemplate_WithoutOptions = $(".ut2-icon-products-without-options");
     public SelenideElement categoryTemplate_CompactList = $(".ut2-icon-short-list");
     public SelenideElement categoryTemplate_Grid = $(".ut2-icon-products-multicolumns");
+    public SelenideElement productsOnPromotionPage = $(".ab__dotd_promotions-products");
 
     //Проверки
     public SelenideElement filterByProducts = $x("//span[contains(text(), 'Фильтры товаров')]");

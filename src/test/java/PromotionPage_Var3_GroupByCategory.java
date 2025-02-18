@@ -107,24 +107,24 @@ public class PromotionPage_Var3_GroupByCategory extends TestRunner {
         softAssert.assertTrue(stPromotions.filterByProducts.exists(),
                 "There is no product filters on the promotion page 'Electronics'!");
 
-        stPromotions.categoryTemplate_WithoutOptions.hover().click();
-        $(".ab__dotd_promotions-products").scrollIntoView(true);
+        stPromotions.categoryTemplate_WithoutOptions.scrollIntoCenter().click();
+        stPromotions.productsOnPromotionPage.scrollIntoView(true);
         makePause();
         screenshot("455 PromotionPage_Var3_GroupByCategory - Promotion page, Without options");
-        stPromotions.categoryTemplate_CompactList.hover().click();
-        $(".ab__dotd_promotions-products").scrollIntoView(true);
+        stPromotions.categoryTemplate_CompactList.scrollIntoCenter().click();
+        stPromotions.productsOnPromotionPage.scrollIntoView(true);
         makePause();
         screenshot("460 PromotionPage_Var3_GroupByCategory - Promotion page, Compact list");
 
         selectLanguage_RTL();
-        $(".ab__dotd_promotions-products").scrollIntoView(true);
+        stPromotions.productsOnPromotionPage.scrollIntoView(true);
         makePause();
         screenshot("465 PromotionPage_Var3_GroupByCategory - Promotion page, Compact list (RTL)");
-        stPromotions.categoryTemplate_WithoutOptions.hover().click();
-        $(".ab__dotd_promotions-products").scrollIntoView(true);
+        stPromotions.categoryTemplate_WithoutOptions.scrollIntoCenter().click();
+        stPromotions.productsOnPromotionPage.scrollIntoView(true);
         makePause();
         screenshot("470 PromotionPage_Var3_GroupByCategory - Promotion page, Without options (RTL)");
-        stPromotions.categoryTemplate_Grid.hover().click();
+        stPromotions.categoryTemplate_Grid.scrollIntoCenter().click();
         makePause();
         screenshot("475 PromotionPage_Var3_GroupByCategory - Promotion page, Grid (RTL)");
         softAssert.assertAll();
