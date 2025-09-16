@@ -6,6 +6,8 @@ import org.openqa.selenium.Keys;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import storefront.StPromotions;
+import testRunner.TestRunner;
+
 import static com.codeborne.selenide.Selenide.*;
 
 /*
@@ -37,7 +39,7 @@ public class CategoryPage_Var2 extends TestRunner {
 
         //Задаём настройки промо-акции "Гоночный картинг"
         PromotionSettings promotionSettings = basicPage.navigateTo_PromotionSettings();
-        promotionSettings.chooseRussianLanguage();
+        basicPage.chooseRussianLanguage();
         promotionSettings.promotion_RacingCard.click();
         if(promotionSettings.setting_UseAvailablePeriod.isSelected()){  //убираем период доступности, чтобы промо-акция всегда отображалась
             promotionSettings.setting_UseAvailablePeriod.click(); }

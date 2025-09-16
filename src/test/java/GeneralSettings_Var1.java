@@ -6,6 +6,8 @@ import com.codeborne.selenide.Condition;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import storefront.StPromotions;
+import testRunner.TestRunner;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import static com.codeborne.selenide.Selenide.*;
@@ -43,7 +45,7 @@ public class GeneralSettings_Var1 extends TestRunner implements DisableLazyLoadF
 
         //Задаём настройки на странице промо-акции
         PromotionSettings promotionSettings = basicPage.navigateTo_PromotionSettings();
-        promotionSettings.chooseRussianLanguage();
+        basicPage.chooseRussianLanguage();
         promotionSettings.promotion_BuyCamera.click();
         promotionSettings.clickAndType_field_DetailedDescription(); //Чтобы проверить настройку "Максимальная высота описания"
         if(!promotionSettings.setting_UseAvailablePeriod.isSelected()) {

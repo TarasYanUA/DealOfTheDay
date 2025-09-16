@@ -5,6 +5,8 @@ import org.testng.annotations.Test;
 import adminPanel.BasicPage;
 import org.testng.asserts.SoftAssert;
 import storefront.StPromotions;
+import testRunner.TestRunner;
+
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
@@ -21,7 +23,7 @@ public class ProductPage extends TestRunner {
         BasicPage basicPage = new BasicPage();
         //Задаём настройки промо-акции
         PromotionSettings promotionSettings = basicPage.navigateTo_PromotionSettings();
-        promotionSettings.chooseRussianLanguage();
+        basicPage.chooseRussianLanguage();
         promotionSettings.promotion_RacingCard.click();
         if(promotionSettings.setting_UseAvailablePeriod.isSelected()){  //убираем период доступности, чтобы промо-акция всегда отображалась
             promotionSettings.setting_UseAvailablePeriod.click(); }

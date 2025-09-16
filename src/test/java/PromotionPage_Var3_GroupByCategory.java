@@ -4,6 +4,7 @@ import com.codeborne.selenide.Condition;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import storefront.StPromotions;
+import testRunner.TestRunner;
 
 import static com.codeborne.selenide.Selenide.*;
 
@@ -26,7 +27,7 @@ public class PromotionPage_Var3_GroupByCategory extends TestRunner {
         BasicPage basicPage = new BasicPage();
         //Задаём Условия промо-акции "Купите фотоаппарат"
         PromotionSettings promotionSettings = basicPage.navigateTo_PromotionSettings();
-        promotionSettings.chooseRussianLanguage();
+        basicPage.chooseRussianLanguage();
         promotionSettings.promotion_BuyCamera.click();
         //Устанавливаем сегодняшнюю дату для поля "Доступна до"
         clearBothFieldsAvailable();
@@ -72,7 +73,7 @@ public class PromotionPage_Var3_GroupByCategory extends TestRunner {
     public void check_PromotionPage_Var3_GroupByCategory() {
         BasicPage basicPage = new BasicPage();
         PromotionSettings promotionSettings = basicPage.navigateTo_PromotionSettings();
-        promotionSettings.chooseRussianLanguage();
+        basicPage.chooseRussianLanguage();
         promotionSettings.promotion_BuyCamera.click();
         makePause();
         basicPage.gearWheelOnTop.click();

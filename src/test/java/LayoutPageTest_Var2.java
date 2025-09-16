@@ -4,6 +4,8 @@ import com.codeborne.selenide.WebDriverRunner;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import storefront.StPromotions;
+import testRunner.TestRunner;
+
 import static com.codeborne.selenide.Selenide.*;
 
 /*
@@ -38,7 +40,7 @@ public class LayoutPageTest_Var2 extends TestRunner implements DisableLazyLoadFr
 
         //Задаём настройки промо-акции "Фен Valera"
         PromotionSettings promotionSettings = basicPage.navigateTo_PromotionSettings();
-        promotionSettings.chooseRussianLanguage();
+        basicPage.chooseRussianLanguage();
         promotionSettings.promotion_BuyHairDryerVALERA.click();
         //Берём ID данной промо-акции
         String currentUrl = WebDriverRunner.getWebDriver().getCurrentUrl();

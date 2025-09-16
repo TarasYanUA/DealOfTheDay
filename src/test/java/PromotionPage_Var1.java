@@ -4,6 +4,8 @@ import adminPanel.PromotionSettings;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import storefront.StPromotions;
+import testRunner.TestRunner;
+
 import static com.codeborne.selenide.Selenide.*;
 
 /*
@@ -31,7 +33,7 @@ public class PromotionPage_Var1 extends TestRunner {
 
         //Задаём настройки промо-акции
         PromotionSettings promotionSettings = basicPage.navigateTo_PromotionSettings();
-        promotionSettings.chooseRussianLanguage();
+        basicPage.chooseRussianLanguage();
         promotionSettings.promotion_RacingCard.click();
         //Устанавливаем сегодняшнюю дату для поля "Доступна до"
         clearBothFieldsAvailable();
@@ -58,7 +60,7 @@ public class PromotionPage_Var1 extends TestRunner {
     public void check_PromotionPage_Var1() {
         BasicPage basicPage = new BasicPage();
         PromotionSettings promotionSettings = basicPage.navigateTo_PromotionSettings();
-        promotionSettings.chooseRussianLanguage();
+        basicPage.chooseRussianLanguage();
         promotionSettings.promotion_RacingCard.click();
         makePause();
         basicPage.gearWheelOnTop.click();

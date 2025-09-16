@@ -4,6 +4,7 @@ import adminPanel.PromotionSettings;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import storefront.StPromotions;
+import testRunner.TestRunner;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -35,7 +36,7 @@ public class PromotionPage_Var2 extends TestRunner {
 
         //Задаём настройки промо-акции
         PromotionSettings promotionSettings = basicPage.navigateTo_PromotionSettings();
-        promotionSettings.chooseRussianLanguage();
+        basicPage.chooseRussianLanguage();
         promotionSettings.promotion_RacingCard.click();
         if(promotionSettings.setting_StopOtherRules.isSelected()){
             promotionSettings.setting_StopOtherRules.click(); }
@@ -60,7 +61,7 @@ public class PromotionPage_Var2 extends TestRunner {
     public void check_PromotionPage_Var2() {
         BasicPage basicPage = new BasicPage();
         PromotionSettings promotionSettings = basicPage.navigateTo_PromotionSettings();
-        promotionSettings.chooseRussianLanguage();
+        basicPage.chooseRussianLanguage();
         promotionSettings.promotion_RacingCard.click();
         makePause();
         basicPage.gearWheelOnTop.click();

@@ -1,5 +1,6 @@
 package adminPanel;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.WebDriverRunner;
 import storefront.StPromotions;
@@ -15,12 +16,20 @@ public class BasicPage implements CheckMenuToBeActive {
     public SelenideElement popupWindow = $(".ui-dialog-title");
     public SelenideElement gearWheelOnTop = $(".nav__actions-bar .dropdown-icon--tools");
     public SelenideElement button_Preview = $x("//a[contains(text(), 'Предпросмотр')]");
+    private SelenideElement button_Languages = $("a[id*='_wrap_content']");
+    private SelenideElement russianLanguage = $("#content_top_navigation .popup-icons a[href$='descr_sl=ru']");
+
 
     public StPromotions navigateTo_Storefront() {
         String currentUrl = WebDriverRunner.url();
         String[] url = currentUrl.split("admin.php");
         executeJavaScript("window.open('" + url[0] + "')");
         return new StPromotions();
+    }
+
+    public void chooseRussianLanguage(){
+        button_Languages.click();
+        russianLanguage.shouldBe(Condition.visible).click();
     }
 
     private SelenideElement menu_Products = $("a[href$='dispatch=products.manage'].main-menu-1__link");

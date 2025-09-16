@@ -5,6 +5,8 @@ import adminPanel.PromotionSettings;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import storefront.StPromotions;
+import testRunner.TestRunner;
+
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.screenshot;
 
@@ -36,7 +38,7 @@ public class GeneralSettings_Var3_AvailableFrom extends TestRunner implements Di
 
         //Задаём настройки на странице промо-акции
         PromotionSettings promotionSettings = basicPage.navigateTo_PromotionSettings();
-        promotionSettings.chooseRussianLanguage();
+        basicPage.chooseRussianLanguage();
         promotionSettings.promotion_BuyCamera.click();
         if(!promotionSettings.setting_UseAvailablePeriod.isSelected()) {
             promotionSettings.setting_UseAvailablePeriod.click();   }
@@ -61,7 +63,7 @@ public class GeneralSettings_Var3_AvailableFrom extends TestRunner implements Di
         BasicPage basicPage = new BasicPage();
         PromotionSettings promotionSettings = basicPage.navigateTo_PromotionSettings();
         //Переходим на страницу промо-акции
-        promotionSettings.chooseRussianLanguage();
+        basicPage.chooseRussianLanguage();
         promotionSettings.promotion_BuyCamera.click();
         makePause();
         basicPage.gearWheelOnTop.click();
