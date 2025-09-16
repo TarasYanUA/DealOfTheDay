@@ -1,5 +1,5 @@
 import adminPanel.AddonSettings;
-import adminPanel.CsCartSettings;
+import adminPanel.BasicPage;
 import adminPanel.DisableLazyLoadFromBlock;
 import adminPanel.PromotionSettings;
 import org.testng.annotations.Test;
@@ -25,8 +25,8 @@ public class GeneralSettings_Var3_AvailableFrom extends TestRunner implements Di
     public void setConfiguration_GeneralSettings_Var3_AvailableFrom(){
         disableLazyLoadFromBlock("AB: Товар дня");
         //Задаём настройки модуля
-        CsCartSettings csCartSettings = new CsCartSettings();
-        AddonSettings addonSettings = csCartSettings.navigateTo_AddonSettings();
+        BasicPage basicPage = new BasicPage();
+        AddonSettings addonSettings = basicPage.navigateTo_AddonSettings();
         addonSettings.setting_CountdownTo.selectOptionByValue("end_of_the_promotion");
         if(!addonSettings.setting_ShowExpiredPromotions.isSelected()){
             addonSettings.setting_ShowExpiredPromotions.click(); }
@@ -35,7 +35,7 @@ public class GeneralSettings_Var3_AvailableFrom extends TestRunner implements Di
         addonSettings.button_SaveSettings.click();
 
         //Задаём настройки на странице промо-акции
-        PromotionSettings promotionSettings = csCartSettings.navigateTo_PromotionSettings();
+        PromotionSettings promotionSettings = basicPage.navigateTo_PromotionSettings();
         promotionSettings.chooseRussianLanguage();
         promotionSettings.promotion_BuyCamera.click();
         if(!promotionSettings.setting_UseAvailablePeriod.isSelected()) {
@@ -44,7 +44,7 @@ public class GeneralSettings_Var3_AvailableFrom extends TestRunner implements Di
         clearBothFieldsAvailable();
         promotionSettings.setting_UseAvailablePeriod.click();
         promotionSettings.setPastDateForSetting_AvailableFrom();
-        csCartSettings.button_Save.click();
+        basicPage.button_Save.click();
     }
     public void clearBothFieldsAvailable(){
         PromotionSettings promotionSettings = new PromotionSettings();
@@ -52,19 +52,19 @@ public class GeneralSettings_Var3_AvailableFrom extends TestRunner implements Di
         promotionSettings.setting_AvailableFrom.clear();
         promotionSettings.setting_AvailableTill.click();
         promotionSettings.setting_AvailableTill.clear();
-        CsCartSettings csCartSettings = new CsCartSettings();
-        csCartSettings.button_Save.click();
+        BasicPage basicPage = new BasicPage();
+        basicPage.button_Save.click();
     }
 
     @Test(priority = 2, dependsOnMethods = "setConfiguration_GeneralSettings_Var3_AvailableFrom")
     public void check_GeneralSettings_Var3_AvailableFrom(){
-        CsCartSettings csCartSettings = new CsCartSettings();
-        PromotionSettings promotionSettings = csCartSettings.navigateTo_PromotionSettings();
+        BasicPage basicPage = new BasicPage();
+        PromotionSettings promotionSettings = basicPage.navigateTo_PromotionSettings();
         //Переходим на страницу промо-акции
         promotionSettings.chooseRussianLanguage();
         promotionSettings.promotion_BuyCamera.click();
         makePause();
-        csCartSettings.gearWheelOnTop.click();
+        basicPage.gearWheelOnTop.click();
         promotionSettings.button_PreviewPromotion.click();
         shiftBrowserTab(1);
         $(".cm-btn-success").click();

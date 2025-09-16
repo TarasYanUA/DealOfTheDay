@@ -1,4 +1,4 @@
-import adminPanel.CsCartSettings;
+import adminPanel.BasicPage;
 import adminPanel.PromotionSettings;
 import com.codeborne.selenide.Condition;
 import org.testng.annotations.Test;
@@ -23,9 +23,9 @@ import static com.codeborne.selenide.Selenide.*;
 public class PromotionPage_Var3_GroupByCategory extends TestRunner {
     @Test(priority = 1)
     public void setConfiguration_PromotionPage_Var3_GroupByCategory() {
-        CsCartSettings csCartSettings = new CsCartSettings();
+        BasicPage basicPage = new BasicPage();
         //Задаём Условия промо-акции "Купите фотоаппарат"
-        PromotionSettings promotionSettings = csCartSettings.navigateTo_PromotionSettings();
+        PromotionSettings promotionSettings = basicPage.navigateTo_PromotionSettings();
         promotionSettings.chooseRussianLanguage();
         promotionSettings.promotion_BuyCamera.click();
         //Устанавливаем сегодняшнюю дату для поля "Доступна до"
@@ -65,17 +65,17 @@ public class PromotionPage_Var3_GroupByCategory extends TestRunner {
         if (!promotionSettings.check_DisplayCountdownOnPromotionPage.isSelected()) {
             promotionSettings.check_DisplayCountdownOnPromotionPage.click();
         }
-        csCartSettings.button_Save.click();
+        basicPage.button_Save.click();
     }
 
     @Test(priority = 2, dependsOnMethods = "setConfiguration_PromotionPage_Var3_GroupByCategory")
     public void check_PromotionPage_Var3_GroupByCategory() {
-        CsCartSettings csCartSettings = new CsCartSettings();
-        PromotionSettings promotionSettings = csCartSettings.navigateTo_PromotionSettings();
+        BasicPage basicPage = new BasicPage();
+        PromotionSettings promotionSettings = basicPage.navigateTo_PromotionSettings();
         promotionSettings.chooseRussianLanguage();
         promotionSettings.promotion_BuyCamera.click();
         makePause();
-        csCartSettings.gearWheelOnTop.click();
+        basicPage.gearWheelOnTop.click();
         promotionSettings.button_PreviewPromotion.click();
         shiftBrowserTab(1);
         $(".cm-btn-success").click();

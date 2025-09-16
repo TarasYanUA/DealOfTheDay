@@ -21,24 +21,24 @@ import static com.codeborne.selenide.Selenide.*;
 * Отображать счётчик промо-акции -- да
 */
 
-public class MultiBlockTest_Var1 extends TestRunner implements DisableLazyLoadFromBlock {
+public class LayoutPageTest_Var1 extends TestRunner implements DisableLazyLoadFromBlock {
     @Test(priority = 1)
     public void setConfigurations_MultiBlockTest_Var1() {
-        CsCartSettings csCartSettings = new CsCartSettings();
+        BasicPage basicPage = new BasicPage();
         //Задаём настройки CS-Cart
-        csCartSettings.navigateTo_AppearanceSettings();
-        if(csCartSettings.setting_QuickView.isSelected()){
-            csCartSettings.setting_QuickView.click();
-            csCartSettings.button_Save.click();
+        basicPage.navigateTo_AppearanceSettings();
+        if(basicPage.setting_QuickView.isSelected()){
+            basicPage.setting_QuickView.click();
+            basicPage.button_Save.click();
         }
 
         //Задаём настройки модуля
-        AddonSettings addonSettings = csCartSettings.navigateTo_AddonSettings();
+        AddonSettings addonSettings = basicPage.navigateTo_AddonSettings();
         addonSettings.setting_CountdownType.selectOptionByValue("flipclock");
         addonSettings.button_SaveSettings.click();
 
         //Задаём настройки промо-акции "Фен Valera"
-        PromotionSettings promotionSettings = csCartSettings.navigateTo_PromotionSettings();
+        PromotionSettings promotionSettings = basicPage.navigateTo_PromotionSettings();
         promotionSettings.chooseRussianLanguage();
         promotionSettings.promotion_BuyHairDryerVALERA.click();
         //Берём ID данной промо-акции
@@ -57,53 +57,53 @@ public class MultiBlockTest_Var1 extends TestRunner implements DisableLazyLoadFr
         promotionSettings.field_SearchProduct.sendKeys(Keys.ENTER);
         promotionSettings.checkProductToCondition.click();
         promotionSettings.button_AddAndClose.click();
-        csCartSettings.button_Save.click();
+        basicPage.button_Save.click();
 
         //Работаем с блоком "Мульти товар дня"
-        MultiBlock multiBlock = csCartSettings.navigateToSectionLayouts();
-        csCartSettings.layout_LightV2.click();
-        csCartSettings.setLayoutAsDefault();
-        csCartSettings.layout_TabHomePage.click();
-        csCartSettings.switchOffBlock_DealOfTheDay();
+        LayoutPage layoutPage = basicPage.navigateToSectionLayouts();
+        layoutPage.layout_LightV2.click();
+        layoutPage.setLayoutAsDefault();
+        layoutPage.layout_TabHomePage.click();
+        layoutPage.switchOffBlock_DealOfTheDay();
         //Создаём блок "Мульти Товар дня"
         if (!$x("//div[@title=\"MultiBlock - AutoTest\"]").exists()) {
-            multiBlock.addNewBlock();
-            csCartSettings.popupWindow.shouldBe(Condition.enabled);
-            multiBlock.tab_CreateNewBlock.click();
-            multiBlock.multiBlock.click();
+            layoutPage.addNewBlock();
+            basicPage.popupWindow.shouldBe(Condition.enabled);
+            layoutPage.tab_CreateNewBlock.click();
+            layoutPage.multiBlock.click();
             $("#ui-id-2").shouldBe(Condition.enabled);
-            multiBlock.blockName.click();
-            multiBlock.blockName.sendKeys("MultiBlock - AutoTest");
-            multiBlock.tab_Content.click();
-            multiBlock.button_AddPromotionsToBlock.click();
+            layoutPage.blockName.click();
+            layoutPage.blockName.sendKeys("MultiBlock - AutoTest");
+            layoutPage.tab_Content.click();
+            layoutPage.button_AddPromotionsToBlock.click();
             $("#ui-id-3").shouldBe(Condition.enabled);
             $(("input[id^='checkbox_id_" + promotionID)).click();
-            multiBlock.button_AddAndCloseSelectedPromotions.click();
-            multiBlock.button_CreateBlock.click();
+            layoutPage.button_AddAndCloseSelectedPromotions.click();
+            layoutPage.button_CreateBlock.click();
         }
         //Задаём настройки блоку "Мульти Товар дня"
-        multiBlock.blockProperties.click();
-        csCartSettings.popupWindow.shouldBe(Condition.enabled);
-        multiBlock.tab_BlockSettings.click();
-        if (!multiBlock.setting_DoNotScrollAutomatically.isSelected()) {
-            multiBlock.setting_DoNotScrollAutomatically.click();
+        layoutPage.blockProperties.click();
+        basicPage.popupWindow.shouldBe(Condition.enabled);
+        layoutPage.tab_BlockSettings.click();
+        if (!layoutPage.setting_DoNotScrollAutomatically.isSelected()) {
+            layoutPage.setting_DoNotScrollAutomatically.click();
         }
-        multiBlock.setting_ItemQuantity.click();
-        multiBlock.setting_ItemQuantity.setValue("5");
-        if (multiBlock.setting_HideAddToCart.isSelected()) {
-            multiBlock.setting_HideAddToCart.click();
+        layoutPage.setting_ItemQuantity.click();
+        layoutPage.setting_ItemQuantity.setValue("5");
+        if (layoutPage.setting_HideAddToCart.isSelected()) {
+            layoutPage.setting_HideAddToCart.click();
         }
-        if (!multiBlock.setting_DisplayPromotionCountdown.isSelected()) {
-            multiBlock.setting_DisplayPromotionCountdown.click();
+        if (!layoutPage.setting_DisplayPromotionCountdown.isSelected()) {
+            layoutPage.setting_DisplayPromotionCountdown.click();
         }
-        multiBlock.button_SaveBlockProperties.click();
+        layoutPage.button_SaveBlockProperties.click();
         disableLazyLoadFromBlock("MultiBlock - AutoTest");
     }
 
     @Test(priority = 2, dependsOnMethods = "setConfigurations_MultiBlockTest_Var1")
     public void check_Block(){
-        CsCartSettings csCartSettings = new CsCartSettings();
-        StPromotions stPromotions = csCartSettings.navigateTo_Storefront();
+        BasicPage basicPage = new BasicPage();
+        StPromotions stPromotions = basicPage.navigateTo_Storefront();
         shiftBrowserTab(1);
         $(".cm-btn-success").click();
         stPromotions.block_DealOfTheDay.scrollIntoView("{behavior: \"instant\", block: \"center\", inline: \"center\"}").hover();

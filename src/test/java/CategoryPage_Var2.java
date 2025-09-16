@@ -1,5 +1,5 @@
 import adminPanel.AddonSettings;
-import adminPanel.CsCartSettings;
+import adminPanel.BasicPage;
 import adminPanel.PromotionSettings;
 import com.codeborne.selenide.Condition;
 import org.openqa.selenium.Keys;
@@ -22,21 +22,21 @@ import static com.codeborne.selenide.Selenide.*;
 public class CategoryPage_Var2 extends TestRunner {
     @Test(priority = 1)
     public void set_CategoryPage_Var2(){
-        CsCartSettings csCartSettings = new CsCartSettings();
+        BasicPage basicPage = new BasicPage();
         //Задаём настройки CS-Cart
-        csCartSettings.navigateTo_AppearanceSettings();
-        if(!csCartSettings.setting_QuickView.isSelected()){
-            csCartSettings.setting_QuickView.click();
-            csCartSettings.button_Save.click();
+        basicPage.navigateTo_AppearanceSettings();
+        if(!basicPage.setting_QuickView.isSelected()){
+            basicPage.setting_QuickView.click();
+            basicPage.button_Save.click();
         }
 
         //Задаём настройки модуля
-        AddonSettings addonSettings = csCartSettings.navigateTo_AddonSettings();
+        AddonSettings addonSettings = basicPage.navigateTo_AddonSettings();
         addonSettings.setting_AmountOfDisplayedPromotionsInProductLists.selectOptionByValue("2");
         addonSettings.button_SaveSettings.click();
 
         //Задаём настройки промо-акции "Гоночный картинг"
-        PromotionSettings promotionSettings = csCartSettings.navigateTo_PromotionSettings();
+        PromotionSettings promotionSettings = basicPage.navigateTo_PromotionSettings();
         promotionSettings.chooseRussianLanguage();
         promotionSettings.promotion_RacingCard.click();
         if(promotionSettings.setting_UseAvailablePeriod.isSelected()){  //убираем период доступности, чтобы промо-акция всегда отображалась
@@ -49,10 +49,10 @@ public class CategoryPage_Var2 extends TestRunner {
             promotionSettings.check_DisplayLabelInProductLists.click(); }
         if(!promotionSettings.check_DisplayPromotionInProductLists.isSelected()){
             promotionSettings.check_DisplayPromotionInProductLists.click(); }
-        csCartSettings.button_Save.click();
+        basicPage.button_Save.click();
 
         //Задаём настройки промо-акции "фен VALERA"
-        csCartSettings.navigateTo_PromotionSettings();
+        basicPage.navigateTo_PromotionSettings();
         promotionSettings.promotion_BuyHairDryerVALERA.click();
         if(promotionSettings.setting_UseAvailablePeriod.isSelected()){  //убираем период доступности, чтобы промо-акция всегда отображалась
             promotionSettings.setting_UseAvailablePeriod.click(); }
@@ -73,18 +73,18 @@ public class CategoryPage_Var2 extends TestRunner {
             promotionSettings.check_DisplayLabelInProductLists.click(); }
         if(!promotionSettings.check_DisplayPromotionInProductLists.isSelected()){
             promotionSettings.check_DisplayPromotionInProductLists.click(); }
-        csCartSettings.button_Save.click();
+        basicPage.button_Save.click();
     }
 
     @Test(priority = 2, dependsOnMethods = "set_CategoryPage_Var2")
     public void check_CategoryPage(){
         //Переходим на страницу категории
-        CsCartSettings csCartSettings = new CsCartSettings();
-        csCartSettings.navigateTo_CategoryPage();
-        csCartSettings.category_Notebooks.click();
+        BasicPage basicPage = new BasicPage();
+        basicPage.navigateTo_CategoryPage();
+        basicPage.category_Notebooks.click();
         makePause();
-        csCartSettings.gearWheelOnTop.click();
-        csCartSettings.button_Preview.click();
+        basicPage.gearWheelOnTop.click();
+        basicPage.button_Preview.click();
         shiftBrowserTab(1);
         $(".cm-btn-success").click();
 

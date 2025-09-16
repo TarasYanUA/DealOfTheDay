@@ -1,5 +1,5 @@
 import adminPanel.AddonSettings;
-import adminPanel.CsCartSettings;
+import adminPanel.BasicPage;
 import adminPanel.DisableLazyLoadFromBlock;
 import adminPanel.PromotionSettings;
 import org.testng.annotations.Test;
@@ -26,12 +26,12 @@ public class GeneralSettings_Var2 extends TestRunner implements DisableLazyLoadF
     public void setConfiguration_GeneralSettings_Var2(){
         disableLazyLoadFromBlock("AB: Товар дня");
         //Задаём настройки модуля
-        CsCartSettings csCartSettings = new CsCartSettings();
-        AddonSettings addonSettings = csCartSettings.navigateTo_AddonSettings();
+        BasicPage basicPage = new BasicPage();
+        AddonSettings addonSettings = basicPage.navigateTo_AddonSettings();
         addonSettings.setting_CountdownTo.selectOptionByValue("end_of_the_promotion");
         addonSettings.setting_CountdownType.selectOptionByValue("flipclock");
-        addonSettings.clickAndType_setting_MaximumHeightOfDescription("400");
-        addonSettings.clickAndType_setting_PromotionsPerPage("4");
+        addonSettings.setting_MaximumHeightOfDescription.setValue("400");
+        addonSettings.setting_PromotionsPerPage.setValue("4");
         addonSettings.setting_HighlightingThePromotion.selectOptionByValue("1");
         addonSettings.setting_AmountOfDisplayedPromotionsInProductLists.selectOptionByValue("2");
         if(addonSettings.setting_ShowExpiredPromotions.isSelected()){
@@ -41,7 +41,7 @@ public class GeneralSettings_Var2 extends TestRunner implements DisableLazyLoadF
         addonSettings.button_SaveSettings.click();
 
         //Задаём настройки на странице промо-акции
-        PromotionSettings promotionSettings = csCartSettings.navigateTo_PromotionSettings();
+        PromotionSettings promotionSettings = basicPage.navigateTo_PromotionSettings();
         promotionSettings.chooseRussianLanguage();
         promotionSettings.promotion_BuyCamera.click();
         promotionSettings.clickAndType_field_DetailedDescription(); //Чтобы проверить настройку "Максимальная высота описания"
@@ -51,7 +51,7 @@ public class GeneralSettings_Var2 extends TestRunner implements DisableLazyLoadF
         clearBothFieldsAvailable();
         promotionSettings.setting_UseAvailablePeriod.click();
         promotionSettings.setDateOfTodayForSetting_AvailableTill();
-        csCartSettings.button_Save.click();
+        basicPage.button_Save.click();
     }
     public void clearBothFieldsAvailable(){
         PromotionSettings promotionSettings = new PromotionSettings();
@@ -59,17 +59,17 @@ public class GeneralSettings_Var2 extends TestRunner implements DisableLazyLoadF
         promotionSettings.setting_AvailableFrom.clear();
         promotionSettings.setting_AvailableTill.click();
         promotionSettings.setting_AvailableTill.clear();
-        CsCartSettings csCartSettings = new CsCartSettings();
-        csCartSettings.button_Save.click();
+        BasicPage basicPage = new BasicPage();
+        basicPage.button_Save.click();
     }
 
     @Test(priority = 2, dependsOnMethods = "setConfiguration_GeneralSettings_Var2")
     public void check_GeneralSettings_Var2(){
         //Переходим на главную страницу и проверяем блок "Товар дня"
-        CsCartSettings csCartSettings = new CsCartSettings();
+        BasicPage basicPage = new BasicPage();
         SoftAssert softAssert = new SoftAssert();
 
-        StPromotions stPromotions = csCartSettings.navigateTo_Storefront();
+        StPromotions stPromotions = basicPage.navigateTo_Storefront();
         shiftBrowserTab(1);
         $(".cm-btn-success").click();
         stPromotions.block_DealOfTheDay.hover();

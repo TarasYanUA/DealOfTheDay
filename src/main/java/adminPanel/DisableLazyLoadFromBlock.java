@@ -6,15 +6,15 @@ import static com.codeborne.selenide.Selenide.*;
 
 public interface DisableLazyLoadFromBlock {
     default void disableLazyLoadFromBlock(String blockName) {
-        CsCartSettings csCartSettings = new CsCartSettings();
-        csCartSettings.navigateToSectionLayouts();
-        csCartSettings.layout_TabHomePage.click();
+        BasicPage basicPage = new BasicPage();
+        LayoutPage layoutPage = basicPage.navigateToSectionLayouts();
+        layoutPage.layout_TabHomePage.click();
         $("div[data-ca-block-name='" + blockName + "'] ~ div[class*='grid-control-menu'] div[class*='bm-action-properties']").hover().click();
 
-        csCartSettings.popupWindow.shouldBe(Condition.visible);
+        basicPage.popupWindow.shouldBe(Condition.visible);
         if ($("input[id^='elm_grid_abt__ut2_use_lazy_load']").isSelected())
             $("input[id^='elm_grid_abt__ut2_use_lazy_load']").click();
         $("input[name='dispatch[block_manager.grid.update]']").click();
-        csCartSettings.popupWindow.shouldBe(Condition.disappear);
+        basicPage.popupWindow.shouldBe(Condition.disappear);
     }
 }

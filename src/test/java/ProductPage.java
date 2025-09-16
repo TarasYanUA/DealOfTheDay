@@ -2,7 +2,7 @@ import adminPanel.AddonSettings;
 import adminPanel.PromotionSettings;
 import org.openqa.selenium.Keys;
 import org.testng.annotations.Test;
-import adminPanel.CsCartSettings;
+import adminPanel.BasicPage;
 import org.testng.asserts.SoftAssert;
 import storefront.StPromotions;
 import static com.codeborne.selenide.Selenide.*;
@@ -18,9 +18,9 @@ import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 public class ProductPage extends TestRunner {
     @Test(priority = 1)
     public void setConfiguration_ProductPage(){
-        CsCartSettings csCartSettings = new CsCartSettings();
+        BasicPage basicPage = new BasicPage();
         //Задаём настройки промо-акции
-        PromotionSettings promotionSettings = csCartSettings.navigateTo_PromotionSettings();
+        PromotionSettings promotionSettings = basicPage.navigateTo_PromotionSettings();
         promotionSettings.chooseRussianLanguage();
         promotionSettings.promotion_RacingCard.click();
         if(promotionSettings.setting_UseAvailablePeriod.isSelected()){  //убираем период доступности, чтобы промо-акция всегда отображалась
@@ -33,20 +33,20 @@ public class ProductPage extends TestRunner {
             promotionSettings.check_DisplayCountdownOnProductPage.click(); }
 
         //Задаём настройки модуля
-        AddonSettings addonSettings = csCartSettings.navigateTo_AddonSettings();
+        AddonSettings addonSettings = basicPage.navigateTo_AddonSettings();
         addonSettings.setting_CountdownType.selectOptionByValue("flipclock");
         addonSettings.button_SaveSettings.click();
     }
 
     @Test(priority = 2, dependsOnMethods = "setConfiguration_ProductPage")
     public void check_ProductPage(){
-        CsCartSettings csCartSettings = new CsCartSettings();
+        BasicPage basicPage = new BasicPage();
         String productCode = "M0219A3GX3";
-        csCartSettings.field_SearchOnTop.click();
-        csCartSettings.field_SearchOnTop.setValue(productCode).sendKeys(Keys.ENTER);
-        csCartSettings.productTemplate.selectOptionByValue("default_template");
-        csCartSettings.gearWheelOnTop.click();
-        csCartSettings.button_Preview.click();
+        basicPage.field_SearchOnTop.click();
+        basicPage.field_SearchOnTop.setValue(productCode).sendKeys(Keys.ENTER);
+        basicPage.productTemplate.selectOptionByValue("default_template");
+        basicPage.gearWheelOnTop.click();
+        basicPage.button_Preview.click();
         shiftBrowserTab(1);
         $(".cm-btn.cm-btn-success").click();
         selectLanguage_RU();
@@ -67,9 +67,9 @@ public class ProductPage extends TestRunner {
         selectLanguage_RTL();
         screenshot("502 ProductPage - Product page, Default (RTL)");
         shiftBrowserTab(0);
-        csCartSettings.field_SearchOnTop.click();
-        csCartSettings.field_SearchOnTop.setValue(productCode).sendKeys(Keys.ENTER);
-        csCartSettings.productTemplate.selectOptionByValue("bigpicture_template");
+        basicPage.field_SearchOnTop.click();
+        basicPage.field_SearchOnTop.setValue(productCode).sendKeys(Keys.ENTER);
+        basicPage.productTemplate.selectOptionByValue("bigpicture_template");
         goToProductPage(2);
         screenshot("504 ProductPage - Product page, BigPicture");
         selectLanguage_RTL();
@@ -96,14 +96,14 @@ public class ProductPage extends TestRunner {
 
     public void selectProductTemplate(String templateValue) {
         shiftBrowserTab(0);
-        CsCartSettings csCartSettings = new CsCartSettings();
-        csCartSettings.productTemplate.selectOptionByValue(templateValue);
+        BasicPage basicPage = new BasicPage();
+        basicPage.productTemplate.selectOptionByValue(templateValue);
     }
     public void goToProductPage(int tabNumber){
-        CsCartSettings csCartSettings = new CsCartSettings();
-        csCartSettings.button_Save.click();
-        csCartSettings.gearWheelOnTop.click();
-        csCartSettings.button_Preview.click();
+        BasicPage basicPage = new BasicPage();
+        basicPage.button_Save.click();
+        basicPage.gearWheelOnTop.click();
+        basicPage.button_Preview.click();
         getWebDriver().getWindowHandle(); switchTo().window(tabNumber);
         makePause();
     }

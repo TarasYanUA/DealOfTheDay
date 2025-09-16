@@ -1,5 +1,5 @@
 import adminPanel.AddonSettings;
-import adminPanel.CsCartSettings;
+import adminPanel.BasicPage;
 import adminPanel.PromotionSettings;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -22,15 +22,15 @@ import static com.codeborne.selenide.Selenide.*;
 public class PromotionPage_Var1 extends TestRunner {
     @Test(priority = 1)
     public void setConfiguration_PromotionPage_Var1(){
-        CsCartSettings csCartSettings = new CsCartSettings();
+        BasicPage basicPage = new BasicPage();
         //Задаём настройки модуля
-        AddonSettings addonSettings = csCartSettings.navigateTo_AddonSettings();
+        AddonSettings addonSettings = basicPage.navigateTo_AddonSettings();
         addonSettings.setting_CountdownType.selectOptionByValue("flipclock");
         addonSettings.setting_AmountOfDisplayedPromotionsInProductLists.selectOptionByValue("2");
         addonSettings.button_SaveSettings.click();
 
         //Задаём настройки промо-акции
-        PromotionSettings promotionSettings = csCartSettings.navigateTo_PromotionSettings();
+        PromotionSettings promotionSettings = basicPage.navigateTo_PromotionSettings();
         promotionSettings.chooseRussianLanguage();
         promotionSettings.promotion_RacingCard.click();
         //Устанавливаем сегодняшнюю дату для поля "Доступна до"
@@ -51,17 +51,17 @@ public class PromotionPage_Var1 extends TestRunner {
         if(!promotionSettings.check_DisplayCountdownOnPromotionPage.isSelected()){
             promotionSettings.check_DisplayCountdownOnPromotionPage.click();
         }
-        csCartSettings.button_Save.click();
+        basicPage.button_Save.click();
     }
 
     @Test(priority = 2, dependsOnMethods = "setConfiguration_PromotionPage_Var1")
     public void check_PromotionPage_Var1() {
-        CsCartSettings csCartSettings = new CsCartSettings();
-        PromotionSettings promotionSettings = csCartSettings.navigateTo_PromotionSettings();
+        BasicPage basicPage = new BasicPage();
+        PromotionSettings promotionSettings = basicPage.navigateTo_PromotionSettings();
         promotionSettings.chooseRussianLanguage();
         promotionSettings.promotion_RacingCard.click();
         makePause();
-        csCartSettings.gearWheelOnTop.click();
+        basicPage.gearWheelOnTop.click();
         promotionSettings.button_PreviewPromotion.click();
         shiftBrowserTab(1);
         $(".cm-btn-success").click();

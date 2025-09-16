@@ -1,4 +1,4 @@
-import adminPanel.CsCartSettings;
+import adminPanel.BasicPage;
 import adminPanel.PromotionSettings;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
@@ -61,7 +61,7 @@ public class TestRunner {
         sleep(1000);
         promotionSettings.setting_AvailableTill.click();
         promotionSettings.setting_AvailableTill.clear();
-        CsCartSettings csCartSettings = new CsCartSettings();
-        csCartSettings.button_Save.click();
+        BasicPage basicPage = new BasicPage();
+        basicPage.button_Save.click();
     }
 }

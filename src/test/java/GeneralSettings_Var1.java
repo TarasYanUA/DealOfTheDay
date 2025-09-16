@@ -1,5 +1,5 @@
 import adminPanel.AddonSettings;
-import adminPanel.CsCartSettings;
+import adminPanel.BasicPage;
 import adminPanel.DisableLazyLoadFromBlock;
 import adminPanel.PromotionSettings;
 import com.codeborne.selenide.Condition;
@@ -27,12 +27,12 @@ public class GeneralSettings_Var1 extends TestRunner implements DisableLazyLoadF
     public void setConfiguration_GeneralSettings_Var1(){
         disableLazyLoadFromBlock("AB: Товар дня");
         //Задаём настройки модуля
-        CsCartSettings csCartSettings = new CsCartSettings();
-        AddonSettings addonSettings = csCartSettings.navigateTo_AddonSettings();
+        BasicPage basicPage = new BasicPage();
+        AddonSettings addonSettings = basicPage.navigateTo_AddonSettings();
         addonSettings.setting_CountdownTo.selectOptionByValue("end_of_the_day");
         addonSettings.setting_CountdownType.selectOptionByValue("javascript");
-        addonSettings.clickAndType_setting_MaximumHeightOfDescription("250");
-        addonSettings.clickAndType_setting_PromotionsPerPage("12");
+        addonSettings.setting_MaximumHeightOfDescription.setValue("250");
+        addonSettings.setting_PromotionsPerPage.setValue("12");
         addonSettings.setting_HighlightingThePromotion.selectOptionByValue("1");
         addonSettings.setting_AmountOfDisplayedPromotionsInProductLists.selectOptionByValue("0");
         if(!addonSettings.setting_ShowExpiredPromotions.isSelected()){
@@ -42,7 +42,7 @@ public class GeneralSettings_Var1 extends TestRunner implements DisableLazyLoadF
         addonSettings.button_SaveSettings.click();
 
         //Задаём настройки на странице промо-акции
-        PromotionSettings promotionSettings = csCartSettings.navigateTo_PromotionSettings();
+        PromotionSettings promotionSettings = basicPage.navigateTo_PromotionSettings();
         promotionSettings.chooseRussianLanguage();
         promotionSettings.promotion_BuyCamera.click();
         promotionSettings.clickAndType_field_DetailedDescription(); //Чтобы проверить настройку "Максимальная высота описания"
@@ -52,9 +52,9 @@ public class GeneralSettings_Var1 extends TestRunner implements DisableLazyLoadF
         clearBothFieldsAvailable();
         promotionSettings.setting_UseAvailablePeriod.click();
         promotionSettings.setDateOfTodayForSetting_AvailableTill();
-        csCartSettings.button_Save.click();
+        basicPage.button_Save.click();
         //Устанавливаем прошлую дату в поле "Доступна до", чтобы проверить настройку "Показ истекших промо-акций"
-        csCartSettings.navigateTo_PromotionSettings();
+        basicPage.navigateTo_PromotionSettings();
         promotionSettings.promotion_RacingCard.click();
         if(!promotionSettings.setting_UseAvailablePeriod.isSelected()) {
             promotionSettings.setting_UseAvailablePeriod.click();   }
@@ -63,9 +63,9 @@ public class GeneralSettings_Var1 extends TestRunner implements DisableLazyLoadF
         promotionSettings.setting_AvailableTill.click();
         promotionSettings.calendar_ArrowPrevious.shouldBe(Condition.interactable).click();
         promotionSettings.calendar_Day15.click();
-        csCartSettings.button_Save.click();
+        basicPage.button_Save.click();
         //Устанавливаем будущую дату в поле "Доступна с", чтобы проверить настройку "Показ ожидаемых промо-акций"
-        csCartSettings.navigateTo_PromotionSettings();
+        basicPage.navigateTo_PromotionSettings();
         promotionSettings.promotion_BuyHairDryerVALERA.click();
         if(!promotionSettings.setting_UseAvailablePeriod.isSelected()) {
             promotionSettings.setting_UseAvailablePeriod.click();   }
@@ -80,7 +80,7 @@ public class GeneralSettings_Var1 extends TestRunner implements DisableLazyLoadF
             promotionSettings.check_HideProductBlock.click(); }
         if(!promotionSettings.check_DisplayCountdownOnPromotionPage.isSelected()){
             promotionSettings.check_DisplayCountdownOnPromotionPage.click(); }
-        csCartSettings.button_Save.click();
+        basicPage.button_Save.click();
     }
     public void clearBothFieldsAvailable(){
         PromotionSettings promotionSettings = new PromotionSettings();
@@ -88,15 +88,15 @@ public class GeneralSettings_Var1 extends TestRunner implements DisableLazyLoadF
         promotionSettings.setting_AvailableFrom.clear();
         promotionSettings.setting_AvailableTill.click();
         promotionSettings.setting_AvailableTill.clear();
-        CsCartSettings csCartSettings = new CsCartSettings();
-        csCartSettings.button_Save.click();
+        BasicPage basicPage = new BasicPage();
+        basicPage.button_Save.click();
     }
 
     @Test(priority = 2, dependsOnMethods = "setConfiguration_GeneralSettings_Var1")
     public void check_GeneralSettings_Var1(){
         //Переходим на главную страницу и проверяем блок "Товар дня"
-        CsCartSettings csCartSettings = new CsCartSettings();
-        StPromotions stPromotions = csCartSettings.navigateTo_Storefront();
+        BasicPage basicPage = new BasicPage();
+        StPromotions stPromotions = basicPage.navigateTo_Storefront();
         shiftBrowserTab(1);
         $(".cm-btn-success").click();
         stPromotions.block_DealOfTheDay.hover();

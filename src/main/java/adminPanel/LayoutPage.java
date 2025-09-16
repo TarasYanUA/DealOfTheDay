@@ -1,18 +1,40 @@
 package adminPanel;
 
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
 
-public class MultiBlock {
-    public MultiBlock(){super();}
+public class LayoutPage {
+    public LayoutPage(){super();}
+
+    public SelenideElement layout_LightV2 = $x("//a[contains(text(), '(Light v2)')]");
+    SelenideElement gearwheelOfActiveLayout = $(".with-menu.active .dropdown-toggle");
+    SelenideElement button_makeByDefault = $(".with-menu.active a[href*='block_manager.set_default_layout']");
+    public SelenideElement layout_TabHomePage = $x("//a[text()='Домашняя страница']");
+
+    public void setLayoutAsDefault() {
+        gearwheelOfActiveLayout.hover().click();
+        if ($(".with-menu.active a[href*='block_manager.set_default_layout']").exists()) {
+            button_makeByDefault.click();
+            Selenide.sleep(1500);
+        }
+    }
+
+    public void switchOffBlock_DealOfTheDay() {  //Выключаем  блок "Товар дня"
+        if (!$("div.block-off[data-ca-block-name=\"AB: Товар дня\"]").exists()) {
+            $("div[data-ca-block-name=\"AB: Товар дня\"]").$(".cs-icon--type-off").click();
+        }
+    }
+
     public void addNewBlock(){
         String layoutID = $x("//div[@title='AB: Товар дня']/../..").getAttribute("id");
         $(By.id(layoutID)).$(".cs-icon--type-plus").hover().click();
         $(By.id(layoutID)).$(".bm-action-add-block").click();
     }
+
     public SelenideElement blockProperties = $("div[data-ca-block-name=\"MultiBlock - AutoTest\"] .bm-action-properties.action");
     public SelenideElement button_SaveBlockProperties = $("input[name=\"dispatch[block_manager.update_block]\"]");
     public SelenideElement multiBlock = $(".bmicon-ab--multi-deal-of-the-day");
