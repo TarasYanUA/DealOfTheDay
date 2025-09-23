@@ -41,7 +41,7 @@ public class CategoryPage_Var2 extends TestRunner {
         Utils.setCheckboxState(promotionSettings.setting_UseAvailablePeriod, false); //убираем период доступности, чтобы промо-акция всегда отображалась
         Utils.setCheckboxState(promotionSettings.setting_StopOtherRules, false);
         //Вкладка "АВ: Расширенные промо-акции" у промо-акции
-        promotionSettings.tab_ABExtPromotions.click();
+        promotionSettings.tab_ABExtPromotions.scrollIntoCenter().click();
         Utils.setCheckboxState(promotionSettings.check_DisplayLabelInProductLists, false);
         Utils.setCheckboxState(promotionSettings.check_DisplayPromotionInProductLists, true);
         basicPage.button_Save.click();

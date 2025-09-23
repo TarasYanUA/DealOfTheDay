@@ -63,7 +63,7 @@ public class GeneralSettings_Var2 extends TestRunner implements DisableLazyLoadF
         StPromotions stPromotions = basicPage.navigateTo_Storefront();
         Utils.shiftBrowserTab(1);
         $(".cm-btn-success").click();
-        stPromotions.block_DealOfTheDay.hover();
+        stPromotions.block_DealOfTheDay.scrollIntoCenter();
 
         //Проверяем, что в блоке присутствует заголовок
         softAssert.assertTrue(stPromotions.blockTitle.exists(),
@@ -91,7 +91,7 @@ public class GeneralSettings_Var2 extends TestRunner implements DisableLazyLoadF
         sleep(2000);
         screenshot("200 GeneralSettings_Var2 - Block 'DealOfTheDay'");
         Utils.selectLanguage("ar");
-        stPromotions.block_DealOfTheDay.hover();
+        stPromotions.block_DealOfTheDay.scrollIntoCenter();
         screenshot("202 GeneralSettings_Var2 - Block 'DealOfTheDay' (RTL)");
 
         //Переходим на страницу списка промо-акций
@@ -140,6 +140,7 @@ public class GeneralSettings_Var2 extends TestRunner implements DisableLazyLoadF
         //Проверяем, что в промо-акции присутствуют товары
         softAssert.assertTrue(!stPromotions.promotionProducts.isEmpty(),
                 "There are no products on the promotion page!");
+
         sleep(2000);
         screenshot("210 GeneralSettings_Var2 - Promotion page");
         Utils.selectLanguage("ar");

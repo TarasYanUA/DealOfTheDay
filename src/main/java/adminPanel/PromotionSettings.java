@@ -21,6 +21,7 @@ public class PromotionSettings {
     private SelenideElement field_DetailedDescription = $("#redactor-uuid-1");
     public SelenideElement setting_UseAvailablePeriod = $("input#elm_use_avail_period");
     public SelenideElement setting_AvailableFrom = $("input#elm_date_holder_from");
+    public SelenideElement setting_AvailableTillTitle = $(".control-label[for='elm_date_holder_to']");
     public SelenideElement setting_AvailableTill = $("input#elm_date_holder_to");
     public SelenideElement calendar_ArrowPrevious = $(".ui-datepicker-prev");
     public SelenideElement calendar_ArrowNext = $(".ui-datepicker-next");
@@ -44,7 +45,6 @@ public class PromotionSettings {
     public SelenideElement check_DisplayPromotionInProductLists = $(By.id("elm_show_in_products_lists"));
     public SelenideElement check_DisplayCountdownOnProductPage = $(By.id("elm_show_counter_on_product_page"));
     public SelenideElement check_DisplayCountdownOnPromotionPage = $(By.id("elm_show_counter_on_promotion_page"));
-    public SelenideElement button_PreviewPromotion = $(".nav__actions-bar li a");
 
 
     public void clickAndType_field_DetailedDescription() {
@@ -69,7 +69,7 @@ public class PromotionSettings {
     public void clearBothFieldsAvailable() {
         setting_AvailableFrom.click();
         setting_AvailableFrom.clear();
-        setting_AvailableTill.click();
+        setting_AvailableTillTitle.click();
         setting_AvailableTill.clear();
         BasicPage basicPage = new BasicPage();
         basicPage.button_Save.click();

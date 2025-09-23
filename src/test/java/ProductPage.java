@@ -81,11 +81,16 @@ public class ProductPage extends TestRunner {
         Utils.selectLanguage("ar");
         $(".ab__deal_of_the_day").scrollIntoCenter();
         screenshot("514 ProductPage - Product page, Gallery (RTL)");
-        basicPage.selectProductTemplate("abt__ut2_three_columns_template");
+        basicPage.selectProductTemplate("abt__ut2_cascade_gallery_template");
         basicPage.saveAndGoToStorefront_ProductPage(5);
-        screenshot("516 ProductPage - Product page, Three-columned");
+        screenshot("516 ProductPage - Product page, CascadeGallery");
         Utils.selectLanguage("ar");
-        screenshot("518 ProductPage - Product page, Three-columned (RTL)");
+        screenshot("518 ProductPage - Product page, CascadeGallery (RTL)");
+        basicPage.selectProductTemplate("abt__ut2_three_columns_template");
+        basicPage.saveAndGoToStorefront_ProductPage(6);
+        screenshot("520 ProductPage - Product page, Three-columned");
+        Utils.selectLanguage("ar");
+        screenshot("522 ProductPage - Product page, Three-columned (RTL)");
         softAssert.assertAll();
     }
 }

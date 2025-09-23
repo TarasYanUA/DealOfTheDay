@@ -87,7 +87,7 @@ public class GeneralSettings_Var1 extends TestRunner implements DisableLazyLoadF
         StPromotions stPromotions = basicPage.navigateTo_Storefront();
         Utils.shiftBrowserTab(1);
         $(".cm-btn-success").click();
-        stPromotions.block_DealOfTheDay.hover();
+        stPromotions.block_DealOfTheDay.scrollIntoCenter();
         SoftAssert softAssert = new SoftAssert();
 
         //Проверяем, что в блоке присутствует заголовок
@@ -117,7 +117,7 @@ public class GeneralSettings_Var1 extends TestRunner implements DisableLazyLoadF
         sleep(2000);
         screenshot("100 GeneralSettings_Var1 - Block 'DealOfTheDay'");
         Utils.selectLanguage("ar");
-        stPromotions.block_DealOfTheDay.hover();
+        stPromotions.block_DealOfTheDay.scrollIntoCenter();
         screenshot("102 GeneralSettings_Var1 - Block 'DealOfTheDay' (RTL)");
 
         //Переходим на страницу списка промо-акций

@@ -93,7 +93,7 @@ public class GeneralSettings_Var3_AvailableFrom extends TestRunner implements Di
 
         //Переходим на главную страницу и проверяем блок
         $(".ty-breadcrumbs__a").click();
-        stPromotions.block_DealOfTheDay.hover();
+        stPromotions.block_DealOfTheDay.scrollIntoCenter();
 
         //Проверяем, что в блоке присутствует заголовок
         softAssert.assertTrue(stPromotions.blockTitle.exists(),
@@ -122,7 +122,8 @@ public class GeneralSettings_Var3_AvailableFrom extends TestRunner implements Di
         sleep(2000);
         screenshot("260 GeneralSettings_Var3_AvailableFrom - Block 'DealOfTheDay'");
         Utils.selectLanguage("ar");
-        stPromotions.block_DealOfTheDay.hover();
+        stPromotions.block_DealOfTheDay.scrollIntoCenter();
+        sleep(2000);
         screenshot("262 GeneralSettings_Var3_AvailableFrom - Block 'DealOfTheDay' (RTL)");
         softAssert.assertAll();
     }

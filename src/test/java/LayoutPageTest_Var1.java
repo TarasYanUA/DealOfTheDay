@@ -66,6 +66,8 @@ public class LayoutPageTest_Var1 extends TestRunner implements DisableLazyLoadFr
         if (!$x("//div[@title=\"MultiBlock - AutoTest\"]").exists()) {
             layoutPage.addNewBlock();
             basicPage.popupWindow.shouldBe(Condition.enabled);
+            if ($("button.close.cm-notification-close[data-dismiss='alert']").exists())
+                $("button.close.cm-notification-close[data-dismiss='alert']").click();
             layoutPage.tab_CreateNewBlock.click();
             layoutPage.multiBlock.click();
             $("#ui-id-2").shouldBe(Condition.enabled);
@@ -123,9 +125,9 @@ public class LayoutPageTest_Var1 extends TestRunner implements DisableLazyLoadFr
         softAssert.assertTrue(!$$(".ab__deal_of_the_day .ty-list-price.ty-nowrap").isEmpty(),
                 "There is no price at products in the multi block!");
 
-        //Проверяем, что в блоке отсутствует кнопка быстрого просмотра
-        softAssert.assertTrue($$(".ab__deal_of_the_day a[data-ca-target-id=\"product_quick_view\"]").isEmpty(),
-                "There is a quick view button at the products in the multi block but shouldn't!");
+        //Проверяем, что в блоке присутствует кнопка быстрого просмотра
+        softAssert.assertTrue($$(".ab__deal_of_the_day a[data-ca-target-id='product_quick_view']").isEmpty(),
+                "There is no quick view button at the products in the multi block!");
 
         //Проверяем, что в блоке присутствует кнопка "Купить"
         softAssert.assertTrue(!$$(".ab__deal_of_the_day .ut2-icon-use_icon_cart").isEmpty(),

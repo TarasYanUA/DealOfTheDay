@@ -59,6 +59,8 @@ public class LayoutPageTest_Var2 extends TestRunner implements DisableLazyLoadFr
         if (!$x("//div[@title=\"MultiBlock - AutoTest\"]").exists()) {
             layoutPage.addNewBlock();
             basicPage.popupWindow.shouldBe(Condition.enabled);
+            if ($("button.close.cm-notification-close[data-dismiss='alert']").exists())
+                $("button.close.cm-notification-close[data-dismiss='alert']").click();
             layoutPage.tab_CreateNewBlock.click();
             layoutPage.multiBlock.click();
             $("#ui-id-2").shouldBe(Condition.enabled);
