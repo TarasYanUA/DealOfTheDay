@@ -39,22 +39,17 @@ public class PromotionPage_Var2 extends TestRunner {
         PromotionSettings promotionSettings = basicPage.navigateTo_PromotionSettings();
         basicPage.chooseRussianLanguage();
         promotionSettings.promotion_RacingCard.click();
-        if(promotionSettings.setting_StopOtherRules.isSelected()){
-            promotionSettings.setting_StopOtherRules.click(); }
+        Utils.setCheckboxState(promotionSettings.setting_StopOtherRules, false);
         //Устанавливаем сегодняшнюю дату для поля "Доступна до"
         Utils.clearBothFieldsAvailable();
         promotionSettings.setting_UseAvailablePeriod.click();
         promotionSettings.setDateOfTodayForSetting_AvailableTill();
         //Вкладка "АВ: Расширенные промо-акции" у промо-акции
-        promotionSettings.tab_ABExtPromotions.scrollIntoView(false).click();
-        if(promotionSettings.check_UseFilterByProducts.isSelected()){
-            promotionSettings.check_UseFilterByProducts.click(); }
-        if(!promotionSettings.check_HideProductBlock.isSelected()){
-            promotionSettings.check_HideProductBlock.click(); }
-        if (!promotionSettings.check_HideProductBlock.isSelected()){
-            promotionSettings.check_HideProductBlock.click(); }
-        if(promotionSettings.check_DisplayCountdownOnPromotionPage.isSelected()){
-            promotionSettings.check_DisplayCountdownOnPromotionPage.click(); }
+        promotionSettings.tab_ABExtPromotions.scrollIntoCenter().click();
+        Utils.setCheckboxState(promotionSettings.check_UseFilterByProducts, false);
+        Utils.setCheckboxState(promotionSettings.check_HideProductBlock, true);
+        Utils.setCheckboxState(promotionSettings.check_HideProductBlock, true);
+        Utils.setCheckboxState(promotionSettings.check_DisplayCountdownOnPromotionPage, false);
         basicPage.button_Save.click();
     }
 
@@ -64,11 +59,7 @@ public class PromotionPage_Var2 extends TestRunner {
         PromotionSettings promotionSettings = basicPage.navigateTo_PromotionSettings();
         basicPage.chooseRussianLanguage();
         promotionSettings.promotion_RacingCard.click();
-        sleep(1500);
-        basicPage.gearWheelOnTop.click();
-        promotionSettings.button_PreviewPromotion.click();
-        Utils.shiftBrowserTab(1);
-        $(".cm-btn-success").click();
+        basicPage.saveAndGoToStorefront_ProductPage(1);
 
         SoftAssert softAssert = new SoftAssert();
 

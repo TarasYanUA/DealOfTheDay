@@ -1,7 +1,6 @@
 import adminPanel.*;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.WebDriverRunner;
-import org.openqa.selenium.Keys;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import storefront.StPromotions;
@@ -29,11 +28,7 @@ public class LayoutPageTest_Var1 extends TestRunner implements DisableLazyLoadFr
     public void setConfigurations_MultiBlockTest_Var1() {
         BasicPage basicPage = new BasicPage();
         //Задаём настройки CS-Cart
-        basicPage.navigateTo_AppearanceSettings();
-        if(basicPage.setting_QuickView.isSelected()){
-            basicPage.setting_QuickView.click();
-            basicPage.button_Save.click();
-        }
+        basicPage.navigateTo_AppearanceSettingsAndQuickViewOn();
 
         //Задаём настройки модуля
         AddonSettings addonSettings = basicPage.navigateTo_AddonSettings();
@@ -52,12 +47,11 @@ public class LayoutPageTest_Var1 extends TestRunner implements DisableLazyLoadFr
         Utils.clearBothFieldsAvailable();
         promotionSettings.setting_UseAvailablePeriod.click();
         promotionSettings.setDateOfTodayForSetting_AvailableTill();
-        promotionSettings.tab_Conditions.scrollIntoView(false).click();
+        promotionSettings.tab_Conditions.scrollIntoCenter().click();
         promotionSettings.button_AddProductsToCondition.click();
         $(".ui-dialog-title").shouldBe(Condition.visible);
-        promotionSettings.field_SearchProduct.click();
-        promotionSettings.field_SearchProduct.sendKeys("Samsung серии 3 15.6\" 300V5A");
-        promotionSettings.field_SearchProduct.sendKeys(Keys.ENTER);
+        promotionSettings.field_SearchProduct.setValue("Samsung серии 3 15.6\" 300V5A");
+        promotionSettings.field_SearchProduct.pressEnter();
         promotionSettings.checkProductToCondition.click();
         promotionSettings.button_AddAndClose.click();
         basicPage.button_Save.click();
@@ -75,8 +69,7 @@ public class LayoutPageTest_Var1 extends TestRunner implements DisableLazyLoadFr
             layoutPage.tab_CreateNewBlock.click();
             layoutPage.multiBlock.click();
             $("#ui-id-2").shouldBe(Condition.enabled);
-            layoutPage.blockName.click();
-            layoutPage.blockName.sendKeys("MultiBlock - AutoTest");
+            layoutPage.blockName.setValue("MultiBlock - AutoTest");
             layoutPage.tab_Content.click();
             layoutPage.button_AddPromotionsToBlock.click();
             $("#ui-id-3").shouldBe(Condition.enabled);
@@ -88,17 +81,10 @@ public class LayoutPageTest_Var1 extends TestRunner implements DisableLazyLoadFr
         layoutPage.blockProperties.click();
         basicPage.popupWindow.shouldBe(Condition.enabled);
         layoutPage.tab_BlockSettings.click();
-        if (!layoutPage.setting_DoNotScrollAutomatically.isSelected()) {
-            layoutPage.setting_DoNotScrollAutomatically.click();
-        }
-        layoutPage.setting_ItemQuantity.click();
+        Utils.setCheckboxState(layoutPage.setting_DoNotScrollAutomatically, true);
         layoutPage.setting_ItemQuantity.setValue("5");
-        if (layoutPage.setting_HideAddToCart.isSelected()) {
-            layoutPage.setting_HideAddToCart.click();
-        }
-        if (!layoutPage.setting_DisplayPromotionCountdown.isSelected()) {
-            layoutPage.setting_DisplayPromotionCountdown.click();
-        }
+        Utils.setCheckboxState(layoutPage.setting_HideAddToCart, false);
+        Utils.setCheckboxState(layoutPage.setting_DisplayPromotionCountdown, true);
         layoutPage.button_SaveBlockProperties.click();
         disableLazyLoadFromBlock("MultiBlock - AutoTest");
     }
@@ -109,7 +95,7 @@ public class LayoutPageTest_Var1 extends TestRunner implements DisableLazyLoadFr
         StPromotions stPromotions = basicPage.navigateTo_Storefront();
         Utils.shiftBrowserTab(1);
         $(".cm-btn-success").click();
-        stPromotions.block_DealOfTheDay.scrollIntoView("{behavior: \"instant\", block: \"center\", inline: \"center\"}").hover();
+        stPromotions.block_DealOfTheDay.scrollIntoCenter().hover();
 
         SoftAssert softAssert = new SoftAssert();
 
@@ -148,10 +134,11 @@ public class LayoutPageTest_Var1 extends TestRunner implements DisableLazyLoadFr
         //Проверяем, что у блока 6 товаров
         softAssert.assertTrue(stPromotions.blockProducts.size() == 6,
                 "There are not 6 products in the multi block!");
+
         sleep(2000);
         screenshot("800 MultiBlockTest_Var1 - Multi block");
         Utils.selectLanguage("ar");
-        stPromotions.block_DealOfTheDay.scrollIntoView("{behavior: \"instant\", block: \"center\", inline: \"center\"}").hover();
+        stPromotions.block_DealOfTheDay.scrollIntoCenter().hover();
         screenshot("805 MultiBlockTest_Var1 - Multi block (RTL)");
         softAssert.assertAll();
     }

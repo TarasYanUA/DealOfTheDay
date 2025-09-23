@@ -28,11 +28,7 @@ public class CategoryPage_Var1 extends TestRunner {
     public void set_CategoryPage_Var1(){
         BasicPage basicPage = new BasicPage();
         //Задаём настройки CS-Cart
-        basicPage.navigateTo_AppearanceSettings();
-        if(!basicPage.setting_QuickView.isSelected()){
-            basicPage.setting_QuickView.click();
-            basicPage.button_Save.click();
-        }
+        basicPage.navigateTo_AppearanceSettingsAndQuickViewOn();
 
         //Задаём настройки модуля
         AddonSettings addonSettings = basicPage.navigateTo_AddonSettings();
@@ -44,16 +40,12 @@ public class CategoryPage_Var1 extends TestRunner {
         PromotionSettings promotionSettings = basicPage.navigateTo_PromotionSettings();
         basicPage.chooseRussianLanguage();
         promotionSettings.promotion_RacingCard.click();
-        if(promotionSettings.setting_UseAvailablePeriod.isSelected()){  //убираем период доступности, чтобы промо-акция всегда отображалась
-            promotionSettings.setting_UseAvailablePeriod.click(); }
-        if(promotionSettings.setting_StopOtherRules.isSelected()){
-            promotionSettings.setting_StopOtherRules.click(); }
+        Utils.setCheckboxState(promotionSettings.setting_UseAvailablePeriod, false); //убираем период доступности, чтобы промо-акция всегда отображалась
+        Utils.setCheckboxState(promotionSettings.setting_StopOtherRules, false);
         //Вкладка "АВ: Расширенные промо-акции" у промо-акции
         promotionSettings.tab_ABExtPromotions.click();
-        if(!promotionSettings.check_DisplayLabelInProductLists.isSelected()){
-            promotionSettings.check_DisplayLabelInProductLists.click(); }
-        if(!promotionSettings.check_DisplayPromotionInProductLists.isSelected()){
-            promotionSettings.check_DisplayPromotionInProductLists.click(); }
+        Utils.setCheckboxState(promotionSettings.check_DisplayLabelInProductLists, true);
+        Utils.setCheckboxState(promotionSettings.check_DisplayPromotionInProductLists, true);
         basicPage.button_Save.click();
     }
 

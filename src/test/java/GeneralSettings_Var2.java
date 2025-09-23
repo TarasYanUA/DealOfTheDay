@@ -37,10 +37,8 @@ public class GeneralSettings_Var2 extends TestRunner implements DisableLazyLoadF
         addonSettings.setting_PromotionsPerPage.setValue("4");
         addonSettings.setting_HighlightingThePromotion.selectOptionByValue("1");
         addonSettings.setting_AmountOfDisplayedPromotionsInProductLists.selectOptionByValue("2");
-        if(addonSettings.setting_ShowExpiredPromotions.isSelected()){
-            addonSettings.setting_ShowExpiredPromotions.click(); }
-        if(addonSettings.setting_ShowAwaitingPromotions.isSelected()){
-            addonSettings.setting_ShowAwaitingPromotions.click(); }
+        Utils.setCheckboxState(addonSettings.setting_ShowExpiredPromotions, false);
+        Utils.setCheckboxState(addonSettings.setting_ShowAwaitingPromotions, false);
         addonSettings.button_SaveSettings.click();
 
         //Задаём настройки на странице промо-акции
@@ -48,21 +46,11 @@ public class GeneralSettings_Var2 extends TestRunner implements DisableLazyLoadF
         basicPage.chooseRussianLanguage();
         promotionSettings.promotion_BuyCamera.click();
         promotionSettings.clickAndType_field_DetailedDescription(); //Чтобы проверить настройку "Максимальная высота описания"
-        if(!promotionSettings.setting_UseAvailablePeriod.isSelected()) {
-            promotionSettings.setting_UseAvailablePeriod.click();   }
+        Utils.setCheckboxState(promotionSettings.setting_UseAvailablePeriod, true);
         //Устанавливаем сегодняшнюю дату для поля "Доступна до", чтобы проверить настройку "Обратный отсчёт до"
-        clearBothFieldsAvailable();
+        promotionSettings.clearBothFieldsAvailable();
         promotionSettings.setting_UseAvailablePeriod.click();
         promotionSettings.setDateOfTodayForSetting_AvailableTill();
-        basicPage.button_Save.click();
-    }
-    public void clearBothFieldsAvailable(){
-        PromotionSettings promotionSettings = new PromotionSettings();
-        promotionSettings.setting_AvailableFrom.click();
-        promotionSettings.setting_AvailableFrom.clear();
-        promotionSettings.setting_AvailableTill.click();
-        promotionSettings.setting_AvailableTill.clear();
-        BasicPage basicPage = new BasicPage();
         basicPage.button_Save.click();
     }
 
@@ -76,7 +64,6 @@ public class GeneralSettings_Var2 extends TestRunner implements DisableLazyLoadF
         Utils.shiftBrowserTab(1);
         $(".cm-btn-success").click();
         stPromotions.block_DealOfTheDay.hover();
-
 
         //Проверяем, что в блоке присутствует заголовок
         softAssert.assertTrue(stPromotions.blockTitle.exists(),

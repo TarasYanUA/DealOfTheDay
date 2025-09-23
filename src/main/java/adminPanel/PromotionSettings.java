@@ -3,13 +3,17 @@ package adminPanel;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class PromotionSettings {
-    public PromotionSettings(){super();}
+    public PromotionSettings() {
+        super();
+    }
 
     public SelenideElement promotion_RacingCard = $x("//a[contains(text(), 'AB: Гоночный картинг')]");
     public SelenideElement promotion_BuyCamera = $x("//a[contains(text(), 'AB: Купите фотоаппарат')]");
@@ -43,24 +47,31 @@ public class PromotionSettings {
     public SelenideElement button_PreviewPromotion = $(".nav__actions-bar li a");
 
 
-    public void clickAndType_field_DetailedDescription(){
-        field_DetailedDescription.hover().click();
-        field_DetailedDescription.clear();
-        field_DetailedDescription.sendKeys("Перед покупкою ноутбука визначте, для яких цілей вам він потрібен. Шукаєте робочий інструмент для офісних або базових мультимедійних завдань? Вибирайте моделі з інтегрованою відеокартою, її вистачить для комфортної та швидкої роботи. Нерідко такі ноутбуки менше важать, їх система охолодження працює тихіше, а час автономної роботи значно довший. Плануєте грати на ноутбуці в сучасні ігри? Тоді краще купити модель з відеокартою починаючи від NVIDIA GeForce GTX 1050 Ti, але й вона не потягне сучасні ігри на максимальній графіці з роздільною здатністю Full HD. Якщо ж хочете грати без компромісів, зверніть увагу на відеокарти починаючи з NVIDIA GeForce GTX 1660 Ti. Ноутбуки з відеокартами серії NVIDIA GeForce MX підійдуть для ігор з натяжкою, цей тип відеокарт не дасть можливість отримати насолоду від красивої сучасної графіки. Вони стануть у пригоді тим, хто працює з графікою в додатках для дизайну або CAD системами. У будь-яких інших випадках на ноутбуки з такими відеокартами не варто звертати увагу, і це допоможе заощадити чималу суму.");
+    public void clickAndType_field_DetailedDescription() {
+        field_DetailedDescription.hover().setValue(
+                "Перед покупкою ноутбука визначте, для яких цілей вам він потрібен. Шукаєте робочий інструмент для офісних або базових мультимедійних завдань? Вибирайте моделі з інтегрованою відеокартою, її вистачить для комфортної та швидкої роботи. Нерідко такі ноутбуки менше важать, їх система охолодження працює тихіше, а час автономної роботи значно довший. Плануєте грати на ноутбуці в сучасні ігри? Тоді краще купити модель з відеокартою починаючи від NVIDIA GeForce GTX 1050 Ti, але й вона не потягне сучасні ігри на максимальній графіці з роздільною здатністю Full HD. Якщо ж хочете грати без компромісів, зверніть увагу на відеокарти починаючи з NVIDIA GeForce GTX 1660 Ti. Ноутбуки з відеокартами серії NVIDIA GeForce MX підійдуть для ігор з натяжкою, цей тип відеокарт не дасть можливість отримати насолоду від красивої сучасної графіки. Вони стануть у пригоді тим, хто працює з графікою в додатках для дизайну або CAD системами. У будь-яких інших випадках на ноутбуки з такими відеокартами не варто звертати увагу, і це допоможе заощадити чималу суму."
+        );
     }
 
-    public void setPastDateForSetting_AvailableFrom(){
+    public void setPastDateForSetting_AvailableFrom() {
         setting_AvailableFrom.click();
         calendar_ArrowPrevious.shouldBe(Condition.interactable).click();
         calendar_Day15.click();
         setting_AvailableFrom.pressEnter();
     }
 
-    public void setDateOfTodayForSetting_AvailableTill(){
+    public void setDateOfTodayForSetting_AvailableTill() {
         String date = LocalDate.now().format(DateTimeFormatter.ofPattern("MM-dd-yyy"));
-        setting_AvailableTill.hover().click();
-        setting_AvailableTill.clear();
-        setting_AvailableTill.sendKeys(date);
+        setting_AvailableTill.hover().setValue(date);
         setting_AvailableTill.pressEnter();
+    }
+
+    public void clearBothFieldsAvailable() {
+        setting_AvailableFrom.click();
+        setting_AvailableFrom.clear();
+        setting_AvailableTill.click();
+        setting_AvailableTill.clear();
+        BasicPage basicPage = new BasicPage();
+        basicPage.button_Save.click();
     }
 }

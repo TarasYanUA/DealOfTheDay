@@ -55,18 +55,10 @@ public class PromotionPage_Var3_GroupByCategory extends TestRunner {
 
         //Вкладка "АВ: Расширенные промо-акции" у промо-акции
         promotionSettings.tab_ABExtPromotions.click();
-        if (!promotionSettings.check_GroupByCategory.isSelected()) {
-            promotionSettings.check_GroupByCategory.click();
-        }
-        if (!promotionSettings.check_UseFilterByProducts.isSelected()) {
-            promotionSettings.check_UseFilterByProducts.click();
-        }
-        if (promotionSettings.check_HideProductBlock.isSelected()) {
-            promotionSettings.check_HideProductBlock.click();
-        }
-        if (!promotionSettings.check_DisplayCountdownOnPromotionPage.isSelected()) {
-            promotionSettings.check_DisplayCountdownOnPromotionPage.click();
-        }
+        Utils.setCheckboxState(promotionSettings.check_GroupByCategory, true);
+        Utils.setCheckboxState(promotionSettings.check_UseFilterByProducts, true);
+        Utils.setCheckboxState(promotionSettings.check_HideProductBlock, false);
+        Utils.setCheckboxState(promotionSettings.check_DisplayCountdownOnPromotionPage, true);
         basicPage.button_Save.click();
     }
 
@@ -76,11 +68,7 @@ public class PromotionPage_Var3_GroupByCategory extends TestRunner {
         PromotionSettings promotionSettings = basicPage.navigateTo_PromotionSettings();
         basicPage.chooseRussianLanguage();
         promotionSettings.promotion_BuyCamera.click();
-        sleep(2000);
-        basicPage.gearWheelOnTop.click();
-        promotionSettings.button_PreviewPromotion.click();
-        Utils.shiftBrowserTab(1);
-        $(".cm-btn-success").click();
+        basicPage.saveAndGoToStorefront_ProductPage(1);
 
         StPromotions stPromotions = new StPromotions();
         SoftAssert softAssert = new SoftAssert();
@@ -97,7 +85,7 @@ public class PromotionPage_Var3_GroupByCategory extends TestRunner {
         softAssert.assertTrue(!stPromotions.button_MoreProductsFromCategory.isEmpty(),
                 "There is no any button 'More products from category' on the promotion page!");
 
-        $(".ab-dotd-more-icon").scrollIntoView("{behavior: \"instant\", block: \"center\", inline: \"center\"}");
+        $(".ab-dotd-more-icon").scrollIntoCenter();
         screenshot("450 PromotionPage_Var3_GroupByCategory - Promotion page, Grid");
         $(".ab-dotd-categories-filter a[href$='cid=166']").hover().click();
 

@@ -28,11 +28,7 @@ public class LayoutPageTest_Var2 extends TestRunner implements DisableLazyLoadFr
     public void setConfigurations_MultiBlockTest_Var2() {
         BasicPage basicPage = new BasicPage();
         //Задаём настройки CS-Cart
-        basicPage.navigateTo_AppearanceSettings();
-        if(!basicPage.setting_QuickView.isSelected()){
-            basicPage.setting_QuickView.click();
-            basicPage.button_Save.click();
-        }
+        basicPage.navigateTo_AppearanceSettingsAndQuickViewOn();
 
         //Задаём настройки модуля
         AddonSettings addonSettings = basicPage.navigateTo_AddonSettings();
@@ -79,17 +75,10 @@ public class LayoutPageTest_Var2 extends TestRunner implements DisableLazyLoadFr
         layoutPage.blockProperties.click();
         basicPage.popupWindow.shouldBe(Condition.enabled);
         layoutPage.tab_BlockSettings.click();
-        if (!layoutPage.setting_DoNotScrollAutomatically.isSelected()) {
-            layoutPage.setting_DoNotScrollAutomatically.click();
-        }
-        layoutPage.setting_ItemQuantity.click();
+        Utils.setCheckboxState(layoutPage.setting_DoNotScrollAutomatically, true);
         layoutPage.setting_ItemQuantity.setValue("4");
-        if (!layoutPage.setting_HideAddToCart.isSelected()) {
-            layoutPage.setting_HideAddToCart.click();
-        }
-        if (!layoutPage.setting_DisplayPromotionCountdown.isSelected()) {
-            layoutPage.setting_DisplayPromotionCountdown.click();
-        }
+        Utils.setCheckboxState(layoutPage.setting_HideAddToCart, true);
+        Utils.setCheckboxState(layoutPage.setting_DisplayPromotionCountdown, true);
         layoutPage.button_SaveBlockProperties.click();
         disableLazyLoadFromBlock("MultiBlock - AutoTest");
     }

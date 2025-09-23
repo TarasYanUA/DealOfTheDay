@@ -24,9 +24,8 @@ public class LayoutPage {
     }
 
     public void switchOffBlock_DealOfTheDay() {  //Выключаем  блок "Товар дня"
-        if (!$("div.block-off[data-ca-block-name=\"AB: Товар дня\"]").exists()) {
+        if (!$("div.block-off[data-ca-block-name=\"AB: Товар дня\"]").exists())
             $("div[data-ca-block-name=\"AB: Товар дня\"]").$(".cs-icon--type-off").click();
-        }
     }
 
     public void addNewBlock(){

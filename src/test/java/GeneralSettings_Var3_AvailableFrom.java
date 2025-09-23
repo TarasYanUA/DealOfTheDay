@@ -30,35 +30,19 @@ public class GeneralSettings_Var3_AvailableFrom extends TestRunner implements Di
         BasicPage basicPage = new BasicPage();
         AddonSettings addonSettings = basicPage.navigateTo_AddonSettings();
         addonSettings.setting_CountdownTo.selectOptionByValue("end_of_the_promotion");
-        if (!addonSettings.setting_ShowExpiredPromotions.isSelected()) {
-            addonSettings.setting_ShowExpiredPromotions.click();
-        }
-        if (!addonSettings.setting_ShowAwaitingPromotions.isSelected()) {
-            addonSettings.setting_ShowAwaitingPromotions.click();
-        }
+        Utils.setCheckboxState(addonSettings.setting_ShowExpiredPromotions, true);
+        Utils.setCheckboxState(addonSettings.setting_ShowAwaitingPromotions, true);
         addonSettings.button_SaveSettings.click();
 
         //Задаём настройки на странице промо-акции
         PromotionSettings promotionSettings = basicPage.navigateTo_PromotionSettings();
         basicPage.chooseRussianLanguage();
         promotionSettings.promotion_BuyCamera.click();
-        if (!promotionSettings.setting_UseAvailablePeriod.isSelected()) {
-            promotionSettings.setting_UseAvailablePeriod.click();
-        }
+        Utils.setCheckboxState(promotionSettings.setting_UseAvailablePeriod, true);
         //Устанавливаем прошлую дату для поля "Доступна с", чтобы проверить отсутствие счётчика на всех страницах
-        clearBothFieldsAvailable();
+        promotionSettings.clearBothFieldsAvailable();
         promotionSettings.setting_UseAvailablePeriod.click();
         promotionSettings.setPastDateForSetting_AvailableFrom();
-        basicPage.button_Save.click();
-    }
-
-    public void clearBothFieldsAvailable() {
-        PromotionSettings promotionSettings = new PromotionSettings();
-        promotionSettings.setting_AvailableFrom.click();
-        promotionSettings.setting_AvailableFrom.clear();
-        promotionSettings.setting_AvailableTill.click();
-        promotionSettings.setting_AvailableTill.clear();
-        BasicPage basicPage = new BasicPage();
         basicPage.button_Save.click();
     }
 
@@ -69,11 +53,7 @@ public class GeneralSettings_Var3_AvailableFrom extends TestRunner implements Di
         //Переходим на страницу промо-акции
         basicPage.chooseRussianLanguage();
         promotionSettings.promotion_BuyCamera.click();
-        sleep(2000);
-        basicPage.gearWheelOnTop.click();
-        promotionSettings.button_PreviewPromotion.click();
-        Utils.shiftBrowserTab(1);
-        $(".cm-btn-success").click();
+        basicPage.saveAndGoToStorefront_ProductPage(1);
         StPromotions stPromotions = new StPromotions();
 
         SoftAssert softAssert = new SoftAssert();
@@ -89,6 +69,7 @@ public class GeneralSettings_Var3_AvailableFrom extends TestRunner implements Di
         //Проверяем, что в промо-акции присутствуют товары
         softAssert.assertTrue(!stPromotions.promotionProducts.isEmpty(),
                 "There are no products on the promotion page!");
+
         sleep(2000);
         screenshot("250 GeneralSettings_Var3_AvailableFrom - Promotion page");
         Utils.selectLanguage("ar");
@@ -104,6 +85,7 @@ public class GeneralSettings_Var3_AvailableFrom extends TestRunner implements Di
         //Проверяем, что отсутствует счётчик на странице товара
         softAssert.assertFalse($(".wrapped").exists(),
                 "There is a countdown on the product page but shouldn't!");
+
         screenshot("255 GeneralSettings_Var3_AvailableFrom - Product page (RTL)");
         Utils.selectLanguage("ru");
         sleep(2000);

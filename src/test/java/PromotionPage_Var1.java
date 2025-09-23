@@ -24,7 +24,7 @@ import static com.codeborne.selenide.Selenide.*;
 
 public class PromotionPage_Var1 extends TestRunner {
     @Test(priority = 1)
-    public void setConfiguration_PromotionPage_Var1(){
+    public void setConfiguration_PromotionPage_Var1() {
         BasicPage basicPage = new BasicPage();
         //Задаём настройки модуля
         AddonSettings addonSettings = basicPage.navigateTo_AddonSettings();
@@ -40,20 +40,12 @@ public class PromotionPage_Var1 extends TestRunner {
         Utils.clearBothFieldsAvailable();
         promotionSettings.setting_UseAvailablePeriod.click();
         promotionSettings.setDateOfTodayForSetting_AvailableTill();
-        if(promotionSettings.setting_StopOtherRules.isSelected()){
-            promotionSettings.setting_StopOtherRules.click();
-        }
+        Utils.setCheckboxState(promotionSettings.setting_StopOtherRules,false);
         //Вкладка "АВ: Расширенные промо-акции" у промо-акции
         promotionSettings.tab_ABExtPromotions.click();
-        if(!promotionSettings.check_UseFilterByProducts.isSelected()){
-            promotionSettings.check_UseFilterByProducts.click();
-        }
-        if (promotionSettings.check_HideProductBlock.isSelected()){
-            promotionSettings.check_HideProductBlock.click();
-        }
-        if(!promotionSettings.check_DisplayCountdownOnPromotionPage.isSelected()){
-            promotionSettings.check_DisplayCountdownOnPromotionPage.click();
-        }
+        Utils.setCheckboxState(promotionSettings.check_UseFilterByProducts, true);
+        Utils.setCheckboxState(promotionSettings.check_HideProductBlock, false);
+        Utils.setCheckboxState(promotionSettings.check_DisplayCountdownOnPromotionPage, true);
         basicPage.button_Save.click();
     }
 
@@ -63,11 +55,7 @@ public class PromotionPage_Var1 extends TestRunner {
         PromotionSettings promotionSettings = basicPage.navigateTo_PromotionSettings();
         basicPage.chooseRussianLanguage();
         promotionSettings.promotion_RacingCard.click();
-        sleep(2000);
-        basicPage.gearWheelOnTop.click();
-        promotionSettings.button_PreviewPromotion.click();
-        Utils.shiftBrowserTab(1);
-        $(".cm-btn-success").click();
+        basicPage.saveAndGoToStorefront_ProductPage(1);
 
         StPromotions stPromotions = new StPromotions();
         SoftAssert softAssert = new SoftAssert();
@@ -87,8 +75,8 @@ public class PromotionPage_Var1 extends TestRunner {
         //Проверяем, что присутствует FlipClock счётчик на странице промо-акции
         softAssert.assertTrue(stPromotions.flipClock.exists(),
                 "Countdown type is not FlipClock on the promotion page!");
-        screenshot("300 PromotionPage_Var1 - Promotion page");
 
+        screenshot("300 PromotionPage_Var1 - Promotion page");
         Utils.selectLanguage("ar");
         sleep(2000);
         screenshot("305 PromotionPage_Var1 - Promotion page (RTL)");

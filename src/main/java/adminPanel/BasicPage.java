@@ -6,6 +6,7 @@ import com.codeborne.selenide.WebDriverRunner;
 import storefront.StPromotions;
 
 import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 public class BasicPage implements CheckMenuToBeActive {
     public BasicPage() {
@@ -27,7 +28,7 @@ public class BasicPage implements CheckMenuToBeActive {
         return new StPromotions();
     }
 
-    public void chooseRussianLanguage(){
+    public void chooseRussianLanguage() {
         button_Languages.click();
         russianLanguage.shouldBe(Condition.visible).click();
     }
@@ -51,10 +52,10 @@ public class BasicPage implements CheckMenuToBeActive {
     public SelenideElement field_SearchOnTop = $(".cm-autocomplete-off.search__input");
     public SelenideElement productTemplate = $("#elm_details_layout");
 
-    private SelenideElement menu_Settings = $("#administration");
-    private SelenideElement section_Appearance = $("a[href$='section_id=Appearance']");
-    private SelenideElement section_GeneralSettings = $("a[href$='section_id=General']");
-    public SelenideElement setting_QuickView = $x("//input[contains(@id, 'field___enable_quick_view_')]");
+    SelenideElement menu_Settings = $("#administration");
+    SelenideElement section_GeneralSettings = $("a[href$='section_id=General']");
+    SelenideElement section_Appearance = $("a[href$='section_id=Appearance']");
+    SelenideElement setting_QuickView = $x("//input[contains(@id, 'field___enable_quick_view_')]");
 
 
     public void navigateTo_CategoryPage() {
@@ -88,9 +89,30 @@ public class BasicPage implements CheckMenuToBeActive {
         return new AddonSettings();
     }
 
-    public void navigateTo_AppearanceSettings() {
+    public void navigateTo_AppearanceSettingsAndQuickViewOn() {
         menu_Settings.click();
         section_GeneralSettings.click();
         section_Appearance.click();
+        if (!setting_QuickView.isSelected()) {
+            setting_QuickView.click();
+            button_Save.click();
+        }
+    }
+
+    public void selectProductTemplate(String templateValue) {
+        getWebDriver().getWindowHandle();
+        switchTo().window(0);
+        productTemplate.selectOptionByValue(templateValue);
+    }
+
+    public void saveAndGoToStorefront_ProductPage(int tabNumber) {
+        button_Save.click();
+        sleep(2000);
+        gearWheelOnTop.click();
+        button_Preview.click();
+        getWebDriver().getWindowHandle();
+        switchTo().window(tabNumber);
+        if ($(".cm-btn.cm-btn-success").exists())
+            $(".cm-btn.cm-btn-success").click();
     }
 }

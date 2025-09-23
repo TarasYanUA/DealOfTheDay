@@ -27,11 +27,7 @@ public class CategoryPage_Var2 extends TestRunner {
     public void set_CategoryPage_Var2(){
         BasicPage basicPage = new BasicPage();
         //Задаём настройки CS-Cart
-        basicPage.navigateTo_AppearanceSettings();
-        if(!basicPage.setting_QuickView.isSelected()){
-            basicPage.setting_QuickView.click();
-            basicPage.button_Save.click();
-        }
+        basicPage.navigateTo_AppearanceSettingsAndQuickViewOn();
 
         //Задаём настройки модуля
         AddonSettings addonSettings = basicPage.navigateTo_AddonSettings();
@@ -42,40 +38,31 @@ public class CategoryPage_Var2 extends TestRunner {
         PromotionSettings promotionSettings = basicPage.navigateTo_PromotionSettings();
         basicPage.chooseRussianLanguage();
         promotionSettings.promotion_RacingCard.click();
-        if(promotionSettings.setting_UseAvailablePeriod.isSelected()){  //убираем период доступности, чтобы промо-акция всегда отображалась
-            promotionSettings.setting_UseAvailablePeriod.click(); }
-        if(promotionSettings.setting_StopOtherRules.isSelected()){
-            promotionSettings.setting_StopOtherRules.click(); }
+        Utils.setCheckboxState(promotionSettings.setting_UseAvailablePeriod, false); //убираем период доступности, чтобы промо-акция всегда отображалась
+        Utils.setCheckboxState(promotionSettings.setting_StopOtherRules, false);
         //Вкладка "АВ: Расширенные промо-акции" у промо-акции
         promotionSettings.tab_ABExtPromotions.click();
-        if(promotionSettings.check_DisplayLabelInProductLists.isSelected()){
-            promotionSettings.check_DisplayLabelInProductLists.click(); }
-        if(!promotionSettings.check_DisplayPromotionInProductLists.isSelected()){
-            promotionSettings.check_DisplayPromotionInProductLists.click(); }
+        Utils.setCheckboxState(promotionSettings.check_DisplayLabelInProductLists, false);
+        Utils.setCheckboxState(promotionSettings.check_DisplayPromotionInProductLists, true);
         basicPage.button_Save.click();
 
         //Задаём настройки промо-акции "фен VALERA"
         basicPage.navigateTo_PromotionSettings();
         promotionSettings.promotion_BuyHairDryerVALERA.click();
-        if(promotionSettings.setting_UseAvailablePeriod.isSelected()){  //убираем период доступности, чтобы промо-акция всегда отображалась
-            promotionSettings.setting_UseAvailablePeriod.click(); }
-        if(promotionSettings.setting_StopOtherRules.isSelected()){
-            promotionSettings.setting_StopOtherRules.click(); }
+        Utils.setCheckboxState(promotionSettings.setting_UseAvailablePeriod, false); //убираем период доступности, чтобы промо-акция всегда отображалась
+        Utils.setCheckboxState(promotionSettings.setting_StopOtherRules, false);
         //Вкладка "Условия"
         promotionSettings.tab_Conditions.scrollIntoView(false).click();
         promotionSettings.button_AddProductsToCondition.click();
         $(".ui-dialog-title").shouldBe(Condition.visible);
-        promotionSettings.field_SearchProduct.click();
-        promotionSettings.field_SearchProduct.sendKeys("M0219A3GX3");
+        promotionSettings.field_SearchProduct.setValue("M0219A3GX3");
         promotionSettings.field_SearchProduct.sendKeys(Keys.ENTER);
         promotionSettings.checkProductToCondition.click();
         promotionSettings.button_AddAndClose.click();
         //Вкладка "АВ: Расширенные промо-акции" у промо-акции
         promotionSettings.tab_ABExtPromotions.click();
-        if(promotionSettings.check_DisplayLabelInProductLists.isSelected()){
-            promotionSettings.check_DisplayLabelInProductLists.click(); }
-        if(!promotionSettings.check_DisplayPromotionInProductLists.isSelected()){
-            promotionSettings.check_DisplayPromotionInProductLists.click(); }
+        Utils.setCheckboxState(promotionSettings.check_DisplayLabelInProductLists, false);
+        Utils.setCheckboxState(promotionSettings.check_DisplayPromotionInProductLists, true);
         basicPage.button_Save.click();
     }
 
@@ -106,7 +93,7 @@ public class CategoryPage_Var2 extends TestRunner {
         softAssert.assertTrue($$("form[name=\"product_form_219\"] .ab-dotd-category-promo").size() ==2,
                 "There are no two promotions in one product on the category page, Grid template!");
 
-        $("#det_img_219desktop").scrollIntoView("{behavior: \"instant\", block: \"center\", inline: \"center\"}");
+        $("#det_img_219desktop").scrollIntoCenter();
         $("form[name='product_form_219'] .ut2-gl__image").hover();
         sleep(2000);
         screenshot("700 CategoryPage_Var2 - Template Grid");
@@ -116,12 +103,13 @@ public class CategoryPage_Var2 extends TestRunner {
         //Проверяем, что присутствует шапка промо-акции в окне Быстрого просмотра
         softAssert.assertTrue(stPromotions.promotionHeaderInQuickView.exists(),
                 "There is no promotion header in the quick view window!");
+
         sleep(2000);
         stPromotions.button_ClosePopupWindow.hover();
         screenshot("705 CategoryPage_Var2 - Quick view");
         stPromotions.button_ClosePopupWindow.click();
         Utils.selectLanguage("ar");
-        $("#det_img_219desktop").scrollIntoView("{behavior: \"instant\", block: \"center\", inline: \"center\"}");
+        $("#det_img_219desktop").scrollIntoCenter();
         $("form[name='product_form_219'] .ut2-gl__image").hover();
         screenshot("710 CategoryPage_Var2 - Template Grid (RTL)");
         stPromotions.button_QuickView.hover().click();
@@ -145,12 +133,14 @@ public class CategoryPage_Var2 extends TestRunner {
         //Проверяем, что отсутствует лейбл на странице категории с шаблоном "Список без опций"
         softAssert.assertFalse(!stPromotions.labelOnCategoryPage.isEmpty(),
                 "There is a promotion label on the category page 'Without options' but shouldn't!");
+
         screenshot("720 CategoryPage_Var2 - Template Without options (RTL)");
         stPromotions.categoryTemplate_CompactList.click();
 
         //Проверяем, что отсутствует лейбл на странице категории с шаблоном "Компактный список"
         softAssert.assertFalse(!stPromotions.labelOnCategoryPage.isEmpty(),
                 "There is a promotion label on the category page 'Compact list' but shouldn't!");
+
         sleep(2000);
         screenshot("725 CategoryPage_Var2 - Template Compact list (RTL)");
         Utils.selectLanguage("ru");

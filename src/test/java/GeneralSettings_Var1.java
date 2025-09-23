@@ -11,6 +11,7 @@ import testRunner.Utils;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
 import static com.codeborne.selenide.Selenide.*;
 
 /*
@@ -27,7 +28,7 @@ import static com.codeborne.selenide.Selenide.*;
 
 public class GeneralSettings_Var1 extends TestRunner implements DisableLazyLoadFromBlock {
     @Test(priority = 1)
-    public void setConfiguration_GeneralSettings_Var1(){
+    public void setConfiguration_GeneralSettings_Var1() {
         disableLazyLoadFromBlock("AB: Товар дня");
         //Задаём настройки модуля
         BasicPage basicPage = new BasicPage();
@@ -38,10 +39,8 @@ public class GeneralSettings_Var1 extends TestRunner implements DisableLazyLoadF
         addonSettings.setting_PromotionsPerPage.setValue("12");
         addonSettings.setting_HighlightingThePromotion.selectOptionByValue("1");
         addonSettings.setting_AmountOfDisplayedPromotionsInProductLists.selectOptionByValue("0");
-        if(!addonSettings.setting_ShowExpiredPromotions.isSelected()){
-            addonSettings.setting_ShowExpiredPromotions.click(); }
-        if(!addonSettings.setting_ShowAwaitingPromotions.isSelected()){
-            addonSettings.setting_ShowAwaitingPromotions.click(); }
+        Utils.setCheckboxState(addonSettings.setting_ShowExpiredPromotions, true);
+        Utils.setCheckboxState(addonSettings.setting_ShowAwaitingPromotions, true);
         addonSettings.button_SaveSettings.click();
 
         //Задаём настройки на странице промо-акции
@@ -49,19 +48,17 @@ public class GeneralSettings_Var1 extends TestRunner implements DisableLazyLoadF
         basicPage.chooseRussianLanguage();
         promotionSettings.promotion_BuyCamera.click();
         promotionSettings.clickAndType_field_DetailedDescription(); //Чтобы проверить настройку "Максимальная высота описания"
-        if(!promotionSettings.setting_UseAvailablePeriod.isSelected()) {
-            promotionSettings.setting_UseAvailablePeriod.click();   }
+        Utils.setCheckboxState(promotionSettings.setting_UseAvailablePeriod, true);
         //Устанавливаем сегодняшнюю дату для поля "Доступна до", чтобы проверить настройку "Обратный отсчёт до"
-        clearBothFieldsAvailable();
+        promotionSettings.clearBothFieldsAvailable();
         promotionSettings.setting_UseAvailablePeriod.click();
         promotionSettings.setDateOfTodayForSetting_AvailableTill();
         basicPage.button_Save.click();
         //Устанавливаем прошлую дату в поле "Доступна до", чтобы проверить настройку "Показ истекших промо-акций"
         basicPage.navigateTo_PromotionSettings();
         promotionSettings.promotion_RacingCard.click();
-        if(!promotionSettings.setting_UseAvailablePeriod.isSelected()) {
-            promotionSettings.setting_UseAvailablePeriod.click();   }
-        clearBothFieldsAvailable();
+        Utils.setCheckboxState(promotionSettings.setting_UseAvailablePeriod, true);
+        promotionSettings.clearBothFieldsAvailable();
         promotionSettings.setting_UseAvailablePeriod.click();
         promotionSettings.setting_AvailableTill.click();
         promotionSettings.calendar_ArrowPrevious.shouldBe(Condition.interactable).click();
@@ -70,33 +67,21 @@ public class GeneralSettings_Var1 extends TestRunner implements DisableLazyLoadF
         //Устанавливаем будущую дату в поле "Доступна с", чтобы проверить настройку "Показ ожидаемых промо-акций"
         basicPage.navigateTo_PromotionSettings();
         promotionSettings.promotion_BuyHairDryerVALERA.click();
-        if(!promotionSettings.setting_UseAvailablePeriod.isSelected()) {
-            promotionSettings.setting_UseAvailablePeriod.click();   }
-        clearBothFieldsAvailable();
+        Utils.setCheckboxState(promotionSettings.setting_UseAvailablePeriod, true);
+        promotionSettings.clearBothFieldsAvailable();
         promotionSettings.setting_UseAvailablePeriod.click();
         promotionSettings.setting_AvailableFrom.click();
         promotionSettings.calendar_ArrowNext.shouldBe(Condition.interactable).click();
         promotionSettings.calendar_Day15.click();
         //Вкладка "АВ: Расширенные промо-акции" у промо-акции
         promotionSettings.tab_ABExtPromotions.scrollIntoView(false).click();
-        if(promotionSettings.check_HideProductBlock.isSelected()){
-            promotionSettings.check_HideProductBlock.click(); }
-        if(!promotionSettings.check_DisplayCountdownOnPromotionPage.isSelected()){
-            promotionSettings.check_DisplayCountdownOnPromotionPage.click(); }
-        basicPage.button_Save.click();
-    }
-    public void clearBothFieldsAvailable(){
-        PromotionSettings promotionSettings = new PromotionSettings();
-        promotionSettings.setting_AvailableFrom.click();
-        promotionSettings.setting_AvailableFrom.clear();
-        promotionSettings.setting_AvailableTill.click();
-        promotionSettings.setting_AvailableTill.clear();
-        BasicPage basicPage = new BasicPage();
+        Utils.setCheckboxState(promotionSettings.check_HideProductBlock, false);
+        Utils.setCheckboxState(promotionSettings.check_DisplayCountdownOnPromotionPage, true);
         basicPage.button_Save.click();
     }
 
     @Test(priority = 2, dependsOnMethods = "setConfiguration_GeneralSettings_Var1")
-    public void check_GeneralSettings_Var1(){
+    public void check_GeneralSettings_Var1() {
         //Переходим на главную страницу и проверяем блок "Товар дня"
         BasicPage basicPage = new BasicPage();
         StPromotions stPromotions = basicPage.navigateTo_Storefront();
@@ -158,6 +143,7 @@ public class GeneralSettings_Var1 extends TestRunner implements DisableLazyLoadF
         //Проверяем, что присутствует "Выделение промо-акции" (у промо-акции "Купите фотоаппарат")
         softAssert.assertTrue(stPromotions.highlight.exists(),
                 "There is no Highlighting of the promotion on the promotion list page!");
+
         screenshot("105 GeneralSettings_Var1 - Page 'All promotions'");
         Utils.selectLanguage("ar");
         screenshot("107 GeneralSettings_Var1 - Page 'All promotions' (RTL)");
@@ -187,6 +173,7 @@ public class GeneralSettings_Var1 extends TestRunner implements DisableLazyLoadF
         //Проверяем, что в промо-акции присутствуют товары
         softAssert.assertTrue(!stPromotions.promotionProducts.isEmpty(),
                 "There are no products on the promotion page!");
+
         sleep(2000);
         screenshot("110 GeneralSettings_Var1 - Promotion page");
         Utils.selectLanguage("ar");
