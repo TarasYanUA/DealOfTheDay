@@ -55,7 +55,7 @@ public class PromotionPage_Var1 extends TestRunner {
         PromotionSettings promotionSettings = basicPage.navigateTo_PromotionSettings();
         basicPage.chooseRussianLanguage();
         promotionSettings.promotion_RacingCard.click();
-        basicPage.saveAndGoToStorefront_ProductPage(1);
+        basicPage.saveAndGoToStorefront(1);
 
         StPromotions stPromotions = new StPromotions();
         SoftAssert softAssert = new SoftAssert();

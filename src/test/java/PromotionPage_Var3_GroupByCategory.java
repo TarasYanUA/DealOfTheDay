@@ -68,7 +68,7 @@ public class PromotionPage_Var3_GroupByCategory extends TestRunner {
         PromotionSettings promotionSettings = basicPage.navigateTo_PromotionSettings();
         basicPage.chooseRussianLanguage();
         promotionSettings.promotion_BuyCamera.click();
-        basicPage.saveAndGoToStorefront_ProductPage(1);
+        basicPage.saveAndGoToStorefront(1);
 
         StPromotions stPromotions = new StPromotions();
         SoftAssert softAssert = new SoftAssert();
@@ -98,24 +98,23 @@ public class PromotionPage_Var3_GroupByCategory extends TestRunner {
                 "There is no product filters on the promotion page 'Electronics'!");
 
         stPromotions.categoryTemplate_WithoutOptions.scrollIntoCenter().click();
-        stPromotions.productsOnPromotionPage.scrollIntoView(true);
-        sleep(2000);
+        Utils.waitForSpinnerDisappear();
+        stPromotions.productsOnPromotionPage.scrollIntoCenter();
         screenshot("455 PromotionPage_Var3_GroupByCategory - Promotion page, Without options");
         stPromotions.categoryTemplate_CompactList.scrollIntoCenter().click();
-        stPromotions.productsOnPromotionPage.scrollIntoView(true);
-        sleep(2000);
+        Utils.waitForSpinnerDisappear();
+        stPromotions.productsOnPromotionPage.scrollIntoCenter();
         screenshot("460 PromotionPage_Var3_GroupByCategory - Promotion page, Compact list");
 
         Utils.selectLanguage("ar");
-        stPromotions.productsOnPromotionPage.scrollIntoView(true);
-        sleep(2000);
+        stPromotions.productsOnPromotionPage.scrollIntoCenter();
         screenshot("465 PromotionPage_Var3_GroupByCategory - Promotion page, Compact list (RTL)");
         stPromotions.categoryTemplate_WithoutOptions.scrollIntoCenter().click();
-        stPromotions.productsOnPromotionPage.scrollIntoView(true);
-        sleep(2000);
+        Utils.waitForSpinnerDisappear();
+        stPromotions.productsOnPromotionPage.scrollIntoCenter();
         screenshot("470 PromotionPage_Var3_GroupByCategory - Promotion page, Without options (RTL)");
         stPromotions.categoryTemplate_Grid.scrollIntoCenter().click();
-        sleep(2000);
+        Utils.waitForSpinnerDisappear();
         screenshot("475 PromotionPage_Var3_GroupByCategory - Promotion page, Grid (RTL)");
         softAssert.assertAll();
     }
