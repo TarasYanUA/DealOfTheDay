@@ -8,12 +8,6 @@ import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 public class Utils {
 
-    public static void selectLanguage_RTL() {
-        $("a[id*='_wrap_language_']").hover().click();
-        $(".ty-select-block__list-item a[data-ca-name='ar']").click();
-        sleep(2000);
-    }
-
     public static void selectLanguage(String ruEnAr) {
         $("a[id*='_wrap_language_']").hover().click();
         $(".ty-select-block__list-item a[data-ca-name='" + ruEnAr + "']").click();

@@ -5,6 +5,7 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import storefront.StPromotions;
 import testRunner.TestRunner;
+import testRunner.Utils;
 
 import static com.codeborne.selenide.Selenide.*;
 
@@ -36,7 +37,7 @@ public class PromotionPage_Var1 extends TestRunner {
         basicPage.chooseRussianLanguage();
         promotionSettings.promotion_RacingCard.click();
         //Устанавливаем сегодняшнюю дату для поля "Доступна до"
-        clearBothFieldsAvailable();
+        Utils.clearBothFieldsAvailable();
         promotionSettings.setting_UseAvailablePeriod.click();
         promotionSettings.setDateOfTodayForSetting_AvailableTill();
         if(promotionSettings.setting_StopOtherRules.isSelected()){
@@ -62,10 +63,10 @@ public class PromotionPage_Var1 extends TestRunner {
         PromotionSettings promotionSettings = basicPage.navigateTo_PromotionSettings();
         basicPage.chooseRussianLanguage();
         promotionSettings.promotion_RacingCard.click();
-        makePause();
+        sleep(2000);
         basicPage.gearWheelOnTop.click();
         promotionSettings.button_PreviewPromotion.click();
-        shiftBrowserTab(1);
+        Utils.shiftBrowserTab(1);
         $(".cm-btn-success").click();
 
         StPromotions stPromotions = new StPromotions();
@@ -88,8 +89,8 @@ public class PromotionPage_Var1 extends TestRunner {
                 "Countdown type is not FlipClock on the promotion page!");
         screenshot("300 PromotionPage_Var1 - Promotion page");
 
-        selectLanguage_RTL();
-        makePause();
+        Utils.selectLanguage("ar");
+        sleep(2000);
         screenshot("305 PromotionPage_Var1 - Promotion page (RTL)");
         softAssert.assertAll();
     }

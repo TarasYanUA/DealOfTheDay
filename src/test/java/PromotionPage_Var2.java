@@ -5,6 +5,7 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import storefront.StPromotions;
 import testRunner.TestRunner;
+import testRunner.Utils;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -41,7 +42,7 @@ public class PromotionPage_Var2 extends TestRunner {
         if(promotionSettings.setting_StopOtherRules.isSelected()){
             promotionSettings.setting_StopOtherRules.click(); }
         //Устанавливаем сегодняшнюю дату для поля "Доступна до"
-        clearBothFieldsAvailable();
+        Utils.clearBothFieldsAvailable();
         promotionSettings.setting_UseAvailablePeriod.click();
         promotionSettings.setDateOfTodayForSetting_AvailableTill();
         //Вкладка "АВ: Расширенные промо-акции" у промо-акции
@@ -63,10 +64,10 @@ public class PromotionPage_Var2 extends TestRunner {
         PromotionSettings promotionSettings = basicPage.navigateTo_PromotionSettings();
         basicPage.chooseRussianLanguage();
         promotionSettings.promotion_RacingCard.click();
-        makePause();
+        sleep(1500);
         basicPage.gearWheelOnTop.click();
         promotionSettings.button_PreviewPromotion.click();
-        shiftBrowserTab(1);
+        Utils.shiftBrowserTab(1);
         $(".cm-btn-success").click();
 
         SoftAssert softAssert = new SoftAssert();
@@ -91,8 +92,9 @@ public class PromotionPage_Var2 extends TestRunner {
         String resultPromotionDate = splitPromotionDate[1];
         softAssert.assertEquals(resultPromotionDate, "по " + currentDate,
                 "Promotion period is not till the end of the current day!");
+
         screenshot("400 PromotionPage_Var2 - Promotion page");
-        selectLanguage_RTL();
+        Utils.selectLanguage("ar");
         screenshot("405 PromotionPage_Var2 - Promotion page (RTL)");
         softAssert.assertAll();
     }

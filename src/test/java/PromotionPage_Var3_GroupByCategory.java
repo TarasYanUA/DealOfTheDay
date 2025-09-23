@@ -5,6 +5,7 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import storefront.StPromotions;
 import testRunner.TestRunner;
+import testRunner.Utils;
 
 import static com.codeborne.selenide.Selenide.*;
 
@@ -30,7 +31,7 @@ public class PromotionPage_Var3_GroupByCategory extends TestRunner {
         basicPage.chooseRussianLanguage();
         promotionSettings.promotion_BuyCamera.click();
         //Устанавливаем сегодняшнюю дату для поля "Доступна до"
-        clearBothFieldsAvailable();
+        Utils.clearBothFieldsAvailable();
         promotionSettings.setting_UseAvailablePeriod.click();
         promotionSettings.setDateOfTodayForSetting_AvailableTill();
 
@@ -75,10 +76,10 @@ public class PromotionPage_Var3_GroupByCategory extends TestRunner {
         PromotionSettings promotionSettings = basicPage.navigateTo_PromotionSettings();
         basicPage.chooseRussianLanguage();
         promotionSettings.promotion_BuyCamera.click();
-        makePause();
+        sleep(2000);
         basicPage.gearWheelOnTop.click();
         promotionSettings.button_PreviewPromotion.click();
-        shiftBrowserTab(1);
+        Utils.shiftBrowserTab(1);
         $(".cm-btn-success").click();
 
         StPromotions stPromotions = new StPromotions();
@@ -110,23 +111,23 @@ public class PromotionPage_Var3_GroupByCategory extends TestRunner {
 
         stPromotions.categoryTemplate_WithoutOptions.scrollIntoCenter().click();
         stPromotions.productsOnPromotionPage.scrollIntoView(true);
-        makePause();
+        sleep(2000);
         screenshot("455 PromotionPage_Var3_GroupByCategory - Promotion page, Without options");
         stPromotions.categoryTemplate_CompactList.scrollIntoCenter().click();
         stPromotions.productsOnPromotionPage.scrollIntoView(true);
-        makePause();
+        sleep(2000);
         screenshot("460 PromotionPage_Var3_GroupByCategory - Promotion page, Compact list");
 
-        selectLanguage_RTL();
+        Utils.selectLanguage("ar");
         stPromotions.productsOnPromotionPage.scrollIntoView(true);
-        makePause();
+        sleep(2000);
         screenshot("465 PromotionPage_Var3_GroupByCategory - Promotion page, Compact list (RTL)");
         stPromotions.categoryTemplate_WithoutOptions.scrollIntoCenter().click();
         stPromotions.productsOnPromotionPage.scrollIntoView(true);
-        makePause();
+        sleep(2000);
         screenshot("470 PromotionPage_Var3_GroupByCategory - Promotion page, Without options (RTL)");
         stPromotions.categoryTemplate_Grid.scrollIntoCenter().click();
-        makePause();
+        sleep(2000);
         screenshot("475 PromotionPage_Var3_GroupByCategory - Promotion page, Grid (RTL)");
         softAssert.assertAll();
     }

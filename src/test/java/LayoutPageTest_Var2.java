@@ -5,6 +5,7 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import storefront.StPromotions;
 import testRunner.TestRunner;
+import testRunner.Utils;
 
 import static com.codeborne.selenide.Selenide.*;
 
@@ -47,7 +48,7 @@ public class LayoutPageTest_Var2 extends TestRunner implements DisableLazyLoadFr
         String [] split = currentUrl.split("id=");
         String promotionID = split[1];
         //promotionSettings.clickAndType_field_DetailedDescription();
-        clearBothFieldsAvailable();
+        Utils.clearBothFieldsAvailable();
         promotionSettings.setting_UseAvailablePeriod.click();
         promotionSettings.setDateOfTodayForSetting_AvailableTill();
         basicPage.button_Save.click();
@@ -97,7 +98,7 @@ public class LayoutPageTest_Var2 extends TestRunner implements DisableLazyLoadFr
     public void check_Block(){
         BasicPage basicPage = new BasicPage();
         StPromotions stPromotions = basicPage.navigateTo_Storefront();
-        shiftBrowserTab(1);
+        Utils.shiftBrowserTab(1);
         $(".cm-btn-success").click();
         stPromotions.block_DealOfTheDay.scrollIntoView("{behavior: \"instant\", block: \"center\", inline: \"center\"}").hover();
 
@@ -130,11 +131,11 @@ public class LayoutPageTest_Var2 extends TestRunner implements DisableLazyLoadFr
         //Проверяем, что в блоке отсутствует кнопка "Купить"
         softAssert.assertTrue($$(".ab__deal_of_the_day .ut2-icon-use_icon_cart").isEmpty(),
                 "There is a button 'Add to cart' at the products in the multi block but shouldn't!");
-        makePause();
-        screenshot("900 MultiBlockTest_Var2 - Multi block");
-        selectLanguage_RTL();
-        stPromotions.block_DealOfTheDay.scrollIntoView("{behavior: \"instant\", block: \"center\", inline: \"center\"}").hover();
 
+        sleep(2000);
+        screenshot("900 MultiBlockTest_Var2 - Multi block");
+        Utils.selectLanguage("ar");
+        stPromotions.block_DealOfTheDay.scrollIntoCenter().hover();
         screenshot("905 MultiBlockTest_Var2 - Multi block (RTL)");
         softAssert.assertAll();
     }

@@ -1,7 +1,5 @@
 package testRunner;
 
-import adminPanel.BasicPage;
-import adminPanel.PromotionSettings;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.WebDriverRunner;
@@ -9,12 +7,11 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 
 import static com.codeborne.selenide.Selenide.*;
-import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 /* Проверка модуля "АВ: Расширенные промо-акции" v3.10.5 + тема UniTheme2 (Ult & MV). */
 
 public class TestRunner {
-    public static final String BASIC_URL = "https://abd-d46edb0243.demos.abt.team/admin.php?dispatch=addons.manage";
+    public static final String BASIC_URL = "https://trs.test.abt.team/4184ultru/admin.php?dispatch=addons.manage";
 
     @BeforeClass
     public void openBrowser() {

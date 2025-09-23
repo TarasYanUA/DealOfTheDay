@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import storefront.StPromotions;
 import testRunner.TestRunner;
+import testRunner.Utils;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -72,7 +73,7 @@ public class GeneralSettings_Var2 extends TestRunner implements DisableLazyLoadF
         SoftAssert softAssert = new SoftAssert();
 
         StPromotions stPromotions = basicPage.navigateTo_Storefront();
-        shiftBrowserTab(1);
+        Utils.shiftBrowserTab(1);
         $(".cm-btn-success").click();
         stPromotions.block_DealOfTheDay.hover();
 
@@ -100,15 +101,15 @@ public class GeneralSettings_Var2 extends TestRunner implements DisableLazyLoadF
         //Проверяем, что у блока присутствуют товары
         softAssert.assertTrue(!stPromotions.blockProducts.isEmpty(),
                 "There are no products in the block!");
-        makePause();
+        sleep(2000);
         screenshot("200 GeneralSettings_Var2 - Block 'DealOfTheDay'");
-        selectLanguage_RTL();
+        Utils.selectLanguage("ar");
         stPromotions.block_DealOfTheDay.hover();
         screenshot("202 GeneralSettings_Var2 - Block 'DealOfTheDay' (RTL)");
 
         //Переходим на страницу списка промо-акций
         stPromotions.blockButton_AllPromotions.click();
-        selectLanguage_RU();
+        Utils.selectLanguage("ru");
 
         //Проверяем, что у промо-акции присутствует текст "Только сегодня" (у промо-акции "Купите фотоаппарат")
         softAssert.assertTrue(stPromotions.text_OnlyToday.exists(),
@@ -126,11 +127,11 @@ public class GeneralSettings_Var2 extends TestRunner implements DisableLazyLoadF
         softAssert.assertTrue($("#ut2_pagination_block_bottom").exists(),
                 "There is no pagination on the promotion list page!");
         screenshot("205 GeneralSettings_Var2 - Page 'All promotions'");
-        selectLanguage_RTL();
+        Utils.selectLanguage("ar");
         screenshot("207 GeneralSettings_Var2 - Page 'All promotions' (RTL)");
 
         //Переходим на страницу промо-акции "Купите фотоаппарат"
-        selectLanguage_RU();
+        Utils.selectLanguage("ru");
         stPromotions.promotion_BuyCamera.click();
 
         //Проверяем, что шапка промо-акции присутствует на странице конкретной промо-акции
@@ -152,9 +153,9 @@ public class GeneralSettings_Var2 extends TestRunner implements DisableLazyLoadF
         //Проверяем, что в промо-акции присутствуют товары
         softAssert.assertTrue(!stPromotions.promotionProducts.isEmpty(),
                 "There are no products on the promotion page!");
-        makePause();
+        sleep(2000);
         screenshot("210 GeneralSettings_Var2 - Promotion page");
-        selectLanguage_RTL();
+        Utils.selectLanguage("ar");
         screenshot("212 GeneralSettings_Var2 - Promotion page (RTL)");
         softAssert.assertAll();
     }

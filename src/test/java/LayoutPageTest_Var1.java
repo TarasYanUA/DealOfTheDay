@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import storefront.StPromotions;
 import testRunner.TestRunner;
+import testRunner.Utils;
 
 import static com.codeborne.selenide.Selenide.*;
 
@@ -48,7 +49,7 @@ public class LayoutPageTest_Var1 extends TestRunner implements DisableLazyLoadFr
         String [] split = currentUrl.split("id=");
         String promotionID = split[1];
         //promotionSettings.clickAndType_field_DetailedDescription();
-        clearBothFieldsAvailable();
+        Utils.clearBothFieldsAvailable();
         promotionSettings.setting_UseAvailablePeriod.click();
         promotionSettings.setDateOfTodayForSetting_AvailableTill();
         promotionSettings.tab_Conditions.scrollIntoView(false).click();
@@ -106,7 +107,7 @@ public class LayoutPageTest_Var1 extends TestRunner implements DisableLazyLoadFr
     public void check_Block(){
         BasicPage basicPage = new BasicPage();
         StPromotions stPromotions = basicPage.navigateTo_Storefront();
-        shiftBrowserTab(1);
+        Utils.shiftBrowserTab(1);
         $(".cm-btn-success").click();
         stPromotions.block_DealOfTheDay.scrollIntoView("{behavior: \"instant\", block: \"center\", inline: \"center\"}").hover();
 
@@ -147,9 +148,9 @@ public class LayoutPageTest_Var1 extends TestRunner implements DisableLazyLoadFr
         //Проверяем, что у блока 6 товаров
         softAssert.assertTrue(stPromotions.blockProducts.size() == 6,
                 "There are not 6 products in the multi block!");
-        makePause();
+        sleep(2000);
         screenshot("800 MultiBlockTest_Var1 - Multi block");
-        selectLanguage_RTL();
+        Utils.selectLanguage("ar");
         stPromotions.block_DealOfTheDay.scrollIntoView("{behavior: \"instant\", block: \"center\", inline: \"center\"}").hover();
         screenshot("805 MultiBlockTest_Var1 - Multi block (RTL)");
         softAssert.assertAll();

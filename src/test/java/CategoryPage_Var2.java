@@ -7,6 +7,7 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import storefront.StPromotions;
 import testRunner.TestRunner;
+import testRunner.Utils;
 
 import static com.codeborne.selenide.Selenide.*;
 
@@ -84,10 +85,10 @@ public class CategoryPage_Var2 extends TestRunner {
         BasicPage basicPage = new BasicPage();
         basicPage.navigateTo_CategoryPage();
         basicPage.category_Notebooks.click();
-        makePause();
+        sleep(2000);
         basicPage.gearWheelOnTop.click();
         basicPage.button_Preview.click();
-        shiftBrowserTab(1);
+        Utils.shiftBrowserTab(1);
         $(".cm-btn-success").click();
 
         StPromotions stPromotions = new StPromotions();
@@ -107,7 +108,7 @@ public class CategoryPage_Var2 extends TestRunner {
 
         $("#det_img_219desktop").scrollIntoView("{behavior: \"instant\", block: \"center\", inline: \"center\"}");
         $("form[name='product_form_219'] .ut2-gl__image").hover();
-        makePause();
+        sleep(2000);
         screenshot("700 CategoryPage_Var2 - Template Grid");
         $("a[data-ca-view-id=\"219\"][data-ca-target-id='product_quick_view']").click();
         $(".ui-dialog-titlebar").shouldBe(Condition.visible);
@@ -115,23 +116,23 @@ public class CategoryPage_Var2 extends TestRunner {
         //Проверяем, что присутствует шапка промо-акции в окне Быстрого просмотра
         softAssert.assertTrue(stPromotions.promotionHeaderInQuickView.exists(),
                 "There is no promotion header in the quick view window!");
-        makePause();
+        sleep(2000);
         stPromotions.button_ClosePopupWindow.hover();
         screenshot("705 CategoryPage_Var2 - Quick view");
         stPromotions.button_ClosePopupWindow.click();
-        selectLanguage_RTL();
+        Utils.selectLanguage("ar");
         $("#det_img_219desktop").scrollIntoView("{behavior: \"instant\", block: \"center\", inline: \"center\"}");
         $("form[name='product_form_219'] .ut2-gl__image").hover();
         screenshot("710 CategoryPage_Var2 - Template Grid (RTL)");
         stPromotions.button_QuickView.hover().click();
-        makePause();
+        sleep(2000);
         stPromotions.button_ClosePopupWindow.hover();
         screenshot("715 CategoryPage_Var2 - Quick view (RTL)");
 
         //Переключаем шаблоны страницы категории
         stPromotions.button_ClosePopupWindow.click();
         stPromotions.categoryTemplate_WithoutOptions.click();
-        makePause();
+        sleep(2000);
 
         //Проверяем, что промо-акция отображается на странице категории с шаблоном "Список без опций"
         softAssert.assertTrue(!stPromotions.promotionOnCategoryPage.isEmpty(),
@@ -150,13 +151,13 @@ public class CategoryPage_Var2 extends TestRunner {
         //Проверяем, что отсутствует лейбл на странице категории с шаблоном "Компактный список"
         softAssert.assertFalse(!stPromotions.labelOnCategoryPage.isEmpty(),
                 "There is a promotion label on the category page 'Compact list' but shouldn't!");
-        makePause();
+        sleep(2000);
         screenshot("725 CategoryPage_Var2 - Template Compact list (RTL)");
-        selectLanguage_RU();
-        makePause();
+        Utils.selectLanguage("ru");
+        sleep(2000);
         screenshot("730 CategoryPage_Var2 - Template Compact list");
         stPromotions.categoryTemplate_WithoutOptions.click();
-        makePause();
+        sleep(2000);
         screenshot("735 CategoryPage_Var2 - Template Without options");
         softAssert.assertAll();
     }
