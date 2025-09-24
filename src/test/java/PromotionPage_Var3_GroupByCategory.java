@@ -68,7 +68,7 @@ public class PromotionPage_Var3_GroupByCategory extends TestRunner {
         PromotionSettings promotionSettings = basicPage.navigateTo_PromotionSettings();
         basicPage.chooseRussianLanguage();
         promotionSettings.promotion_BuyCamera.click();
-        basicPage.saveAndGoToStorefront(1);
+        basicPage.navigateToStorefront(1);
 
         StPromotions stPromotions = new StPromotions();
         SoftAssert softAssert = new SoftAssert();

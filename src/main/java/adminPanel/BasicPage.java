@@ -105,9 +105,13 @@ public class BasicPage implements CheckMenuToBeActive {
         productTemplate.selectOptionByValue(templateValue);
     }
 
-    public void saveAndGoToStorefront(int tabNumber) {
+    public void savePage() {
         button_Save.click();
-        sleep(2000);
+        sleep(1500);
+    }
+
+    public void navigateToStorefront(int tabNumber) {
+        sleep(1500);
         gearWheelOnTop.click();
         button_Preview.click();
         getWebDriver().getWindowHandle();

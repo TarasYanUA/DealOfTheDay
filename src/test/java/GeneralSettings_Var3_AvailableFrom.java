@@ -53,7 +53,7 @@ public class GeneralSettings_Var3_AvailableFrom extends TestRunner implements Di
         //Переходим на страницу промо-акции
         basicPage.chooseRussianLanguage();
         promotionSettings.promotion_BuyCamera.click();
-        basicPage.saveAndGoToStorefront(1);
+        basicPage.navigateToStorefront(1);
         StPromotions stPromotions = new StPromotions();
 
         SoftAssert softAssert = new SoftAssert();

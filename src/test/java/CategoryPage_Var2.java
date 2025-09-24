@@ -72,7 +72,7 @@ public class CategoryPage_Var2 extends TestRunner {
         BasicPage basicPage = new BasicPage();
         basicPage.navigateTo_CategoryPage();
         basicPage.category_Notebooks.click();
-        basicPage.saveAndGoToStorefront(1);
+        basicPage.navigateToStorefront(1);
 
         StPromotions stPromotions = new StPromotions();
         SoftAssert softAssert = new SoftAssert();
