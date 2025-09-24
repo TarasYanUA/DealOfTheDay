@@ -1,6 +1,5 @@
 import adminPanel.*;
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.WebDriverRunner;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import storefront.StPromotions;
@@ -39,10 +38,8 @@ public class LayoutPageTest_Var2 extends TestRunner implements DisableLazyLoadFr
         PromotionSettings promotionSettings = basicPage.navigateTo_PromotionSettings();
         basicPage.chooseRussianLanguage();
         promotionSettings.promotion_BuyHairDryerVALERA.click();
-        //Берём ID данной промо-акции
-        String currentUrl = WebDriverRunner.getWebDriver().getCurrentUrl();
-        String [] split = currentUrl.split("id=");
-        String promotionID = split[1];
+        //Берём ID промо-акции
+        String promotionID = promotionSettings.takePromotionID();
         //promotionSettings.clickAndType_field_DetailedDescription();
         Utils.clearBothFieldsAvailable();
         promotionSettings.setting_UseAvailablePeriod.click();
@@ -56,23 +53,7 @@ public class LayoutPageTest_Var2 extends TestRunner implements DisableLazyLoadFr
         layoutPage.layout_TabHomePage.click();
         layoutPage.switchOffBlock_DealOfTheDay();
         //Создаём блок "Мульти Товар дня"
-        if (!$x("//div[@title=\"MultiBlock - AutoTest\"]").exists()) {
-            layoutPage.addNewBlock();
-            basicPage.popupWindow.shouldBe(Condition.enabled);
-            if ($("button.close.cm-notification-close[data-dismiss='alert']").exists())
-                $("button.close.cm-notification-close[data-dismiss='alert']").click();
-            layoutPage.tab_CreateNewBlock.click();
-            layoutPage.multiBlock.click();
-            $("#ui-id-2").shouldBe(Condition.enabled);
-            layoutPage.blockName.click();
-            layoutPage.blockName.sendKeys("MultiBlock - AutoTest");
-            layoutPage.tab_Content.click();
-            layoutPage.button_AddPromotionsToBlock.click();
-            $("#ui-id-3").shouldBe(Condition.enabled);
-            $(("input[id^='checkbox_id_" + promotionID)).click();
-            layoutPage.button_AddAndCloseSelectedPromotions.click();
-            layoutPage.button_CreateBlock.click();
-        }
+        layoutPage.createBlock_MultiDealOfTheDay(promotionID);
         //Задаём настройки блоку "Мульти Товар дня"
         layoutPage.blockProperties.click();
         basicPage.popupWindow.shouldBe(Condition.enabled);

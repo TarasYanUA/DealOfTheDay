@@ -2,6 +2,7 @@ package adminPanel;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import com.codeborne.selenide.WebDriverRunner;
 import org.openqa.selenium.By;
 
 import java.time.LocalDate;
@@ -73,5 +74,13 @@ public class PromotionSettings {
         setting_AvailableTill.clear();
         BasicPage basicPage = new BasicPage();
         basicPage.button_Save.click();
+    }
+
+    //Берём ID промо-акции
+    public String takePromotionID() {
+        String currentUrl = WebDriverRunner.getWebDriver().getCurrentUrl();
+        assert currentUrl != null;
+        String [] split = currentUrl.split("id=");
+        return split[1];
     }
 }

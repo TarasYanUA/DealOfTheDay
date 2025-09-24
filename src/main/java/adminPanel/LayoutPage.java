@@ -1,5 +1,6 @@
 package adminPanel;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
@@ -48,4 +49,24 @@ public class LayoutPage {
     public SelenideElement setting_HideAddToCart = $("input[id$='multi_deal_of_the_day_properties_hide_add_to_cart_button']");
     public SelenideElement setting_DisplayPromotionCountdown = $("input[id$='multi_deal_of_the_day_properties_ab__dotd_enable_countdown_timer']");
     public SelenideElement button_CreateBlock = $("input[name='dispatch[block_manager.update_block]']");
+
+
+    public void createBlock_MultiDealOfTheDay(String promotionID) {
+        if (!$x("//div[@title=\"MultiBlock - AutoTest\"]").exists()) {
+            addNewBlock();
+            $(".ui-dialog-title").shouldBe(Condition.enabled);
+            if ($("button.close.cm-notification-close[data-dismiss='alert']").exists())
+                $("button.close.cm-notification-close[data-dismiss='alert']").click();
+            tab_CreateNewBlock.click();
+            multiBlock.click();
+            $("#ui-id-2").shouldBe(Condition.enabled);
+            blockName.setValue("MultiBlock - AutoTest");
+            tab_Content.click();
+            button_AddPromotionsToBlock.click();
+            $("#ui-id-3").shouldBe(Condition.enabled);
+            $(("input[id^='checkbox_id_" + promotionID)).click();
+            button_AddAndCloseSelectedPromotions.click();
+            button_CreateBlock.click();
+        }
+    }
 }
