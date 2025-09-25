@@ -44,4 +44,9 @@ public class Utils {
         $("div#ajax_loading_box[style=\"display: block;\"]").shouldBe(Condition.disappear, Duration.ofSeconds(10));
         sleep(2000);
     }
+
+    public static void scrollToTabAndClick(SelenideElement element) {
+        element.scrollIntoCenter().click();
+        sleep(1500);
+    }
 }

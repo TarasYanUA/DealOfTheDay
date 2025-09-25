@@ -2,6 +2,7 @@ import adminPanel.*;
 import com.codeborne.selenide.Condition;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
+import storefront.AssertsPage;
 import storefront.StPromotions;
 import testRunner.TestRunner;
 import testRunner.Utils;
@@ -72,17 +73,16 @@ public class LayoutPageTest_Var2 extends TestRunner implements DisableLazyLoadFr
         StPromotions stPromotions = basicPage.navigateTo_Storefront();
         Utils.shiftBrowserTab(1);
         $(".cm-btn-success").click();
-        stPromotions.block_DealOfTheDay.scrollIntoView("{behavior: \"instant\", block: \"center\", inline: \"center\"}").hover();
+        stPromotions.block_DealOfTheDay.scrollIntoCenter();
 
+        AssertsPage assertsPage = new AssertsPage();
         SoftAssert softAssert = new SoftAssert();
 
-        //Проверяем, что в блоке присутствует заголовок
-        softAssert.assertTrue(stPromotions.blockTitle.exists(),
-                "There is no title of the promotion in the multi block!");
+        //Проверяем, что заголовок промо-акции присутствует в блоке
+        assertsPage.assertElementPresence(assertsPage.blockTitle, "in the multi block!", true);
 
         //Проверяем, что в блоке присутствует описание
-        softAssert.assertTrue(stPromotions.blockDescription.exists(),
-                "There is no description of the promotion in the multi block!");
+        assertsPage.assertElementPresence(assertsPage.blockDescription, "", true);
 
         //Проверяем, что в блоке присутствует кнопка "Подробнее"
         softAssert.assertTrue(stPromotions.blockButton_More.exists(),
@@ -93,8 +93,7 @@ public class LayoutPageTest_Var2 extends TestRunner implements DisableLazyLoadFr
                 "There is no button 'All promotions' in the multi block!");
 
         //Проверяем, что в блоке присутствует счётчик Javascript
-        softAssert.assertTrue(stPromotions.javaClock.exists(),
-                "The countdown is not Javascript in the multi block!");
+        assertsPage.assertElementPresence(assertsPage.javaClock, "in the multi block!", true);
 
         //Проверяем, что в блоке присутствует кнопка быстрого просмотра
         softAssert.assertTrue(!$$(".ab__deal_of_the_day a[data-ca-target-id=\"product_quick_view\"]").isEmpty(),
@@ -107,8 +106,7 @@ public class LayoutPageTest_Var2 extends TestRunner implements DisableLazyLoadFr
         sleep(2000);
         screenshot("900 MultiBlockTest_Var2 - Multi block");
         Utils.selectLanguage("ar");
-        stPromotions.block_DealOfTheDay.scrollIntoCenter().hover();
+        stPromotions.block_DealOfTheDay.scrollIntoCenter();
         screenshot("905 MultiBlockTest_Var2 - Multi block (RTL)");
-        softAssert.assertAll();
     }
 }

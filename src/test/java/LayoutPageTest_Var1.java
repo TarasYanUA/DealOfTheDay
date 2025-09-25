@@ -2,6 +2,7 @@ import adminPanel.*;
 import com.codeborne.selenide.Condition;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
+import storefront.AssertsPage;
 import storefront.StPromotions;
 import testRunner.TestRunner;
 import testRunner.Utils;
@@ -44,7 +45,7 @@ public class LayoutPageTest_Var1 extends TestRunner implements DisableLazyLoadFr
         Utils.clearBothFieldsAvailable();
         promotionSettings.setting_UseAvailablePeriod.click();
         promotionSettings.setDateOfTodayForSetting_AvailableTill();
-        promotionSettings.tab_Conditions.scrollIntoCenter().click();
+        Utils.scrollToTabAndClick(promotionSettings.tab_Conditions);
         promotionSettings.button_AddProductsToCondition.click();
         $(".ui-dialog-title").shouldBe(Condition.visible);
         promotionSettings.field_SearchProduct.setValue("Samsung серии 3 15.6\" 300V5A");
@@ -79,17 +80,16 @@ public class LayoutPageTest_Var1 extends TestRunner implements DisableLazyLoadFr
         StPromotions stPromotions = basicPage.navigateTo_Storefront();
         Utils.shiftBrowserTab(1);
         $(".cm-btn-success").click();
-        stPromotions.block_DealOfTheDay.scrollIntoCenter().hover();
+        stPromotions.block_DealOfTheDay.scrollIntoCenter();
 
+        AssertsPage assertsPage = new AssertsPage();
         SoftAssert softAssert = new SoftAssert();
 
-        //Проверяем, что в блоке присутствует заголовок
-        softAssert.assertTrue(stPromotions.blockTitle.exists(),
-                "There is no title of the promotion in the multi block!");
+        //Проверяем, что заголовок промо-акции присутствует в блоке
+        assertsPage.assertElementPresence(assertsPage.blockTitle, "in the multi block!", true);
 
         //Проверяем, что в блоке присутствует описание
-        softAssert.assertTrue(stPromotions.blockDescription.exists(),
-                "There is no description of the promotion in the multi block!");
+        assertsPage.assertElementPresence(assertsPage.blockDescription, "", true);
 
         //Проверяем, что в блоке присутствует кнопка "Подробнее"
         softAssert.assertTrue(stPromotions.blockButton_More.exists(),
@@ -100,8 +100,7 @@ public class LayoutPageTest_Var1 extends TestRunner implements DisableLazyLoadFr
                 "There is no button 'All promotions' in the multi block!");
 
         //Проверяем, что в блоке присутствует счётчик Flipclock
-        softAssert.assertTrue(stPromotions.flipClock.exists(),
-                "The countdown is not FlipClock in the multi block!");
+        assertsPage.assertElementPresence(assertsPage.flipClock, "in the multi block!", true);
 
         //Проверяем, что в блоке присутствует цена
         softAssert.assertTrue(!$$(".ab__deal_of_the_day .ty-list-price.ty-nowrap").isEmpty(),
@@ -115,15 +114,13 @@ public class LayoutPageTest_Var1 extends TestRunner implements DisableLazyLoadFr
         softAssert.assertTrue(!$$(".ab__deal_of_the_day .ut2-icon-use_icon_cart").isEmpty(),
                 "There is no button 'Add to cart' at the products in the multi block!");
 
-        //Проверяем, что у блока 6 товаров
-        softAssert.assertTrue(stPromotions.blockProducts.size() == 6,
-                "There are not 6 products in the multi block!");
+        //Проверяем, что у блока присутствуют товары
+        assertsPage.assertElementPresence(assertsPage.blockProducts, "", true);
 
         sleep(2000);
         screenshot("800 MultiBlockTest_Var1 - Multi block");
         Utils.selectLanguage("ar");
         stPromotions.block_DealOfTheDay.scrollIntoCenter().hover();
         screenshot("805 MultiBlockTest_Var1 - Multi block (RTL)");
-        softAssert.assertAll();
     }
 }

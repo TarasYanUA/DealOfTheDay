@@ -2,7 +2,7 @@ import adminPanel.BasicPage;
 import adminPanel.PromotionSettings;
 import com.codeborne.selenide.Condition;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
+import storefront.AssertsPage;
 import storefront.StPromotions;
 import testRunner.TestRunner;
 import testRunner.Utils;
@@ -36,7 +36,7 @@ public class PromotionPage_Var3_GroupByCategory extends TestRunner {
         promotionSettings.setDateOfTodayForSetting_AvailableTill();
 
         //Вкладка "Условия" у промо-акции
-        promotionSettings.tab_Conditions.scrollIntoView(false).click();
+        Utils.scrollToTabAndClick(promotionSettings.tab_Conditions);
         if ($$x("//label[contains(text(), 'Категории')]").isEmpty()) {
             $("a[id='sw_promotion_data[conditions][set]']").click();
             $("div[class='cm-popup-box btn-group open']").shouldBe(Condition.appear);
@@ -54,7 +54,7 @@ public class PromotionPage_Var3_GroupByCategory extends TestRunner {
         }
 
         //Вкладка "АВ: Расширенные промо-акции" у промо-акции
-        promotionSettings.tab_ABExtPromotions.click();
+        Utils.scrollToTabAndClick(promotionSettings.tab_ABExtPromotions);
         Utils.setCheckboxState(promotionSettings.check_GroupByCategory, true);
         Utils.setCheckboxState(promotionSettings.check_UseFilterByProducts, true);
         Utils.setCheckboxState(promotionSettings.check_HideProductBlock, false);
@@ -71,37 +71,32 @@ public class PromotionPage_Var3_GroupByCategory extends TestRunner {
         basicPage.navigateToStorefront(1);
 
         StPromotions stPromotions = new StPromotions();
-        SoftAssert softAssert = new SoftAssert();
+        AssertsPage assertsPage = new AssertsPage();
 
         //Проверяем, что отсутствует фильтр товаров, когда выбрано категорию "Все категории"
-        softAssert.assertFalse(stPromotions.filterByProducts.exists(),
-                "There is the product filters on the category 'All categories' but shouldn't on the promotion page 'All categories'!");
+        assertsPage.assertElementPresence(assertsPage.filterByProducts, "on the promotion page 'All categories'!", false);
 
         //Проверяем, что присутствует счётчик на странице промо-акции
-        softAssert.assertTrue(stPromotions.countdown.exists(),
-                "There is no countdown on the promotion page!");
+        assertsPage.assertElementPresence(assertsPage.countdown, "on the promotion page!", true);
 
         //Проверяем, что присутствует кнопка "Больше товаров из категории" -- настройка "Группировать по категории"
-        softAssert.assertTrue(!stPromotions.button_MoreProductsFromCategory.isEmpty(),
-                "There is no any button 'More products from category' on the promotion page!");
+        assertsPage.assertElementPresence(assertsPage.button_MoreProductsFromCategory, "on the promotion page!", true);
 
         $(".ab-dotd-more-icon").scrollIntoCenter();
         screenshot("450 PromotionPage_Var3_GroupByCategory - Promotion page, Grid");
         $(".ab-dotd-categories-filter a[href$='cid=166']").hover().click();
 
         //Проверяем, что присутствует блок товаров на странице промо-акции, когда выбрано категорию "Электроника"
-        softAssert.assertTrue(stPromotions.productBlock.exists(),
-                "There is no product block on the promotion page!");
+        assertsPage.assertElementPresence(assertsPage.productBlock, "on the promotion page 'Electronics'!", true);
 
         //Проверяем, что присутствует фильтр товаров, когда выбрано категорию "Электроника"
-        softAssert.assertTrue(stPromotions.filterByProducts.exists(),
-                "There is no product filters on the promotion page 'Electronics'!");
+        assertsPage.assertElementPresence(assertsPage.filterByProducts, "on the promotion page 'Electronics'!", true);
 
-        stPromotions.categoryTemplate_WithoutOptions.scrollIntoCenter().click();
+        Utils.scrollToTabAndClick(stPromotions.categoryTemplate_WithoutOptions);
         Utils.waitForSpinnerDisappear();
         stPromotions.productsOnPromotionPage.scrollIntoCenter();
         screenshot("455 PromotionPage_Var3_GroupByCategory - Promotion page, Without options");
-        stPromotions.categoryTemplate_CompactList.scrollIntoCenter().click();
+        Utils.scrollToTabAndClick(stPromotions.categoryTemplate_CompactList);
         Utils.waitForSpinnerDisappear();
         stPromotions.productsOnPromotionPage.scrollIntoCenter();
         screenshot("460 PromotionPage_Var3_GroupByCategory - Promotion page, Compact list");
@@ -109,13 +104,12 @@ public class PromotionPage_Var3_GroupByCategory extends TestRunner {
         Utils.selectLanguage("ar");
         stPromotions.productsOnPromotionPage.scrollIntoCenter();
         screenshot("465 PromotionPage_Var3_GroupByCategory - Promotion page, Compact list (RTL)");
-        stPromotions.categoryTemplate_WithoutOptions.scrollIntoCenter().click();
+        Utils.scrollToTabAndClick(stPromotions.categoryTemplate_WithoutOptions);
         Utils.waitForSpinnerDisappear();
         stPromotions.productsOnPromotionPage.scrollIntoCenter();
         screenshot("470 PromotionPage_Var3_GroupByCategory - Promotion page, Without options (RTL)");
-        stPromotions.categoryTemplate_Grid.scrollIntoCenter().click();
+        Utils.scrollToTabAndClick(stPromotions.categoryTemplate_Grid);
         Utils.waitForSpinnerDisappear();
         screenshot("475 PromotionPage_Var3_GroupByCategory - Promotion page, Grid (RTL)");
-        softAssert.assertAll();
     }
 }

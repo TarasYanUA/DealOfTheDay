@@ -5,12 +5,10 @@ import adminPanel.PromotionSettings;
 import com.codeborne.selenide.Condition;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
+import storefront.AssertsPage;
 import storefront.StPromotions;
 import testRunner.TestRunner;
 import testRunner.Utils;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 import static com.codeborne.selenide.Selenide.*;
 
@@ -88,19 +86,18 @@ public class GeneralSettings_Var1 extends TestRunner implements DisableLazyLoadF
         Utils.shiftBrowserTab(1);
         $(".cm-btn-success").click();
         stPromotions.block_DealOfTheDay.scrollIntoCenter();
+
+        AssertsPage assertsPage = new AssertsPage();
         SoftAssert softAssert = new SoftAssert();
 
         //Проверяем, что в блоке присутствует заголовок
-        softAssert.assertTrue(stPromotions.blockTitle.exists(),
-                "There is no title of the promotion in the block!");
+        assertsPage.assertElementPresence(assertsPage.blockTitle, "in the block!", true);
 
         //Проверяем, что в блоке присутствует описание
-        softAssert.assertTrue(stPromotions.blockDescription.exists(),
-                "There is no description of the promotion in the block!");
+        assertsPage.assertElementPresence(assertsPage.blockDescription, "", true);
 
         //Проверяем, что в блоке присутствует Javascript счётчик
-        softAssert.assertTrue(stPromotions.javaClock.exists(),
-                "Countdown type is not Javascript in the block!");
+        assertsPage.assertElementPresence(assertsPage.javaClock, "in the block!", true);
 
         //Проверяем, что в блоке присутствует кнопка "Подробнее"
         softAssert.assertTrue(stPromotions.blockButton_More.exists(),
@@ -111,8 +108,7 @@ public class GeneralSettings_Var1 extends TestRunner implements DisableLazyLoadF
                 "There is no button 'All promotions' in the block!");
 
         //Проверяем, что у блока присутствуют товары
-        softAssert.assertTrue(!stPromotions.blockProducts.isEmpty(),
-                "There are no products in the block!");
+        assertsPage.assertElementPresence(assertsPage.blockProducts, "", true);
 
         sleep(2000);
         screenshot("100 GeneralSettings_Var1 - Block 'DealOfTheDay'");
@@ -141,8 +137,7 @@ public class GeneralSettings_Var1 extends TestRunner implements DisableLazyLoadF
                 "Promotions per page are less than 10 on the promotion list page!");
 
         //Проверяем, что присутствует "Выделение промо-акции" (у промо-акции "Купите фотоаппарат")
-        softAssert.assertTrue(stPromotions.highlight.exists(),
-                "There is no Highlighting of the promotion on the promotion list page!");
+        assertsPage.assertElementPresence(assertsPage.highlight, "on the promotion list page!", true);
 
         screenshot("105 GeneralSettings_Var1 - Page 'All promotions'");
         Utils.selectLanguage("ar");
@@ -153,8 +148,7 @@ public class GeneralSettings_Var1 extends TestRunner implements DisableLazyLoadF
         stPromotions.promotion_BuyCamera.click();
 
         //Проверяем, что шапка промо-акции присутствует на странице конкретной промо-акции
-        softAssert.assertTrue(stPromotions.promotionHeaderOnPromoPage.exists(),
-                "There is no promotion header on the promotion page!");
+        assertsPage.assertElementPresence(assertsPage.promotionHeaderOnPromoPage, "", true);
 
         //Проверяем, что "Максимальная высота описания" -- 250
         softAssert.assertTrue($("div[style*='max-height: 250px']").exists(),
@@ -165,21 +159,14 @@ public class GeneralSettings_Var1 extends TestRunner implements DisableLazyLoadF
                 "There is no button 'More' at the promotion description on the promotion page!");
 
         //Проверяем, что период проведения промо-акции -- до конца текущего дня - настройка промо-акции "Доступна до"
-        String currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("MM/dd/yyy"));
-        String promotionDate = $(".ab__dotd_promotion_date p").getText();
-        String[] splitPromotionDate = promotionDate.split(": ");
-        String resultPromotionDate = splitPromotionDate[1];
-        softAssert.assertEquals(resultPromotionDate, "по " + currentDate,
-                "Promotion period is not till the end of the current day!");
+        assertsPage.assertPromotionPeriod_TillTheEndOfCurrentDay();
 
         //Проверяем, что в промо-акции присутствуют товары
-        softAssert.assertTrue(!stPromotions.promotionProducts.isEmpty(),
-                "There are no products on the promotion page!");
+        assertsPage.assertElementPresence(assertsPage.promotionProducts, "on the promotion page!", true);
 
         sleep(2000);
         screenshot("110 GeneralSettings_Var1 - Promotion page");
         Utils.selectLanguage("ar");
         screenshot("112 GeneralSettings_Var1 - Promotion page (RTL)");
-        softAssert.assertAll();
     }
 }

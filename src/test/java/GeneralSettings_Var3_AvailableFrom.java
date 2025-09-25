@@ -4,6 +4,7 @@ import adminPanel.DisableLazyLoadFromBlock;
 import adminPanel.PromotionSettings;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
+import storefront.AssertsPage;
 import storefront.StPromotions;
 import testRunner.TestRunner;
 import testRunner.Utils;
@@ -54,21 +55,19 @@ public class GeneralSettings_Var3_AvailableFrom extends TestRunner implements Di
         basicPage.chooseRussianLanguage();
         promotionSettings.promotion_BuyCamera.click();
         basicPage.navigateToStorefront(1);
-        StPromotions stPromotions = new StPromotions();
 
+        StPromotions stPromotions = new StPromotions();
+        AssertsPage assertsPage = new AssertsPage();
         SoftAssert softAssert = new SoftAssert();
 
         //Проверяем, что шапка промо-акции присутствует на странице конкретной промо-акции
-        softAssert.assertTrue(stPromotions.promotionHeaderOnPromoPage.exists(),
-                "There is no promotion header on the promotion page!");
+        assertsPage.assertElementPresence(assertsPage.promotionHeaderOnPromoPage, "", true);
 
         //Проверяем, что отсутствует счётчик на странице конкретной промо-акции
-        softAssert.assertFalse(stPromotions.countdown.exists(),
-                "There is a countdown on the promotion page but shouldn't!");
+        assertsPage.assertElementPresence(assertsPage.countdown, "on the promotion page!", false);
 
         //Проверяем, что в промо-акции присутствуют товары
-        softAssert.assertTrue(!stPromotions.promotionProducts.isEmpty(),
-                "There are no products on the promotion page!");
+        assertsPage.assertElementPresence(assertsPage.promotionProducts, "on the promotion page!", true);
 
         sleep(2000);
         screenshot("250 GeneralSettings_Var3_AvailableFrom - Promotion page");
@@ -79,8 +78,7 @@ public class GeneralSettings_Var3_AvailableFrom extends TestRunner implements Di
         $(".ut2-gl__body").click();
 
         //Проверяем, что шапка промо-акции присутствует на странице товара
-        softAssert.assertTrue(stPromotions.promotionHeader.exists(),
-                "There is no promotion header on the product page!");
+        assertsPage.assertElementPresence(assertsPage.promotionHeader, "on the product page!", true);
 
         //Проверяем, что отсутствует счётчик на странице товара
         softAssert.assertFalse($(".wrapped").exists(),
@@ -95,13 +93,11 @@ public class GeneralSettings_Var3_AvailableFrom extends TestRunner implements Di
         $(".ty-breadcrumbs__a").click();
         stPromotions.block_DealOfTheDay.scrollIntoCenter();
 
-        //Проверяем, что в блоке присутствует заголовок
-        softAssert.assertTrue(stPromotions.blockTitle.exists(),
-                "There is no title of the promotion in the block!");
+        //Проверяем, что заголовок промо-акции присутствует в блоке
+        assertsPage.assertElementPresence(assertsPage.blockTitle, "in the block!", true);
 
         //Проверяем, что в блоке присутствует описание
-        softAssert.assertTrue(stPromotions.blockDescription.exists(),
-                "There is no description of the promotion in the block!");
+        assertsPage.assertElementPresence(assertsPage.blockDescription, "", true);
 
         //Проверяем, что в блоке присутствует кнопка "Подробнее"
         softAssert.assertTrue(stPromotions.blockButton_More.exists(),
@@ -112,12 +108,10 @@ public class GeneralSettings_Var3_AvailableFrom extends TestRunner implements Di
                 "There is no button 'All promotions' in the block!");
 
         //Проверяем, что у блока присутствуют товары
-        softAssert.assertTrue(!stPromotions.blockProducts.isEmpty(),
-                "There are no products in the block!");
+        assertsPage.assertElementPresence(assertsPage.blockProducts, "", true);
 
         //Проверяем, что у блока отсутствует счётчик
-        softAssert.assertFalse(stPromotions.countdown.exists(),
-                "There is a countdown in the block but shouldn't!");
+        assertsPage.assertElementPresence(assertsPage.countdown, "in the block!", false);
 
         sleep(2000);
         screenshot("260 GeneralSettings_Var3_AvailableFrom - Block 'DealOfTheDay'");
@@ -125,6 +119,5 @@ public class GeneralSettings_Var3_AvailableFrom extends TestRunner implements Di
         stPromotions.block_DealOfTheDay.scrollIntoCenter();
         sleep(2000);
         screenshot("262 GeneralSettings_Var3_AvailableFrom - Block 'DealOfTheDay' (RTL)");
-        softAssert.assertAll();
     }
 }

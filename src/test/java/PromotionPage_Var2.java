@@ -2,13 +2,9 @@ import adminPanel.AddonSettings;
 import adminPanel.BasicPage;
 import adminPanel.PromotionSettings;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
-import storefront.StPromotions;
+import storefront.AssertsPage;
 import testRunner.TestRunner;
 import testRunner.Utils;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 import static com.codeborne.selenide.Selenide.*;
 
@@ -45,7 +41,7 @@ public class PromotionPage_Var2 extends TestRunner {
         promotionSettings.setting_UseAvailablePeriod.click();
         promotionSettings.setDateOfTodayForSetting_AvailableTill();
         //Вкладка "АВ: Расширенные промо-акции" у промо-акции
-        promotionSettings.tab_ABExtPromotions.scrollIntoCenter().click();
+        Utils.scrollToTabAndClick(promotionSettings.tab_ABExtPromotions);
         Utils.setCheckboxState(promotionSettings.check_UseFilterByProducts, false);
         Utils.setCheckboxState(promotionSettings.check_HideProductBlock, true);
         Utils.setCheckboxState(promotionSettings.check_HideProductBlock, true);
@@ -61,32 +57,22 @@ public class PromotionPage_Var2 extends TestRunner {
         promotionSettings.promotion_RacingCard.click();
         basicPage.navigateToStorefront(1);
 
-        SoftAssert softAssert = new SoftAssert();
+        AssertsPage assertsPage = new AssertsPage();
 
         //Проверяем, что отсутствует фильтр товаров на странице промо-акции
-        StPromotions stPromotions = new StPromotions();
-        softAssert.assertFalse(stPromotions.filterByProducts.exists(),
-                "There are the product filters on the promotion page but shouldn't!");
+        assertsPage.assertElementPresence(assertsPage.filterByProducts, "on the promotion page!", false);
 
         //Проверяем, что отсутствует блок товаров на странице промо-акции
-        softAssert.assertFalse(stPromotions.productBlock.exists(),
-                "There is a product block on the promotion page but shouldn't!");
+        assertsPage.assertElementPresence(assertsPage.productBlock, "on the promotion page!", false);
 
         //Проверяем, что отсутствует счётчик на странице промо-акции
-        softAssert.assertFalse(stPromotions.countdown.exists(),
-                "There is a countdown on the promotion page but shouldn't!");
+        assertsPage.assertElementPresence(assertsPage.countdown, "on the promotion page!", false);
 
         //Проверяем, что период проведения промо-акции -- до конца текущего дня - настройка промо-акции "Доступна до"
-        String currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("MM/dd/yyy"));
-        String promotionDate = $(".ab__dotd_promotion_date p").getText();
-        String[] splitPromotionDate = promotionDate.split(": ");
-        String resultPromotionDate = splitPromotionDate[1];
-        softAssert.assertEquals(resultPromotionDate, "по " + currentDate,
-                "Promotion period is not till the end of the current day!");
+        assertsPage.assertPromotionPeriod_TillTheEndOfCurrentDay();
 
         screenshot("400 PromotionPage_Var2 - Promotion page");
         Utils.selectLanguage("ar");
         screenshot("405 PromotionPage_Var2 - Promotion page (RTL)");
-        softAssert.assertAll();
     }
 }

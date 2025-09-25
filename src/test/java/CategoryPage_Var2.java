@@ -2,9 +2,9 @@ import adminPanel.AddonSettings;
 import adminPanel.BasicPage;
 import adminPanel.PromotionSettings;
 import com.codeborne.selenide.Condition;
-import org.openqa.selenium.Keys;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
+import storefront.AssertsPage;
 import storefront.StPromotions;
 import testRunner.TestRunner;
 import testRunner.Utils;
@@ -41,7 +41,7 @@ public class CategoryPage_Var2 extends TestRunner {
         Utils.setCheckboxState(promotionSettings.setting_UseAvailablePeriod, false); //убираем период доступности, чтобы промо-акция всегда отображалась
         Utils.setCheckboxState(promotionSettings.setting_StopOtherRules, false);
         //Вкладка "АВ: Расширенные промо-акции" у промо-акции
-        promotionSettings.tab_ABExtPromotions.scrollIntoCenter().click();
+        Utils.scrollToTabAndClick(promotionSettings.tab_ABExtPromotions);
         Utils.setCheckboxState(promotionSettings.check_DisplayLabelInProductLists, false);
         Utils.setCheckboxState(promotionSettings.check_DisplayPromotionInProductLists, true);
         basicPage.button_Save.click();
@@ -52,15 +52,15 @@ public class CategoryPage_Var2 extends TestRunner {
         Utils.setCheckboxState(promotionSettings.setting_UseAvailablePeriod, false); //убираем период доступности, чтобы промо-акция всегда отображалась
         Utils.setCheckboxState(promotionSettings.setting_StopOtherRules, false);
         //Вкладка "Условия"
-        promotionSettings.tab_Conditions.scrollIntoView(false).click();
+        Utils.scrollToTabAndClick(promotionSettings.tab_Conditions);
         promotionSettings.button_AddProductsToCondition.click();
         $(".ui-dialog-title").shouldBe(Condition.visible);
         promotionSettings.field_SearchProduct.setValue("M0219A3GX3");
-        promotionSettings.field_SearchProduct.sendKeys(Keys.ENTER);
+        promotionSettings.field_SearchProduct.pressEnter();
         promotionSettings.checkProductToCondition.click();
         promotionSettings.button_AddAndClose.click();
         //Вкладка "АВ: Расширенные промо-акции" у промо-акции
-        promotionSettings.tab_ABExtPromotions.click();
+        Utils.scrollToTabAndClick(promotionSettings.tab_ABExtPromotions);
         Utils.setCheckboxState(promotionSettings.check_DisplayLabelInProductLists, false);
         Utils.setCheckboxState(promotionSettings.check_DisplayPromotionInProductLists, true);
         basicPage.button_Save.click();
@@ -75,18 +75,17 @@ public class CategoryPage_Var2 extends TestRunner {
         basicPage.navigateToStorefront(1);
 
         StPromotions stPromotions = new StPromotions();
+        AssertsPage assertsPage = new AssertsPage();
         SoftAssert softAssert = new SoftAssert();
 
         //Проверяем, что отсутствует лейбл на странице категории с шаблоном "Сетка"
-        softAssert.assertFalse(!stPromotions.labelOnCategoryPage.isEmpty(),
-                "There is a promotion label on the category page 'Grid' but shouldn't!");
+        assertsPage.assertElementPresence(assertsPage.labelOnCategoryPage,"on the category page 'Grid'", false);
 
         //Проверяем, что промо-акция отображается на странице категории с шаблоном "Сетка"
-        softAssert.assertTrue(!stPromotions.promotionOnCategoryPage.isEmpty(),
-                "There is no any promotion on the category page 'Grid'!");
+        assertsPage.assertElementPresence(assertsPage.promotionOnCategoryPage, "on the category page 'Grid'!", true);
 
         //Проверяем, что у одного товара присутствует сразу две промо-акции
-        softAssert.assertTrue($$("form[name=\"product_form_219\"] .ab-dotd-category-promo").size() ==2,
+        softAssert.assertTrue($$("form[name=\"product_form_219\"] .ab-dotd-category-promo").size() == 2,
                 "There are no two promotions in one product on the category page, Grid template!");
 
         $("#det_img_219desktop").scrollIntoCenter();
@@ -96,9 +95,11 @@ public class CategoryPage_Var2 extends TestRunner {
         $("a[data-ca-view-id=\"219\"][data-ca-target-id='product_quick_view']").click();
         $(".ui-dialog-titlebar").shouldBe(Condition.visible);
 
+        //Проверяем, что заголовок промо-акции присутствует в окне Быстрого просмотра
+        assertsPage.assertElementPresence(assertsPage.blockTitle, "in the quick view window!", true);
+
         //Проверяем, что присутствует шапка промо-акции в окне Быстрого просмотра
-        softAssert.assertTrue(stPromotions.promotionHeaderInQuickView.exists(),
-                "There is no promotion header in the quick view window!");
+        assertsPage.assertElementPresence(assertsPage.promotionHeaderInQuickView, "",true);
 
         stPromotions.button_ClosePopupWindow.hover();
         screenshot("705 CategoryPage_Var2 - Quick view");
@@ -114,35 +115,31 @@ public class CategoryPage_Var2 extends TestRunner {
 
         //Переключаем шаблоны страницы категории
         stPromotions.button_ClosePopupWindow.click();
-        stPromotions.categoryTemplate_WithoutOptions.click();
+        Utils.scrollToTabAndClick(stPromotions.categoryTemplate_WithoutOptions);
         Utils.waitForSpinnerDisappear();
 
         //Проверяем, что промо-акция отображается на странице категории с шаблоном "Список без опций"
-        softAssert.assertTrue(!stPromotions.promotionOnCategoryPage.isEmpty(),
-                "There is no any promotion on the category page 'Without options'!");
+        assertsPage.assertElementPresence(assertsPage.promotionOnCategoryPage, "on the category page 'Without options'!", true);
 
         //Проверяем, что у одного товара присутствует сразу две промо-акции, "Список без опций"
         softAssert.assertTrue($$("form[name=\"product_form_219\"] .ab-dotd-category-promo").size() ==2,
                 "There are no two promotions in one product on the category page, 'List without options' template!");
 
         //Проверяем, что отсутствует лейбл на странице категории с шаблоном "Список без опций"
-        softAssert.assertFalse(!stPromotions.labelOnCategoryPage.isEmpty(),
-                "There is a promotion label on the category page 'Without options' but shouldn't!");
+        assertsPage.assertElementPresence(assertsPage.labelOnCategoryPage,"on the category page 'Without options'", false);
 
         screenshot("720 CategoryPage_Var2 - Template Without options (RTL)");
-        stPromotions.categoryTemplate_CompactList.click();
+        Utils.scrollToTabAndClick(stPromotions.categoryTemplate_CompactList);
         Utils.waitForSpinnerDisappear();
 
         //Проверяем, что отсутствует лейбл на странице категории с шаблоном "Компактный список"
-        softAssert.assertFalse(!stPromotions.labelOnCategoryPage.isEmpty(),
-                "There is a promotion label on the category page 'Compact list' but shouldn't!");
+        assertsPage.assertElementPresence(assertsPage.labelOnCategoryPage,"on the category page 'Compact list'", false);
 
         screenshot("725 CategoryPage_Var2 - Template Compact list (RTL)");
         Utils.selectLanguage("ru");
         screenshot("730 CategoryPage_Var2 - Template Compact list");
-        stPromotions.categoryTemplate_WithoutOptions.click();
+        Utils.scrollToTabAndClick(stPromotions.categoryTemplate_WithoutOptions);
         Utils.waitForSpinnerDisappear();
         screenshot("735 CategoryPage_Var2 - Template Without options");
-        softAssert.assertAll();
     }
 }

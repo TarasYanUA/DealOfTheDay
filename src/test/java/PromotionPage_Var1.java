@@ -2,8 +2,7 @@ import adminPanel.AddonSettings;
 import adminPanel.BasicPage;
 import adminPanel.PromotionSettings;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
-import storefront.StPromotions;
+import storefront.AssertsPage;
 import testRunner.TestRunner;
 import testRunner.Utils;
 
@@ -57,29 +56,23 @@ public class PromotionPage_Var1 extends TestRunner {
         promotionSettings.promotion_RacingCard.click();
         basicPage.navigateToStorefront(1);
 
-        StPromotions stPromotions = new StPromotions();
-        SoftAssert softAssert = new SoftAssert();
+        AssertsPage assertsPage = new AssertsPage();
 
         //Проверяем, что присутствует фильтр товаров на странице промо-акции
-        softAssert.assertTrue(stPromotions.filterByProducts.exists(),
-                "There is no product filters on the promotion page!");
+        assertsPage.assertElementPresence(assertsPage.filterByProducts, "on the promotion page!", true);
 
         //Проверяем, что присутствует блок товаров на странице промо-акции
-        softAssert.assertTrue(stPromotions.productBlock.exists(),
-                "There is no product block on the promotion page!");
+        assertsPage.assertElementPresence(assertsPage.productBlock, "on the promotion page!", true);
 
         //Проверяем, что присутствует счётчик на странице промо-акции
-        softAssert.assertTrue(stPromotions.countdown.exists(),
-                "There is no countdown on the promotion page!");
+        assertsPage.assertElementPresence(assertsPage.countdown, "on the promotion page!", true);
 
         //Проверяем, что присутствует FlipClock счётчик на странице промо-акции
-        softAssert.assertTrue(stPromotions.flipClock.exists(),
-                "Countdown type is not FlipClock on the promotion page!");
+        assertsPage.assertElementPresence(assertsPage.flipClock, "on the promotion page!", true);
 
         screenshot("300 PromotionPage_Var1 - Promotion page");
         Utils.selectLanguage("ar");
         sleep(2000);
         screenshot("305 PromotionPage_Var1 - Promotion page (RTL)");
-        softAssert.assertAll();
     }
 }

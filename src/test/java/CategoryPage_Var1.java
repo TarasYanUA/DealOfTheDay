@@ -3,7 +3,7 @@ import adminPanel.BasicPage;
 import adminPanel.PromotionSettings;
 import com.codeborne.selenide.Condition;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
+import storefront.AssertsPage;
 import storefront.StPromotions;
 import testRunner.TestRunner;
 import testRunner.Utils;
@@ -43,7 +43,7 @@ public class CategoryPage_Var1 extends TestRunner {
         Utils.setCheckboxState(promotionSettings.setting_UseAvailablePeriod, false); //убираем период доступности, чтобы промо-акция всегда отображалась
         Utils.setCheckboxState(promotionSettings.setting_StopOtherRules, false);
         //Вкладка "АВ: Расширенные промо-акции" у промо-акции
-        promotionSettings.tab_ABExtPromotions.scrollIntoCenter().click();
+        Utils.scrollToTabAndClick(promotionSettings.tab_ABExtPromotions);
         Utils.setCheckboxState(promotionSettings.check_DisplayLabelInProductLists, true);
         Utils.setCheckboxState(promotionSettings.check_DisplayPromotionInProductLists, true);
         basicPage.button_Save.click();
@@ -58,24 +58,24 @@ public class CategoryPage_Var1 extends TestRunner {
         basicPage.navigateToStorefront(1);
 
         StPromotions stPromotions = new StPromotions();
-        SoftAssert softAssert = new SoftAssert();
+        AssertsPage assertsPage = new AssertsPage();
 
         //Проверяем, что присутствует лейбл на странице категории с шаблоном "Сетка"
-        softAssert.assertTrue(!stPromotions.labelOnCategoryPage.isEmpty(),
-                "There is no any promotion label on the category page 'Grid'!");
+        assertsPage.assertElementPresence(assertsPage.labelOnCategoryPage, "on the category page 'Grid'!", true);
 
         //Проверяем, что промо-акция отображается на странице категории с шаблоном "Сетка"
-        softAssert.assertTrue(!stPromotions.promotionOnCategoryPage.isEmpty(),
-                "There is no any promotion on the category page 'Grid'!");
+        assertsPage.assertElementPresence(assertsPage.promotionOnCategoryPage, "on the category page 'Grid'!", true);
 
         stPromotions.chooseAnyProduct.hover();
         screenshot("600 CategoryPage_Var1 - Template Grid");
         stPromotions.button_QuickView.hover().click();
         $(".ui-dialog-titlebar").shouldBe(Condition.visible);
 
+        //Проверяем, что заголовок промо-акции присутствует в окне Быстрого просмотра
+        assertsPage.assertElementPresence(assertsPage.blockTitle, "in the quick view window!", true);
+
         //Проверяем, что присутствует шапка промо-акции в окне Быстрого просмотра
-        softAssert.assertTrue(stPromotions.promotionHeaderInQuickView.exists(),
-                "There is no promotion header in the quick view window!");
+        assertsPage.assertElementPresence(assertsPage.promotionHeaderInQuickView, "",true);
 
         stPromotions.button_ClosePopupWindow.hover();
         screenshot("605 CategoryPage_Var1 - Quick view");
@@ -90,31 +90,27 @@ public class CategoryPage_Var1 extends TestRunner {
 
         //Переключаем шаблоны страницы категории
         stPromotions.button_ClosePopupWindow.click();
-        stPromotions.categoryTemplate_WithoutOptions.click();
+        Utils.scrollToTabAndClick(stPromotions.categoryTemplate_WithoutOptions);
         Utils.waitForSpinnerDisappear();
 
         //Проверяем, что присутствует лейбл на странице категории с шаблоном "Список без опций"
-        softAssert.assertTrue(!stPromotions.labelOnCategoryPage.isEmpty(),
-                "There is no any promotion label on the category page 'Without options'!");
+        assertsPage.assertElementPresence(assertsPage.labelOnCategoryPage, "on the category page 'Without options'!", true);
 
         //Проверяем, что промо-акция отображается на странице категории с шаблоном "Список без опций"
-        softAssert.assertTrue(!stPromotions.promotionOnCategoryPage.isEmpty(),
-                "There is no any promotion on the category page 'Without options'!");
+        assertsPage.assertElementPresence(assertsPage.promotionOnCategoryPage, "on the category page 'Without options'!", true);
 
         screenshot("620 CategoryPage_Var1 - Template Without options (RTL)");
-        stPromotions.categoryTemplate_CompactList.click();
+        Utils.scrollToTabAndClick(stPromotions.categoryTemplate_CompactList);
         Utils.waitForSpinnerDisappear();
 
         //Проверяем, что присутствует лейбл на странице категории с шаблоном "Компактный список"
-        softAssert.assertTrue(!stPromotions.labelOnCategoryPage.isEmpty(),
-                "There is no any promotion label on the category page 'Compact list'!");
+        assertsPage.assertElementPresence(assertsPage.labelOnCategoryPage, "on the category page 'Compact list'!", true);
 
         screenshot("625 CategoryPage_Var1 - Template Compact list (RTL)");
         Utils.selectLanguage("ru");
         screenshot("630 CategoryPage_Var1 - Template Compact list");
-        stPromotions.categoryTemplate_WithoutOptions.click();
+        Utils.scrollToTabAndClick(stPromotions.categoryTemplate_WithoutOptions);
         Utils.waitForSpinnerDisappear();
         screenshot("635 CategoryPage_Var1 - Template Without options");
-        softAssert.assertAll();
     }
 }

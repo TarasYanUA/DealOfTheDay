@@ -2,8 +2,7 @@ import adminPanel.AddonSettings;
 import adminPanel.PromotionSettings;
 import org.testng.annotations.Test;
 import adminPanel.BasicPage;
-import org.testng.asserts.SoftAssert;
-import storefront.StPromotions;
+import storefront.AssertsPage;
 import testRunner.TestRunner;
 import testRunner.Utils;
 
@@ -45,17 +44,17 @@ public class ProductPage extends TestRunner {
         basicPage.savePage();
         basicPage.navigateToStorefront(1);
         Utils.selectLanguage("ru");
-        StPromotions stPromotions = new StPromotions();
 
-        SoftAssert softAssert = new SoftAssert();
+        AssertsPage assertsPage = new AssertsPage();
+
+        //Проверяем, что заголовок промо-акции присутствует на странице товара
+        assertsPage.assertElementPresence(assertsPage.blockTitle, "on the product page!", true);
 
         //Проверяем, что шапка промо-акции присутствует на странице товара
-        softAssert.assertTrue(stPromotions.promotionHeader.exists(),
-                "There is no promotion header on the product page!");
+        assertsPage.assertElementPresence(assertsPage.promotionHeader, "on the product page!", true);
 
-        //Проверяем, что присутствует FlipClock счётчик на страницу товара
-        softAssert.assertTrue(stPromotions.flipClock.exists(),
-                "Countdown type is not FlipClock on the product page!");
+        //Проверяем, что присутствует FlipClock счётчик на странице товара
+        assertsPage.assertElementPresence(assertsPage.flipClock, "on the product page!", true);
 
         sleep(2000);
         screenshot("500 ProductPage - Product page, Default");
@@ -96,6 +95,5 @@ public class ProductPage extends TestRunner {
         screenshot("520 ProductPage - Product page, Three-columned");
         Utils.selectLanguage("ar");
         screenshot("522 ProductPage - Product page, Three-columned (RTL)");
-        softAssert.assertAll();
     }
 }
