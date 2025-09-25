@@ -1,7 +1,6 @@
 import adminPanel.*;
 import com.codeborne.selenide.Condition;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
 import storefront.AssertsPage;
 import storefront.StPromotions;
 import testRunner.TestRunner;
@@ -76,7 +75,6 @@ public class LayoutPageTest_Var2 extends TestRunner implements DisableLazyLoadFr
         stPromotions.block_DealOfTheDay.scrollIntoCenter();
 
         AssertsPage assertsPage = new AssertsPage();
-        SoftAssert softAssert = new SoftAssert();
 
         //Проверяем, что заголовок промо-акции присутствует в блоке
         assertsPage.assertElementPresence(assertsPage.blockTitle, "in the multi block!", true);
@@ -85,23 +83,19 @@ public class LayoutPageTest_Var2 extends TestRunner implements DisableLazyLoadFr
         assertsPage.assertElementPresence(assertsPage.blockDescription, "", true);
 
         //Проверяем, что в блоке присутствует кнопка "Подробнее"
-        softAssert.assertTrue(stPromotions.blockButton_More.exists(),
-                "There is no button 'More' in the multi block!");
+        assertsPage.assertElementPresence(assertsPage.blockButton_More, "", true);
 
         //Проверяем, что в блоке присутствует кнопка "Все промо-акции"
-        softAssert.assertTrue(stPromotions.blockButton_AllPromotions.exists(),
-                "There is no button 'All promotions' in the multi block!");
+        assertsPage.assertElementPresence(assertsPage.blockButton_AllPromotions, "", true);
 
         //Проверяем, что в блоке присутствует счётчик Javascript
         assertsPage.assertElementPresence(assertsPage.javaClock, "in the multi block!", true);
 
         //Проверяем, что в блоке присутствует кнопка быстрого просмотра
-        softAssert.assertTrue(!$$(".ab__deal_of_the_day a[data-ca-target-id=\"product_quick_view\"]").isEmpty(),
-                "There is a quick view button at the products in the multi block but shouldn't!");
+        assertsPage.assertElementPresence(assertsPage.buttonQuickViewAtPromotionBlock, "", true);
 
         //Проверяем, что в блоке отсутствует кнопка "Купить"
-        softAssert.assertTrue($$(".ab__deal_of_the_day .ut2-icon-use_icon_cart").isEmpty(),
-                "There is a button 'Add to cart' at the products in the multi block but shouldn't!");
+        assertsPage.assertElementPresence(assertsPage.buttonAddToCartAtPromotionBlock, "", true);
 
         sleep(2000);
         screenshot("900 MultiBlockTest_Var2 - Multi block");

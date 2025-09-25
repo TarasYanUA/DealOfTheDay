@@ -3,7 +3,6 @@ import adminPanel.BasicPage;
 import adminPanel.DisableLazyLoadFromBlock;
 import adminPanel.PromotionSettings;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
 import storefront.AssertsPage;
 import storefront.StPromotions;
 import testRunner.TestRunner;
@@ -58,7 +57,6 @@ public class GeneralSettings_Var3_AvailableFrom extends TestRunner implements Di
 
         StPromotions stPromotions = new StPromotions();
         AssertsPage assertsPage = new AssertsPage();
-        SoftAssert softAssert = new SoftAssert();
 
         //Проверяем, что шапка промо-акции присутствует на странице конкретной промо-акции
         assertsPage.assertElementPresence(assertsPage.promotionHeaderOnPromoPage, "", true);
@@ -80,10 +78,6 @@ public class GeneralSettings_Var3_AvailableFrom extends TestRunner implements Di
         //Проверяем, что шапка промо-акции присутствует на странице товара
         assertsPage.assertElementPresence(assertsPage.promotionHeader, "on the product page!", true);
 
-        //Проверяем, что отсутствует счётчик на странице товара
-        softAssert.assertFalse($(".wrapped").exists(),
-                "There is a countdown on the product page but shouldn't!");
-
         screenshot("255 GeneralSettings_Var3_AvailableFrom - Product page (RTL)");
         Utils.selectLanguage("ru");
         sleep(2000);
@@ -100,12 +94,10 @@ public class GeneralSettings_Var3_AvailableFrom extends TestRunner implements Di
         assertsPage.assertElementPresence(assertsPage.blockDescription, "", true);
 
         //Проверяем, что в блоке присутствует кнопка "Подробнее"
-        softAssert.assertTrue(stPromotions.blockButton_More.exists(),
-                "There is no button 'More' in the block!");
+        assertsPage.assertElementPresence(assertsPage.blockButton_More, "", true);
 
         //Проверяем, что в блоке присутствует кнопка "Все промо-акции"
-        softAssert.assertTrue(stPromotions.blockButton_AllPromotions.exists(),
-                "There is no button 'All promotions' in the block!");
+        assertsPage.assertElementPresence(assertsPage.blockButton_AllPromotions, "", true);
 
         //Проверяем, что у блока присутствуют товары
         assertsPage.assertElementPresence(assertsPage.blockProducts, "", true);

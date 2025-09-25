@@ -100,12 +100,10 @@ public class GeneralSettings_Var1 extends TestRunner implements DisableLazyLoadF
         assertsPage.assertElementPresence(assertsPage.javaClock, "in the block!", true);
 
         //Проверяем, что в блоке присутствует кнопка "Подробнее"
-        softAssert.assertTrue(stPromotions.blockButton_More.exists(),
-                "There is no button 'More' in the block!");
+        assertsPage.assertElementPresence(assertsPage.blockButton_More, "", true);
 
         //Проверяем, что в блоке присутствует кнопка "Все промо-акции"
-        softAssert.assertTrue(stPromotions.blockButton_AllPromotions.exists(),
-                "There is no button 'All promotions' in the block!");
+        assertsPage.assertElementPresence(assertsPage.blockButton_AllPromotions, "", true);
 
         //Проверяем, что у блока присутствуют товары
         assertsPage.assertElementPresence(assertsPage.blockProducts, "", true);
@@ -121,19 +119,19 @@ public class GeneralSettings_Var1 extends TestRunner implements DisableLazyLoadF
         Utils.selectLanguage("ru");
 
         //Проверяем, что у промо-акции присутствует текст "Только сегодня" (у промо-акции "Купите фотоаппарат")
-        softAssert.assertTrue(stPromotions.text_OnlyToday.exists(),
+        softAssert.assertTrue(assertsPage.text_OnlyToday.exists(),
                 "There is no text 'Only today' at promotion on the promotion list page!");
 
         //Проверяем, что у промо-акции присутствует текст "До начала" (у промо-акции "Купите фен") - настройка "Показ ожидаемых промо-акций"
-        softAssert.assertTrue(stPromotions.text_DaysLeftBeforeStart.exists(),
+        softAssert.assertTrue(assertsPage.text_DaysLeftBeforeStart.exists(),
                 "There is no text 'days left before the start' at promotion on the promotion list page!");
 
         //Проверяем, что у промо-акции присутствует текст "Акция завершена" (у промо-акции "Гоночный картинг") - настройка "Показ истекших промо-акций"
-        softAssert.assertTrue(stPromotions.text_PromotionHasExpired.exists(),
+        softAssert.assertTrue(assertsPage.text_PromotionHasExpired.exists(),
                 "There is no text 'Promotion has expired' at promotion on the promotion list page!");
 
         //Проверяем, что "Промо-акций на страницу" присутствует не меньше 10 на странице списка промо-акций
-        softAssert.assertTrue(stPromotions.promotionsPerPage.size() >= 10,
+        softAssert.assertTrue(assertsPage.promotionsPerPage.size() >= 10,
                 "Promotions per page are less than 10 on the promotion list page!");
 
         //Проверяем, что присутствует "Выделение промо-акции" (у промо-акции "Купите фотоаппарат")
@@ -155,8 +153,7 @@ public class GeneralSettings_Var1 extends TestRunner implements DisableLazyLoadF
                 "Maximum height of description is not 250 px on the promotion page!");
 
         //Проверяем, что кнопка "Больше" присутствует в описании промо-акции
-        softAssert.assertTrue(!$$(".ab__dotd_more").isEmpty(),
-                "There is no button 'More' at the promotion description on the promotion page!");
+        assertsPage.assertElementPresence(assertsPage.buttonMoreInDescription, "", true);
 
         //Проверяем, что период проведения промо-акции -- до конца текущего дня - настройка промо-акции "Доступна до"
         assertsPage.assertPromotionPeriod_TillTheEndOfCurrentDay();

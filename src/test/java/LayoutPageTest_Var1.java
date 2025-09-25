@@ -1,7 +1,6 @@
 import adminPanel.*;
 import com.codeborne.selenide.Condition;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
 import storefront.AssertsPage;
 import storefront.StPromotions;
 import testRunner.TestRunner;
@@ -83,7 +82,6 @@ public class LayoutPageTest_Var1 extends TestRunner implements DisableLazyLoadFr
         stPromotions.block_DealOfTheDay.scrollIntoCenter();
 
         AssertsPage assertsPage = new AssertsPage();
-        SoftAssert softAssert = new SoftAssert();
 
         //Проверяем, что заголовок промо-акции присутствует в блоке
         assertsPage.assertElementPresence(assertsPage.blockTitle, "in the multi block!", true);
@@ -92,27 +90,22 @@ public class LayoutPageTest_Var1 extends TestRunner implements DisableLazyLoadFr
         assertsPage.assertElementPresence(assertsPage.blockDescription, "", true);
 
         //Проверяем, что в блоке присутствует кнопка "Подробнее"
-        softAssert.assertTrue(stPromotions.blockButton_More.exists(),
-                "There is no button 'More' in the multi block!");
+        assertsPage.assertElementPresence(assertsPage.blockButton_More, "", true);
 
         //Проверяем, что в блоке присутствует кнопка "Все промо-акции"
-        softAssert.assertTrue(stPromotions.blockButton_AllPromotions.exists(),
-                "There is no button 'All promotions' in the multi block!");
+        assertsPage.assertElementPresence(assertsPage.blockButton_AllPromotions, "", true);
 
         //Проверяем, что в блоке присутствует счётчик Flipclock
         assertsPage.assertElementPresence(assertsPage.flipClock, "in the multi block!", true);
 
         //Проверяем, что в блоке присутствует цена
-        softAssert.assertTrue(!$$(".ab__deal_of_the_day .ty-list-price.ty-nowrap").isEmpty(),
-                "There is no price at products in the multi block!");
+        assertsPage.assertElementPresence(assertsPage.priceAtPromotionBlock, "", true);
 
         //Проверяем, что в блоке присутствует кнопка быстрого просмотра
-        softAssert.assertTrue($$(".ab__deal_of_the_day a[data-ca-target-id='product_quick_view']").isEmpty(),
-                "There is no quick view button at the products in the multi block!");
+        assertsPage.assertElementPresence(assertsPage.buttonQuickViewAtPromotionBlock, "", true);
 
         //Проверяем, что в блоке присутствует кнопка "Купить"
-        softAssert.assertTrue(!$$(".ab__deal_of_the_day .ut2-icon-use_icon_cart").isEmpty(),
-                "There is no button 'Add to cart' at the products in the multi block!");
+        assertsPage.assertElementPresence(assertsPage.buttonAddToCartAtPromotionBlock, "", true);
 
         //Проверяем, что у блока присутствуют товары
         assertsPage.assertElementPresence(assertsPage.blockProducts, "", true);

@@ -1,11 +1,14 @@
 package storefront;
 
+import com.codeborne.selenide.ElementsCollection;
+import com.codeborne.selenide.SelenideElement;
 import org.testng.asserts.SoftAssert;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
-import static com.codeborne.selenide.Selenide.$;
+
+import static com.codeborne.selenide.Selenide.*;
 
 public class AssertsPage {
     public AssertsPage() {super();}
@@ -28,6 +31,19 @@ public class AssertsPage {
     public String blockTitle = ".pd-promotion__title";
     public String blockDescription = ".pd-promotion-descr";
     public String blockProducts = ".ab__deal_of_the_day .ut2-gl__body";
+    public String buttonMoreInDescription = ".ab__dotd_more";
+    public String pagination = "#ut2_pagination_block_bottom";
+    public String blockButton_More = ".pd-promotion__buttons a[title='Подробнее']";
+    public String blockButton_AllPromotions = ".pd-promotion__buttons .ty-btn__text";
+    public String priceAtPromotionBlock = ".ab__deal_of_the_day .ty-list-price.ty-nowrap";
+    public String buttonQuickViewAtPromotionBlock = ".ab__deal_of_the_day a[data-ca-target-id='product_quick_view']";
+    public String buttonAddToCartAtPromotionBlock = ".ab__deal_of_the_day .ut2-icon-use_icon_cart";
+
+    //Дополнительные проверки, что не входят в методы
+    public SelenideElement text_OnlyToday = $x("//div[contains(text(), 'Только сегодня')]");
+    public SelenideElement text_DaysLeftBeforeStart = $x("//div[contains(text(), 'До начала')]");
+    public SelenideElement text_PromotionHasExpired = $x("//div[contains(text(), 'Акция завершена')]");
+    public ElementsCollection promotionsPerPage = $$(".ab__dotd_promotions-item");
 
 
     public void assertElementPresence(String selector, String page, boolean shouldExist) {
@@ -47,7 +63,14 @@ public class AssertsPage {
                 Map.entry(button_MoreProductsFromCategory, "There is no any button 'More products from category' " + page),
                 Map.entry(blockTitle, "There is no title of the promotion " + page),
                 Map.entry(blockDescription, "There is no description of the promotion in the block!"),
-                Map.entry(blockProducts, "There are no products in the block!")
+                Map.entry(blockProducts, "There are no products in the block!"),
+                Map.entry(buttonMoreInDescription, "There is no button 'More' at the promotion description on the promotion page!"),
+                Map.entry(pagination, "There is no pagination on the promotion list page!"),
+                Map.entry(blockButton_More, "There is no button 'More' in the block!"),
+                Map.entry(blockButton_AllPromotions, "There is no button 'All promotions' in the block!"),
+                Map.entry(priceAtPromotionBlock, "There is no price at the products in the multi block!"),
+                Map.entry(buttonQuickViewAtPromotionBlock, "There is no button 'Quick view' at the products in the multi block!"),
+                Map.entry(buttonAddToCartAtPromotionBlock, "There is no button 'Add to cart' at the products in the multi block!")
                 );
 
         Map<String, String> absenceMessages = Map.ofEntries(

@@ -71,16 +71,13 @@ public class GeneralSettings_Var2 extends TestRunner implements DisableLazyLoadF
         assertsPage.assertElementPresence(assertsPage.blockDescription, "", true);
 
         //Проверяем, что присутствует FlipClock счётчик в блоке
-        softAssert.assertTrue($(".flip-clock-wrapper").exists(),
-                "Countdown type is not FlipClock in the block!");
+        assertsPage.assertElementPresence(assertsPage.flipClock, "in the block!", true);
 
         //Проверяем, что в блоке присутствует кнопка "Подробнее"
-        softAssert.assertTrue(stPromotions.blockButton_More.exists(),
-                "There is no button 'More' in the block!");
+        assertsPage.assertElementPresence(assertsPage.blockButton_More, "", true);
 
         //Проверяем, что в блоке присутствует кнопка "Все промо-акции"
-        softAssert.assertTrue(stPromotions.blockButton_AllPromotions.exists(),
-                "There is no button 'All promotions' in the block!");
+        assertsPage.assertElementPresence(assertsPage.blockButton_AllPromotions, "", true);
 
         //Проверяем, что у блока присутствуют товары
         assertsPage.assertElementPresence(assertsPage.blockProducts, "", true);
@@ -96,19 +93,19 @@ public class GeneralSettings_Var2 extends TestRunner implements DisableLazyLoadF
         Utils.selectLanguage("ru");
 
         //Проверяем, что у промо-акции присутствует текст "Только сегодня" (у промо-акции "Купите фотоаппарат")
-        softAssert.assertTrue(stPromotions.text_OnlyToday.exists(),
+        softAssert.assertTrue(assertsPage.text_OnlyToday.exists(),
                 "There is no text 'Only today' at promotion on the promotion list page!");
 
         //Проверяем, что присутствует "Выделение промо-акции" (у промо-акции "Купите фотоаппарат")
         assertsPage.assertElementPresence(assertsPage.highlight, "on the promotion list page!", true);
 
         //Проверяем, что "Промо-акций на страницу" присутствует 4 на странице списка промо-акций
-        softAssert.assertTrue(stPromotions.promotionsPerPage.size() == 4,
+        softAssert.assertTrue(assertsPage.promotionsPerPage.size() == 4,
                 "Promotions per page are not 4 on the promotion list page!");
 
         //Проверяем, что присутствует разбиение на страницы (пагинатор) на странице списка промо-акций
-        softAssert.assertTrue($("#ut2_pagination_block_bottom").exists(),
-                "There is no pagination on the promotion list page!");
+        assertsPage.assertElementPresence(assertsPage.pagination, "", true);
+
         screenshot("205 GeneralSettings_Var2 - Page 'All promotions'");
         Utils.selectLanguage("ar");
         screenshot("207 GeneralSettings_Var2 - Page 'All promotions' (RTL)");
