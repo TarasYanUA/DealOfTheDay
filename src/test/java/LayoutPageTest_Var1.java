@@ -40,7 +40,7 @@ public class LayoutPageTest_Var1 extends TestRunner implements DisableLazyLoadFr
         promotionSettings.promotion_BuyHairDryerVALERA.click();
         //Берём ID промо-акции
         String promotionID = promotionSettings.takePromotionID();
-        //promotionSettings.clickAndType_field_DetailedDescription();
+        promotionSettings.clickAndType_field_DetailedDescription();
         Utils.clearBothFieldsAvailable();
         promotionSettings.setting_UseAvailablePeriod.click();
         promotionSettings.setDateOfTodayForSetting_AvailableTill();
@@ -64,6 +64,7 @@ public class LayoutPageTest_Var1 extends TestRunner implements DisableLazyLoadFr
         //Задаём настройки блоку "Мульти Товар дня"
         layoutPage.blockProperties.click();
         basicPage.popupWindow.shouldBe(Condition.enabled);
+        layoutPage.closeNotificationIfExistsOnLayoutPage();
         layoutPage.tab_BlockSettings.click();
         Utils.setCheckboxState(layoutPage.setting_DoNotScrollAutomatically, true);
         layoutPage.setting_ItemQuantity.setValue("5");
