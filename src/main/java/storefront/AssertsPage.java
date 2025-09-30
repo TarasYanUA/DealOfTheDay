@@ -48,20 +48,20 @@ public class AssertsPage {
 
     public void assertElementPresence(String selector, String page, boolean shouldExist) {
         Map<String, String> presenceMessages = Map.ofEntries(
-                Map.entry(filterByProducts, "There are no product filters " + page),
-                Map.entry(productBlock, "There is no product block " + page),
-                Map.entry(labelOnCategoryPage, "There is no promotion label " + page),
-                Map.entry(promotionOnCategoryPage, "There is no any promotion " + page),
-                Map.entry(promotionHeader, "There is no promotion header " + page),
+                Map.entry(filterByProducts, "There are no product filters "),
+                Map.entry(productBlock, "There is no product block "),
+                Map.entry(labelOnCategoryPage, "There is no promotion label "),
+                Map.entry(promotionOnCategoryPage, "There is no any promotion "),
+                Map.entry(promotionHeader, "There is no promotion header "),
                 Map.entry(promotionHeaderInQuickView, "There is no promotion header in the quick view window!"),
                 Map.entry(promotionHeaderOnPromoPage, "There is no promotion header on the promotion page!"),
-                Map.entry(countdown, "There is no countdown " + page),
-                Map.entry(javaClock, "Countdown type is not Javascript " + page),
-                Map.entry(flipClock, "Countdown type is not FlipClock " + page),
-                Map.entry(highlight, "There is no Highlighting of the promotion " + page),
-                Map.entry(promotionProducts, "There are no products " + page),
-                Map.entry(button_MoreProductsFromCategory, "There is no any button 'More products from category' " + page),
-                Map.entry(blockTitle, "There is no title of the promotion " + page),
+                Map.entry(countdown, "There is no countdown "),
+                Map.entry(javaClock, "Countdown type is not Javascript "),
+                Map.entry(flipClock, "Countdown type is not FlipClock "),
+                Map.entry(highlight, "There is no Highlighting of the promotion "),
+                Map.entry(promotionProducts, "There are no products "),
+                Map.entry(button_MoreProductsFromCategory, "There is no any button 'More products from category' "),
+                Map.entry(blockTitle, "There is no title of the promotion "),
                 Map.entry(blockDescription, "There is no description of the promotion in the block!"),
                 Map.entry(blockProducts, "There are no products in the block!"),
                 Map.entry(buttonMoreInDescription, "There is no button 'More' at the promotion description on the promotion page!"),
@@ -74,15 +74,15 @@ public class AssertsPage {
                 );
 
         Map<String, String> absenceMessages = Map.ofEntries(
-                Map.entry(filterByProducts, "There are product filters but shouldn't " + page),
-                Map.entry(productBlock, "There is a product block but shouldn't " + page),
-                Map.entry(labelOnCategoryPage, "There is a promotion label but shouldn't " + page),
-                Map.entry(promotionOnCategoryPage, "There is a promotion but shouldn't " + page),
-                Map.entry(promotionHeader, "There is a promotion header but shouldn't " + page),
+                Map.entry(filterByProducts, "There are product filters but shouldn't "),
+                Map.entry(productBlock, "There is a product block but shouldn't "),
+                Map.entry(labelOnCategoryPage, "There is a promotion label but shouldn't "),
+                Map.entry(promotionOnCategoryPage, "There is a promotion but shouldn't "),
+                Map.entry(promotionHeader, "There is a promotion header but shouldn't "),
                 Map.entry(promotionHeaderInQuickView, "There is a promotion header but shouldn't in the quick view window!"),
                 Map.entry(promotionHeaderOnPromoPage, "There is a promotion header but shouldn't on the promotion page!"),
-                Map.entry(countdown, "There is a countdown but shouldn't " + page),
-                Map.entry(promotionProducts, "There are products but shouldn't " + page)
+                Map.entry(countdown, "There is a countdown but shouldn't "),
+                Map.entry(promotionProducts, "There are products but shouldn't ")
         );
 
         String message = shouldExist
@@ -92,7 +92,7 @@ public class AssertsPage {
         if (message == null)
             throw new IllegalArgumentException("No assert message found for selector: " + selector);
 
-        softAssert.assertTrue(shouldExist == $(selector).exists(), message);
+        softAssert.assertTrue(shouldExist == $(selector).exists(), message + page);
     }
 
     public void assertPromotionPeriod_TillTheEndOfCurrentDay() {
