@@ -95,7 +95,7 @@ public class LayoutPageTest_Var2 extends TestRunner implements DisableLazyLoadFr
         assertsPage.assertElementPresence(assertsPage.buttonQuickViewAtPromotionBlock, "", true);
 
         //Проверяем, что в блоке отсутствует кнопка "Купить"
-        assertsPage.assertElementPresence(assertsPage.buttonAddToCartAtPromotionBlock, "", true);
+        assertsPage.assertElementPresence(assertsPage.buttonAddToCartAtPromotionBlock, "", false);
 
         sleep(2000);
         screenshot("900 MultiBlockTest_Var2 - Multi block");

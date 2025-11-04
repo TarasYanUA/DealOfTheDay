@@ -13,7 +13,7 @@ import static com.codeborne.selenide.Selenide.*;
 /* Проверка модуля "АВ: Расширенные промо-акции" v3.10.5 + тема UniTheme2 (Ult & MV). */
 
 public class TestRunner {
-    public static final String BASIC_URL = "https://trs.test.abt.team/4184ultru/admin.php?dispatch=addons.manage";
+    public static final String BASIC_URL = "https://trs.test.abt.team/4191ultru/admin.php?dispatch=addons.manage";
     private SoftAssert softAssert;
 
     @BeforeClass
