@@ -49,4 +49,11 @@ public class Utils {
         element.scrollIntoCenter().click();
         sleep(1500);
     }
+
+    public static void closeAllNotifications() {
+        while (!$$(".cm-notification-close").isEmpty()) {
+            $$(".cm-notification-close").first().click();
+            sleep(200);
+        }
+    }
 }

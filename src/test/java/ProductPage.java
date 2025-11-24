@@ -26,7 +26,7 @@ public class ProductPage extends TestRunner {
         Utils.setCheckboxState(promotionSettings.setting_UseAvailablePeriod, false); //убираем период доступности, чтобы промо-акция всегда отображалась
         Utils.setCheckboxState(promotionSettings.setting_StopOtherRules, false);
         //Вкладка "АВ: Расширенные промо-акции" у промо-акции
-        promotionSettings.tab_ABExtPromotions.click();
+        Utils.scrollToTabAndClick(promotionSettings.tab_ABExtPromotions);
         Utils.setCheckboxState(promotionSettings.check_DisplayCountdownOnProductPage, false);
 
         //Задаём настройки модуля

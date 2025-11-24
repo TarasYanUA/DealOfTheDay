@@ -10,10 +10,10 @@ import storefront.CollectAssertMessages;
 
 import static com.codeborne.selenide.Selenide.*;
 
-/* Проверка модуля "АВ: Расширенные промо-акции" v3.10.5 + тема UniTheme2 (Ult & MV). */
+/* Проверка модуля "АВ: Расширенные промо-акции" v3.11.0 + тема UniTheme2 (Ult & MV). */
 
 public class TestRunner {
-    public static final String BASIC_URL = "https://trs.test.abt.team/4191ultru/admin.php?dispatch=addons.manage";
+    public static final String BASIC_URL = "https://trs.test.abt.team/4191ultru_deal_of_the_day/admin.php?dispatch=addons.manage";
     private SoftAssert softAssert;
 
     @BeforeClass
@@ -29,8 +29,7 @@ public class TestRunner {
 
         $(".btn.btn-primary").click();
         $("#bp_off_bottom_panel").click();
-        if ($(".cm-notification-close").isDisplayed())
-            $(".cm-notification-close").click();
+        Utils.closeAllNotifications();
         Selenide.sleep(1000);
     }
 

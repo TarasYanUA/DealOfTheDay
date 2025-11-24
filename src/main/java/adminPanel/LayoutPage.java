@@ -51,16 +51,10 @@ public class LayoutPage {
     public SelenideElement button_CreateBlock = $("input[name='dispatch[block_manager.update_block]']");
 
 
-    public void closeNotificationIfExistsOnLayoutPage() {
-        if ($("button.close.cm-notification-close[data-dismiss='alert']").exists())
-            $("button.close.cm-notification-close[data-dismiss='alert']").click();
-    }
-
     public void createBlock_MultiDealOfTheDay(String promotionID) {
         if (!$x("//div[@title=\"MultiBlock - AutoTest\"]").exists()) {
             addNewBlock();
             $(".ui-dialog-title").shouldBe(Condition.enabled);
-            closeNotificationIfExistsOnLayoutPage();
             tab_CreateNewBlock.click();
             multiBlock.click();
             $("#ui-id-2").shouldBe(Condition.enabled);

@@ -41,7 +41,7 @@ public class PromotionPage_Var1 extends TestRunner {
         promotionSettings.setDateOfTodayForSetting_AvailableTill();
         Utils.setCheckboxState(promotionSettings.setting_StopOtherRules,false);
         //Вкладка "АВ: Расширенные промо-акции" у промо-акции
-        promotionSettings.tab_ABExtPromotions.click();
+        Utils.scrollToTabAndClick(promotionSettings.tab_ABExtPromotions);
         Utils.setCheckboxState(promotionSettings.check_UseFilterByProducts, true);
         Utils.setCheckboxState(promotionSettings.check_HideProductBlock, false);
         Utils.setCheckboxState(promotionSettings.check_DisplayCountdownOnPromotionPage, true);

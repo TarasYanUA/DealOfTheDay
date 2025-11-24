@@ -82,7 +82,8 @@ public class AssertsPage {
                 Map.entry(promotionHeaderInQuickView, "There is a promotion header but shouldn't in the quick view window!"),
                 Map.entry(promotionHeaderOnPromoPage, "There is a promotion header but shouldn't on the promotion page!"),
                 Map.entry(countdown, "There is a countdown but shouldn't "),
-                Map.entry(promotionProducts, "There are products but shouldn't ")
+                Map.entry(promotionProducts, "There are products but shouldn't "),
+                Map.entry(buttonAddToCartAtPromotionBlock, "There is a button 'Add to cart' but shouldn't at the products in the multi block!")
         );
 
         String message = shouldExist

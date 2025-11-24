@@ -11,8 +11,8 @@
             <class name="ProductPage"/>
             <class name="CategoryPage_Var1"/>
             <class name="CategoryPage_Var2"/>
-            <class name="LayoutPageTest_Var1"/>
-            <class name="LayoutPageTest_Var2"/>
+            <class name="MultiBlock_Var1"/>
+            <class name="MultiBlock_Var2"/>
 
         </classes>
     </test>

@@ -84,7 +84,7 @@ public class PromotionPage_Var3_GroupByCategory extends TestRunner {
 
         $(".ab-dotd-more-icon").scrollIntoCenter();
         screenshot("450 PromotionPage_Var3_GroupByCategory - Promotion page, Grid");
-        $(".ab-dotd-categories-filter a[href$='cid=166']").hover().click();
+        $(".ab-dotd-more-products a[href$='cid=166']").hover().click();
 
         //Проверяем, что присутствует блок товаров на странице промо-акции, когда выбрано категорию "Электроника"
         assertsPage.assertElementPresence(assertsPage.productBlock, "on the promotion page 'Electronics'!", true);

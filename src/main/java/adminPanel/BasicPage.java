@@ -29,6 +29,7 @@ public class BasicPage implements CheckMenuToBeActive {
     }
 
     public void chooseRussianLanguage() {
+        closeAllNotifications();
         button_Languages.click();
         russianLanguage.shouldBe(Condition.visible).click();
     }
@@ -118,5 +119,12 @@ public class BasicPage implements CheckMenuToBeActive {
         switchTo().window(tabNumber);
         if ($(".cm-btn.cm-btn-success").exists())
             $(".cm-btn.cm-btn-success").click();
+    }
+
+    public static void closeAllNotifications() {
+        while (!$$(".cm-notification-close").isEmpty()) {
+            $$(".cm-notification-close").first().click();
+            sleep(200);
+        }
     }
 }

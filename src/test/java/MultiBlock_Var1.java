@@ -11,27 +11,27 @@ import static com.codeborne.selenide.Selenide.*;
 /*
 Работаем с макетом Light v2 и блоком "Мульти товар дня"!
 Настройки модуля:
-* Тип счётчика --       Javascript
+* Тип счётчика --       FlipClock
 
 Настройки промо-акции "Фен Valera":
 * Задать период доступности --  да, для поля "Доступна до"
 
 Настройки блока:
-* Количество элементов --           4
-* Спрятать кнопку добавления товара в корзину --    да
+* Количество элементов --           5
+* Спрятать кнопку добавления товара в корзину --    нет
 * Отображать счётчик промо-акции -- да
 */
 
-public class LayoutPageTest_Var2 extends TestRunner implements DisableLazyLoadFromBlock {
+public class MultiBlock_Var1 extends TestRunner implements DisableLazyLoadFromBlock {
     @Test(priority = 1)
-    public void setConfigurations_MultiBlockTest_Var2() {
+    public void setConfigurations_MultiBlockTest_Var1() {
         BasicPage basicPage = new BasicPage();
         //Задаём настройки CS-Cart
         basicPage.navigateTo_AppearanceSettingsAndQuickViewOn();
 
         //Задаём настройки модуля
         AddonSettings addonSettings = basicPage.navigateTo_AddonSettings();
-        addonSettings.setting_CountdownType.selectOptionByValue("javascript");
+        addonSettings.setting_CountdownType.selectOptionByValue("flipclock");
         addonSettings.button_SaveSettings.click();
 
         //Задаём настройки промо-акции "Фен Valera"
@@ -40,10 +40,17 @@ public class LayoutPageTest_Var2 extends TestRunner implements DisableLazyLoadFr
         promotionSettings.promotion_BuyHairDryerVALERA.click();
         //Берём ID промо-акции
         String promotionID = promotionSettings.takePromotionID();
-        //promotionSettings.clickAndType_field_DetailedDescription();
+        promotionSettings.clickAndType_field_DetailedDescription();
         Utils.clearBothFieldsAvailable();
         promotionSettings.setting_UseAvailablePeriod.click();
         promotionSettings.setDateOfTodayForSetting_AvailableTill();
+        Utils.scrollToTabAndClick(promotionSettings.tab_Conditions);
+        promotionSettings.button_AddProductsToCondition.click();
+        $(".ui-dialog-title").shouldBe(Condition.visible);
+        promotionSettings.field_SearchProduct.setValue("Samsung серии 3 15.6\" 300V5A");
+        promotionSettings.field_SearchProduct.pressEnter();
+        promotionSettings.checkProductToCondition.click();
+        promotionSettings.button_AddAndClose.click();
         basicPage.button_Save.click();
 
         //Работаем с блоком "Мульти товар дня"
@@ -59,14 +66,14 @@ public class LayoutPageTest_Var2 extends TestRunner implements DisableLazyLoadFr
         basicPage.popupWindow.shouldBe(Condition.enabled);
         layoutPage.tab_BlockSettings.click();
         Utils.setCheckboxState(layoutPage.setting_DoNotScrollAutomatically, true);
-        layoutPage.setting_ItemQuantity.setValue("4");
-        Utils.setCheckboxState(layoutPage.setting_HideAddToCart, true);
+        layoutPage.setting_ItemQuantity.setValue("5");
+        Utils.setCheckboxState(layoutPage.setting_HideAddToCart, false);
         Utils.setCheckboxState(layoutPage.setting_DisplayPromotionCountdown, true);
         layoutPage.button_SaveBlockProperties.click();
         disableLazyLoadFromBlock("MultiBlock - AutoTest");
     }
 
-    @Test(priority = 2, dependsOnMethods = "setConfigurations_MultiBlockTest_Var2")
+    @Test(priority = 2, dependsOnMethods = "setConfigurations_MultiBlockTest_Var1")
     public void check_Block(){
         BasicPage basicPage = new BasicPage();
         StPromotions stPromotions = basicPage.navigateTo_Storefront();
@@ -88,19 +95,25 @@ public class LayoutPageTest_Var2 extends TestRunner implements DisableLazyLoadFr
         //Проверяем, что в блоке присутствует кнопка "Все промо-акции"
         assertsPage.assertElementPresence(assertsPage.blockButton_AllPromotions, "", true);
 
-        //Проверяем, что в блоке присутствует счётчик Javascript
-        assertsPage.assertElementPresence(assertsPage.javaClock, "in the multi block!", true);
+        //Проверяем, что в блоке присутствует счётчик Flipclock
+        assertsPage.assertElementPresence(assertsPage.flipClock, "in the multi block!", true);
+
+        //Проверяем, что в блоке присутствует цена
+        assertsPage.assertElementPresence(assertsPage.priceAtPromotionBlock, "", true);
 
         //Проверяем, что в блоке присутствует кнопка быстрого просмотра
         assertsPage.assertElementPresence(assertsPage.buttonQuickViewAtPromotionBlock, "", true);
 
-        //Проверяем, что в блоке отсутствует кнопка "Купить"
-        assertsPage.assertElementPresence(assertsPage.buttonAddToCartAtPromotionBlock, "", false);
+        //Проверяем, что в блоке присутствует кнопка "Купить"
+        assertsPage.assertElementPresence(assertsPage.buttonAddToCartAtPromotionBlock, "", true);
+
+        //Проверяем, что у блока присутствуют товары
+        assertsPage.assertElementPresence(assertsPage.blockProducts, "", true);
 
         sleep(2000);
-        screenshot("900 MultiBlockTest_Var2 - Multi block");
+        screenshot("800 MultiBlockTest_Var1 - Multi block");
         Utils.selectLanguage("ar");
-        stPromotions.block_DealOfTheDay.scrollIntoCenter();
-        screenshot("905 MultiBlockTest_Var2 - Multi block (RTL)");
+        stPromotions.block_DealOfTheDay.scrollIntoCenter().hover();
+        screenshot("805 MultiBlockTest_Var1 - Multi block (RTL)");
     }
 }
