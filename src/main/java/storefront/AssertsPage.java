@@ -34,7 +34,7 @@ public class AssertsPage {
     public String buttonMoreInDescription = ".ab__dotd_more";
     public String pagination = "#ut2_pagination_block_bottom";
     public String blockButton_More = ".pd-promotion__buttons a[title='Подробнее']";
-    public String blockButton_AllPromotions = ".pd-promotion__buttons .ty-btn__text";
+    public String blockButton_AllPromotions = ".pd-promotion__buttons .ty-btn__outline";
     public String priceAtPromotionBlock = ".ab__deal_of_the_day .ty-list-price.ty-nowrap";
     public String buttonQuickViewAtPromotionBlock = ".ab__deal_of_the_day a[data-ca-target-id='product_quick_view']";
     public String buttonAddToCartAtPromotionBlock = ".ab__deal_of_the_day .ut2-icon-use_icon_cart";
