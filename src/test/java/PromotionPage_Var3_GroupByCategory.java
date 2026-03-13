@@ -45,11 +45,26 @@ public class PromotionPage_Var3_GroupByCategory extends TestRunner {
             promotionSettings.selectCondition.selectOptionByValue("categories");
             promotionSettings.button_AddCategories.shouldBe(Condition.enabled).click();
             $(".ui-dialog-title").shouldBe(Condition.visible);
-            $("#input_cat_165").click(); //Планшеты
-            $("#input_cat_217").click(); //Спальники
-            $("#input_cat_218").click(); //Палатки
-            $("#input_cat_251").click(); //Калькуляторы
-            $("#input_cat_231").click(); //Джаз
+            if ($x("//span[@id='c_company_1']").exists()) {
+                $x("//span[@id='c_company_1']/..//span[contains(@class, 'icon-caret-right')]").click();
+                $("#category_166").click();
+                $("#category_167").click();
+                $("#input_cat_165").click(); //Планшеты
+
+                $("#category_203").click();
+                $("#category_215").click();
+                $("#input_cat_217").click(); //Спальники
+                $("#input_cat_218").click(); //Палатки
+
+                $("#category_250").click();
+                $("#input_cat_251").click(); //Калькуляторы
+            } else {
+                $("#input_cat_165").click(); //Планшеты
+                $("#input_cat_217").click(); //Спальники
+                $("#input_cat_218").click(); //Палатки
+                $("#input_cat_251").click(); //Калькуляторы
+                $("#input_cat_231").click(); //Джаз
+            }
             $(".cm-form-dialog-closer").click();
         }
 

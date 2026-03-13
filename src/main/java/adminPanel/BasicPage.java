@@ -64,6 +64,17 @@ public class BasicPage implements CheckMenuToBeActive {
         section_Categories.click();
     }
 
+    public void navigateToCategoryPage_Notebooks() {
+        if ($x("//span[text()='Магазин: CS-Cart']").exists()) {
+            $x("//span[text()='Магазин: CS-Cart']/..//span[contains(@class, 'icon-caret-right')]").click();
+            $x("//a[contains(@href, 'category_id=166')]/..//span[contains(@class, 'icon-caret-right')]").click();
+            $x("//a[contains(@href, 'category_id=167')]/..//span[contains(@class, 'icon-caret-right')]").click();
+            category_Notebooks.click();
+        } else {
+            category_Notebooks.click();
+        }
+    }
+
     public PromotionSettings navigateTo_PromotionSettings() {
         checkMenuToBeActive("dispatch=promotions.manage", menu_Marketing);
         section_PromotionsAndDiscounts.click();
