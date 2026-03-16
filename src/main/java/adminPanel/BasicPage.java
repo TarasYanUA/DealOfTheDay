@@ -69,10 +69,8 @@ public class BasicPage implements CheckMenuToBeActive {
             $x("//span[text()='Магазин: CS-Cart']/..//span[contains(@class, 'icon-caret-right')]").click();
             $x("//a[contains(@href, 'category_id=166')]/..//span[contains(@class, 'icon-caret-right')]").click();
             $x("//a[contains(@href, 'category_id=167')]/..//span[contains(@class, 'icon-caret-right')]").click();
-            category_Notebooks.click();
-        } else {
-            category_Notebooks.click();
         }
+        category_Notebooks.click();
     }
 
     public PromotionSettings navigateTo_PromotionSettings() {
