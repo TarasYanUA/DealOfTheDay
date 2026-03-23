@@ -45,7 +45,7 @@ public class PromotionPage_Var3_GroupByCategory extends TestRunner {
             promotionSettings.selectCondition.selectOptionByValue("categories");
             promotionSettings.button_AddCategories.shouldBe(Condition.enabled).click();
             $(".ui-dialog-title").shouldBe(Condition.visible);
-            if ($x("//span[@id='c_company_1']").exists()) {
+            if ($("span[title='Свернуть список'][style='display: none;']").exists()) {
                 $x("//span[@id='c_company_1']/..//span[contains(@class, 'icon-caret-right')]").click();
                 $("#category_166").click();
                 $("#category_167").click();
