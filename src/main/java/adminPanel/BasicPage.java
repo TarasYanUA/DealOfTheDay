@@ -65,7 +65,7 @@ public class BasicPage implements CheckMenuToBeActive {
     }
 
     public void navigateToCategoryPage_Notebooks() {
-        if ($x("//span[text()='Магазин: CS-Cart']").exists()) {
+        if ($("span[alt='Свернуть список'].cm-combination.hidden").exists()) {
             $x("//span[text()='Магазин: CS-Cart']/..//span[contains(@class, 'icon-caret-right')]").click();
             $x("//a[contains(@href, 'category_id=166')]/..//span[contains(@class, 'icon-caret-right')]").click();
             $x("//a[contains(@href, 'category_id=167')]/..//span[contains(@class, 'icon-caret-right')]").click();
