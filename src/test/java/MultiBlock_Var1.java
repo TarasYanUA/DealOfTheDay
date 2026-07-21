@@ -23,6 +23,7 @@ import static com.codeborne.selenide.Selenide.*;
 */
 
 public class MultiBlock_Var1 extends TestRunner implements DisableLazyLoadFromBlock {
+
     @Test(priority = 1)
     public void setConfigurations_MultiBlockTest_Var1() {
         BasicPage basicPage = new BasicPage();

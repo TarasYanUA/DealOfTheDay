@@ -45,24 +45,24 @@ public class PromotionPage_Var3_GroupByCategory extends TestRunner {
             promotionSettings.selectCondition.selectOptionByValue("categories");
             promotionSettings.button_AddCategories.shouldBe(Condition.enabled).click();
             $(".ui-dialog-title").shouldBe(Condition.visible);
-            if ($("span[title='Свернуть список'][style='display: none;']").exists()) {
+            if ($("span[title='Свернуть список'][id^='off_comp_'].hidden").exists()) {
                 $x("//span[@id='c_company_1']/..//span[contains(@class, 'icon-caret-right')]").click();
                 $("#category_166").click();
                 $("#category_167").click();
-                $("#input_cat_165").click(); //Планшеты
+                promotionSettings.category_Tablets.click();
 
                 $("#category_203").click();
                 $("#category_215").click();
-                $("#input_cat_217").click(); //Спальники
-                $("#input_cat_218").click(); //Палатки
+                promotionSettings.category_SleepingBags.click();
+                promotionSettings.category_Tents.click();
 
                 $("#category_250").click();
-                $("#input_cat_251").click(); //Калькуляторы
+                promotionSettings.category_Calculators.click();
             } else {
-                $("#input_cat_165").click(); //Планшеты
-                $("#input_cat_217").click(); //Спальники
-                $("#input_cat_218").click(); //Палатки
-                $("#input_cat_251").click(); //Калькуляторы
+                promotionSettings.category_Tablets.click();
+                promotionSettings.category_SleepingBags.click();
+                promotionSettings.category_Tents.click();
+                promotionSettings.category_Calculators.click();
                 $("#input_cat_231").click(); //Джаз
             }
             $(".cm-form-dialog-closer").click();

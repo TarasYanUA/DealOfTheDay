@@ -36,6 +36,10 @@ public class PromotionSettings {
     public SelenideElement button_AddCondition = $x("(//a[contains(@onclick, 'fn_promotion_add')])[1]");
     public SelenideElement selectCondition = $("li[id^='container_add_condition'] select[name*='promotion_data[conditions][conditions]']");
     public SelenideElement button_AddCategories = $("a[id^='opener_picker_objects_add_condition_']");
+    public SelenideElement category_Tablets = $("#input_cat_165");
+    public SelenideElement category_SleepingBags = $("#input_cat_217");
+    public SelenideElement category_Tents = $("#input_cat_218");
+    public SelenideElement category_Calculators = $("#input_cat_251");
 
     public SelenideElement tab_ABExtPromotions = $(By.id("ab__dotd"));
     public SelenideElement check_GroupByCategory = $(By.id("elm_ab__dotd_group_by_category"));
