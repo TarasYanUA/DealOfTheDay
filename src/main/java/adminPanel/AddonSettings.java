@@ -14,5 +14,6 @@ public class AddonSettings {
     public SelenideElement setting_AmountOfDisplayedPromotionsInProductLists = $("select[id^='addon_option_ab__deal_of_the_day_amount_of_promos_in_prods_lists_']");
     public SelenideElement setting_ShowExpiredPromotions = $("input[id^='addon_option_ab__deal_of_the_day_ab__show_expired_promos_']");
     public SelenideElement setting_ShowAwaitingPromotions = $("input[id^='addon_option_ab__deal_of_the_day_ab__show_awaited_promos_']");
+    public SelenideElement setting_DisplayTypeOnProductPage = $("select[id^='addon_option_ab__deal_of_the_day_product_page_display_type_']");
     public SelenideElement button_SaveSettings = $(".cm-addons-save-settings");
 }

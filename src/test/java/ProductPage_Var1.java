@@ -1,11 +1,14 @@
 import adminPanel.AddonSettings;
 import adminPanel.PromotionSettings;
+import com.codeborne.selenide.ElementsCollection;
 import org.testng.annotations.Test;
 import adminPanel.BasicPage;
 import storefront.AssertsPage;
+import storefront.StPromotions;
 import testRunner.TestRunner;
 import testRunner.Utils;
 
+import static com.codeborne.selenide.CollectionCondition.sizeGreaterThan;
 import static com.codeborne.selenide.Selenide.*;
 
 /*
@@ -13,9 +16,10 @@ import static com.codeborne.selenide.Selenide.*;
 * Задать период доступности --  выкл
 * Не применять другие промо-акции --    выкл
 * Отображать счётчик на странице товара --  да
+* Тип отображения на странице товара -- Одна акция
 */
 
-public class ProductPage extends TestRunner {
+public class ProductPage_Var1 extends TestRunner {
     @Test(priority = 1)
     public void setConfiguration_ProductPage() {
         BasicPage basicPage = new BasicPage();
@@ -32,6 +36,7 @@ public class ProductPage extends TestRunner {
         //Задаём настройки модуля
         AddonSettings addonSettings = basicPage.navigateTo_AddonSettings();
         addonSettings.setting_CountdownType.selectOptionByValue("flipclock");
+        addonSettings.setting_DisplayTypeOnProductPage.selectOptionByValue("single");
         addonSettings.button_SaveSettings.click();
     }
 
@@ -47,6 +52,9 @@ public class ProductPage extends TestRunner {
 
         AssertsPage assertsPage = new AssertsPage();
 
+        //Проверяем, что тип отображения промо-акций на странице товара -- Одна акция
+        assertsPage.assertElementPresence(assertsPage.typeOnProductPage_Single, "", true);
+
         //Проверяем, что заголовок промо-акции присутствует на странице товара
         assertsPage.assertElementPresence(assertsPage.blockTitle, "on the product page!", true);
 
@@ -58,6 +66,7 @@ public class ProductPage extends TestRunner {
 
         sleep(2000);
         screenshot("500 ProductPage - Product page, Default");
+        screenshotPromotionPopUp("501 ProductPage - Promotion pop-up - Single");
 
         Utils.selectLanguage("ar");
         screenshot("502 ProductPage - Product page, Default (RTL)");
@@ -95,5 +104,14 @@ public class ProductPage extends TestRunner {
         screenshot("520 ProductPage - Product page, Three-columned");
         Utils.selectLanguage("ar");
         screenshot("522 ProductPage - Product page, Three-columned (RTL)");
+    }
+
+    public void screenshotPromotionPopUp(String screenshotName) {
+        ElementsCollection promotions = $$(".pd-promotion__content .ut2-icon-outline-info");
+        promotions.shouldHave(sizeGreaterThan(0)).first().click();
+        sleep(3000);
+        screenshot(screenshotName);
+        StPromotions stPromotions = new StPromotions();
+        stPromotions.button_ClosePopupWindow.click();
     }
 }

@@ -28,6 +28,8 @@ public class AssertsPage {
     public String highlight = ".ab__dotd_highlight";
     public String promotionProducts = ".ut2-gl__item";
     public String button_MoreProductsFromCategory = ".ab-dotd-more-icon";
+    public String typeOnProductPage_Single = ".ab__deal_of_the_day.pd-dp";
+    public String typeOnProductPage_Multiple = ".ab_dotd_product_promotion_list";
     public String blockTitle = ".pd-promotion__title";
     public String blockDescription = ".pd-promotion-descr";
     public String blockProducts = ".ab__deal_of_the_day .ut2-gl__body";
@@ -61,6 +63,8 @@ public class AssertsPage {
                 Map.entry(highlight, "There is no Highlighting of the promotion "),
                 Map.entry(promotionProducts, "There are no products "),
                 Map.entry(button_MoreProductsFromCategory, "There is no any button 'More products from category' "),
+                Map.entry(typeOnProductPage_Single, "Promotion type on the product page is not 'Single'!"),
+                Map.entry(typeOnProductPage_Multiple, "Promotion type on the product page is not 'Multiple'!"),
                 Map.entry(blockTitle, "There is no title of the promotion "),
                 Map.entry(blockDescription, "There is no description of the promotion in the block!"),
                 Map.entry(blockProducts, "There are no products in the block!"),
